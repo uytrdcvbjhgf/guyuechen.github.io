@@ -71,7 +71,9 @@ params:
     Title: "Hey Guys 👋"
     # 首页的 profile 内容
     Content: >
-      Welcome to my Blog! 这里主要记录了我的笔记。博客因为是托管在 Github 上面，以及，图床还未定打算迁移到 AWS S3，总之挂上一个梯子可能会让访问更加顺畅。
+      Welcome to my Blog!
+      <br>
+      这里主要记录了我的笔记。博客因为是托管在 Github 上面，图床也打算迁移到 AWS S3，总之挂上一个梯子可能会让访问更加顺畅。
       <br>
       也可以在其他地方访问我的文字材料，如下：
       <br>
