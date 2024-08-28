@@ -5,4 +5,4 @@ url: "/about/"
 summary: about
 ---
 
-一些关于我的
+一些关于我的待补充简介
