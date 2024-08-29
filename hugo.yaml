@@ -73,14 +73,12 @@ params:
     Content: >
       Welcome to my Blog!
       <br>
-      这里主要记录了我的笔记。博客因为是托管在 Github 上面，图床也打算迁移到 AWS S3，总之挂上一个梯子可能会让访问更加顺畅。
+      这里主要记录了我的笔记。
       <br>
-      也可以在其他地方访问我的文字材料，如下：
+      博客因为是托管在 Github 上面，图床也打算迁移到 AWS S3，总之挂上一个梯子可能会让访问更加顺畅。
       <br>
-      <div>
-      ● [小顾的笔记](https://guyuechen.icu/)
+      也可以在其他地方访问我的文字材料，如： [小顾的笔记](https://guyuechen.icu/)
       <br>
-      </div>
   # 社交帐号的按钮
   socialIcons:
     - name: github
