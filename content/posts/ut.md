@@ -1,11 +1,9 @@
----
-title: junit、mockito、powermock等测试框架
-description: 
-published: true
-date: 2024-08-29T22:39:50+08:00
-tags: java, junit, mockito, powermock
-categories: ut, java
----
++++
+title = 'junit、mockito、powermock等测试框架'
+date = 2024-08-29T22:39:50+08:00
+categories = [java, ut]
+tags = [java]
++++
 
 # 前言
 
