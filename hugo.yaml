@@ -62,7 +62,7 @@ params:
   ShowPageNums: true # 展示页面的页数
   ShowToc: true # 展示文章详情页的目录
   comments: true # 评论
-  images: ["https://i.postimg.cc/7hwBy7VS/calcr.png"] # 缺省的图片，比如，博客的封面
+  images: ["https://i.pinimg.com/originals/2e/8c/a3/2e8ca3510c6a8f357078e3b4d72bec06.jpg"] # 缺省的图片，比如，博客的封面
   DateFormat: "Mon · 2006-01-02"
 
   # 首页的文章上方的一些信息
