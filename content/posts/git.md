@@ -7,8 +7,6 @@ tags = ["git"]
 
 # 实际工作中的常见情况
 
-放到最前面是因为这些都是实际项目中遇到的真实教训。如果正常阅读还是从正文开始看起。
-
 ## `git rebase`
 
 `git rebase` 的文档描述是 `Reapply commits on top of another base tip`，从字面上理解是「在另一个基端之上重新应用提交」，这个定义听起来有点抽象。
