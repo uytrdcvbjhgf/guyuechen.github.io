@@ -5,4 +5,5 @@ url: "/about/"
 summary: about
 ---
 
-鄙人不擅奔跑
+鄙人
+不擅奔跑
