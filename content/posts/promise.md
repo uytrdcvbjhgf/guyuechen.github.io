@@ -4,15 +4,6 @@ date = 2024-09-01T10:20:13+08:00
 categories = ["front"]
 tags = ["front", "javascript", "Promise"]
 +++
----
-title: Promise
-description: 
-published: true
-date: 2024-01-04T05:08:04.348Z
-tags: javascript, promise
-editor: markdown
-dateCreated: 2024-01-04T05:08:04.348Z
----
 
 # Promise
 

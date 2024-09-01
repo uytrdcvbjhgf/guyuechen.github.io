@@ -3,6 +3,7 @@ title = '浏览器存储'
 date = 2024-09-01T10:17:54+08:00
 categories = ["front"]
 tags = ["front","javascript"]
+
 +++
 
 ## 前言
@@ -34,7 +35,7 @@ tags = ["front","javascript"]
 
 ## 发展历程
 
-![img](https://cdn.nlark.com/yuque/0/2023/png/28570332/1681024767230-2fe5fcfe-1f91-415d-939a-c316cc0346f5.png)
+![image-20240901102457285](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/202409011025394.png)
 
 本次我将介绍以下几本种常见的解决方案：
 
@@ -50,7 +51,7 @@ Cookie，即HTTP Cookie，是服务器发送到用户浏览器（或使用JS在�
 
 [1] : http的每一次请求都是一次全新的，独立的请求,服务器不保存该客户端已经登录过的状态。
 
-![img](https://cdn.nlark.com/yuque/0/2023/png/28570332/1681024883000-cae6993f-d02e-4043-80ae-52299f9b60df.png)
+![image-20240901102523940](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/202409011025000.png)
 
 - Cookie只适合存储很小的数据（最大为4KB）；
 - Cookie数据**始终**在同源的请求中携带（即使不需要）；
@@ -60,7 +61,7 @@ Cookie，即HTTP Cookie，是服务器发送到用户浏览器（或使用JS在�
 
 如何查看Cookie？以Chrome为例如下所示：
 
-![img](https://cdn.nlark.com/yuque/0/2023/png/28570332/1681024950469-8c7f88a5-6566-4490-a902-e0a74f03ba99.png)
+![image-20240901102546826](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/202409011025873.png)
 
 ------
 
@@ -455,10 +456,10 @@ request.onsuccess = function () {
 
 ## 比较
 
-![img](https://cdn.nlark.com/yuque/0/2023/png/28570332/1681025447779-940e04f2-5443-46b5-83bf-baf4fb39f87e.png)
+![image-20240901102610375](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/202409011026423.png)
 
 
 
 ## 案例介绍
 
-![img](https://cdn.nlark.com/yuque/0/2023/png/28570332/1681025486175-942539e6-9aeb-46cd-b5e8-e0a4336f46ca.png)
+![image-20240901102635012](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/202409011026075.png)
