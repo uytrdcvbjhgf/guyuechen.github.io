@@ -1,7 +1,7 @@
 +++
 title = '谈一谈为什么重新建立了一个 Github Pages 个人网站'
 date = 2024-08-27T01:12:53+08:00
-categories = []
+categories = ["diary"]
 tags = ["diary"]
 +++
 

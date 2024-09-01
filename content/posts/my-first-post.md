@@ -1,7 +1,7 @@
 +++
 title = '笔记迁移安排'
 date = 2024-08-26T20:46:04+08:00
-categories = []
+categories = ["diary"]
 tags = ["diary"]
 +++
 
