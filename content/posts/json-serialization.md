@@ -20,9 +20,9 @@ tags = ["java", "json"]
   ```xml
   <?xml version="1.0" encoding="UTF-8"?>
   <person>
-    <id>1</id>
-    <name>张三</name>
-    <age>30</age>
+  <id>1</id>
+  <name>张三</name>
+  <age>30</age>
   </person>
   ```
 
