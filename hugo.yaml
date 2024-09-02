@@ -94,11 +94,11 @@ params:
     keys: ["title", "permalink", "summary", "content"]
     includeMatches: true
   assets:
-    favicon: "favicon.ico"
-    favicon16x16: "favicon-16x16.png"
-    favicon32x32: "favicon-32x32.png"
-    apple_touch_icon: "apple-touch-icon.png"
-    safari_pinned_tab: "apple-touch-icon.png"
+    favicon: "head.jpg"
+    favicon16x16: "head.jpg"
+    favicon32x32: "head.jpg"
+    apple_touch_icon: "head.jpg"
+    safari_pinned_tab: "head.jpg"
     disableHLJS: true
 
   giscus:

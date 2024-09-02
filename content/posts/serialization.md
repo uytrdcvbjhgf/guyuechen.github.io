@@ -44,7 +44,7 @@ public class SerializationExample {
 
         // 序列化过程
         try (FileOutputStream fileOut = new FileOutputStream("person.ser");
-             ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
+            ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
             out.writeObject(person);
             System.out.println("Serialized data is saved in person.ser");
         } catch (IOException i) {
@@ -54,7 +54,7 @@ public class SerializationExample {
         // 反序列化过程
         Person deserializedPerson = null;
         try (FileInputStream fileIn = new FileInputStream("person.ser");
-             ObjectInputStream in = new ObjectInputStream(fileIn)) {
+            ObjectInputStream in = new ObjectInputStream(fileIn)) {
             deserializedPerson = (Person) in.readObject();
         } catch (IOException | ClassNotFoundException i) {
             i.printStackTrace();
