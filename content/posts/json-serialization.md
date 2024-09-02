@@ -1,5 +1,5 @@
 +++
-title = '如何用Java操作json'
+title = '如何用 Java 操作 json'
 date = 2024-09-02T11:26:49+08:00
 categories = ["java"]
 tags = ["java", "json"]
@@ -40,7 +40,7 @@ tags = ["java", "json"]
 
 ## 3 java里面操作json有哪些技术?
 
-* 所谓的==操作== 
+* 所谓的操作指的是什么？
 
   把java里面的bean、map、collection等转为json字符串（序列化）或反向操作（反序列化）。
 
@@ -829,5 +829,3 @@ public void test1() throws JsonProcessingException {
   ```perl
   User(id=2, name=乐之者java, pwd=null, addr=null, websiteUrl=http://www.roadjava.com, registerDate=null, birthDay=null)
   ```
-
-  
