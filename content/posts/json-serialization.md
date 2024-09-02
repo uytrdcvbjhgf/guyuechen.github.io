@@ -1,5 +1,5 @@
 +++
-title = '如何用 Java 操作 json'
+title = '如何用java操作json'
 date = 2024-09-02T11:26:49+08:00
 categories = ["java"]
 tags = ["java", "json"]
@@ -20,7 +20,7 @@ tags = ["java", "json"]
   ```xml
   <?xml version="1.0" encoding="UTF-8"?>
   <person>
-  	<id>1</id>
+    <id>1</id>
     <name>张三</name>
     <age>30</age>
   </person>
@@ -107,7 +107,7 @@ public class Person {
   public void test1(){
       Person person = new Person();
       person.setId(1L);
-      // person.setName("乐之者java");
+      // person.setName("王二麻子");
       person.setPwd("123456");
       person.setAddr("河南");
       person.setWebsiteUrl("http://www.roadjava.com");
@@ -181,7 +181,7 @@ public class Person {
       List<Person> list = new ArrayList<>();
       Person person = new Person();
       person.setId(33L);
-      person.setName("乐之者java");
+      person.setName("王二麻子");
       list.add(person);
       list.add(person);
       list.add(person);
@@ -191,7 +191,7 @@ public class Person {
   ```
 
   ```perl
-  [{"id":33,"name":"乐之者java"},{"$ref":"$[0]"},{"$ref":"$[0]"}]
+  [{"id":33,"name":"王二麻子"},{"$ref":"$[0]"},{"$ref":"$[0]"}]
   ```
 
   ```java
@@ -204,7 +204,7 @@ public class Person {
       List<Person> list = new ArrayList<>();
       Person person = new Person();
       person.setId(33L);
-      person.setName("乐之者java");
+      person.setName("王二麻子");
       list.add(person);
       list.add(person);
       list.add(person);
@@ -215,7 +215,7 @@ public class Person {
   ```
 
   ```perl
-  [{"id":33,"name":"乐之者java"},{"id":33,"name":"乐之者java"},{"id":33,"name":"乐之者java"}]
+  [{"id":33,"name":"王二麻子"},{"id":33,"name":"王二麻子"},{"id":33,"name":"王二麻子"}]
   ```
 
   
@@ -233,7 +233,7 @@ public class Person {
   public void testSerializeFilter() {
       Person person = new Person();
       person.setId(1L);
-      person.setName("乐之者java");
+      person.setName("王二麻子");
       person.setPwd("123");
       person.setAddr("河南");
       person.setWebsiteUrl("http://www.roadjava.com");
@@ -251,7 +251,7 @@ public class Person {
   ```
 
   ```perl
-  {"ADDRESS":"河南","BIRTHDAY":"2023-07-04T21:25:08.527","ID":1,"NAME":"乐之者java","REGISTERDATE":1688477108492,"WEBSITEURL":"http://www.roadjava.com"}
+  {"ADDRESS":"河南","BIRTHDAY":"2023-07-04T21:25:08.527","ID":1,"NAME":"王二麻子","REGISTERDATE":1688477108492,"WEBSITEURL":"http://www.roadjava.com"}
   ```
 
   
@@ -454,7 +454,7 @@ static {
 public void test1() throws JsonProcessingException {
     User user = new User();
     user.setId(1L);
-    // user.setName("乐之者java");
+    // user.setName("王二麻子");
     user.setPwd("123");
     user.setAddr("河南");
     user.setWebsiteUrl("http://www.roadjava.com");
@@ -492,7 +492,7 @@ public void test1() throws JsonProcessingException {
     public void test1() throws JsonProcessingException {
         User user = new User();
         user.setId(1L);
-        // user.setName("乐之者java");
+        // user.setName("王二麻子");
         user.setPwd("123");
         user.setAddr("河南");
         user.setWebsiteUrl("http://www.roadjava.com");
@@ -520,7 +520,7 @@ public void test1() throws JsonProcessingException {
     
     /**
      * @author zhaodaowen
-     * @see <a href="http://www.roadjava.com">乐之者java</a>
+     * @see <a href="http://www.roadjava.com">王二麻子</a>
      */
     @Data
     @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -571,7 +571,7 @@ public void test1() throws JsonProcessingException {
     public void test1() throws JsonProcessingException {
         User user = new User();
         user.setId(1L);
-        // user.setName("乐之者java");
+        // user.setName("王二麻子");
         user.setPwd("123");
         user.setAddr("河南");
         user.setWebsiteUrl("http://www.roadjava.com");
@@ -628,7 +628,7 @@ public void test1() throws JsonProcessingException {
     public void test1() throws JsonProcessingException {
         User user = new User();
         user.setId(1L);
-        // user.setName("乐之者java");
+        // user.setName("王二麻子");
         user.setPwd("123");
         user.setAddr("河南");
         user.setWebsiteUrl("http://www.roadjava.com");
@@ -731,7 +731,7 @@ public void test1() throws JsonProcessingException {
   @Test
   public void test3() throws Exception {
       User user = new User();
-      user.setName("乐之者java");
+      user.setName("王二麻子");
       user.setWebsiteUrl("http://www.roadjava.com");
       ResultDTO<User> userResultDTO = ResultDTO.buildSuccess(user);
       String dtoSerializationResult = objectMapper.writeValueAsString(userResultDTO);
@@ -744,8 +744,8 @@ public void test1() throws JsonProcessingException {
   ```
 
   ```perl
-  dataResult: ResultDTO(success=true, data=User(id=null, name=乐之者java, pwd=null, addr=null, websiteUrl=http://www.roadjava.com, registerDate=null, birthDay=null))
-  data: User(id=null, name=乐之者java, pwd=null, addr=null, websiteUrl=http://www.roadjava.com, registerDate=null, birthDay=null)
+  dataResult: ResultDTO(success=true, data=User(id=null, name=王二麻子, pwd=null, addr=null, websiteUrl=http://www.roadjava.com, registerDate=null, birthDay=null))
+  data: User(id=null, name=王二麻子, pwd=null, addr=null, websiteUrl=http://www.roadjava.com, registerDate=null, birthDay=null)
   ```
 
   
@@ -813,7 +813,7 @@ public void test1() throws JsonProcessingException {
   public void test4() throws Exception {
       User originalUser = new User();
       originalUser.setId(1L);
-      originalUser.setName("乐之者java");
+      originalUser.setName("王二麻子");
       originalUser.setWebsiteUrl("http://www.baidu.com");
   
       User newUser = new User();
@@ -827,5 +827,5 @@ public void test1() throws JsonProcessingException {
   ```
 
   ```perl
-  User(id=2, name=乐之者java, pwd=null, addr=null, websiteUrl=http://www.roadjava.com, registerDate=null, birthDay=null)
+  User(id=2, name=王二麻子, pwd=null, addr=null, websiteUrl=http://www.roadjava.com, registerDate=null, birthDay=null)
   ```

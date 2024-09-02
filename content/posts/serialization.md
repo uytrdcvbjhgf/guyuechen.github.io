@@ -20,7 +20,7 @@ tags = ["java"]
 #### 示例代码
 
 ```java
-java复制代码import java.io.*;
+import java.io.*;
 
 // 一个简单的类实现了 Serializable 接口
 class Person implements Serializable {
