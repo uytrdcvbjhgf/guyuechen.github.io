@@ -7,7 +7,7 @@ tags = ['java']
 
 ## Java常用类库
 
-※斜体的为_线程安全的_
+※斜体的为线程安全的数据结构
 
 > 线性结构
 
@@ -49,6 +49,8 @@ Java的反射（reflection）机制是指在程序的运行状态中，动态获
 - 提高灵活性和扩展性，降低耦合性，提高自适应能力
 - 允许程序创建和控制任何类的对象，无需硬编码目标类
 
+反射获取类名
+
 ```java
 public static void main(String[] args) throws ClassNotFoundException {
     // 方法1: Class.forName("类名字符串")
@@ -69,6 +71,8 @@ public static void main(String[] args) throws ClassNotFoundException {
     System.out.println(cls4); // class java.lang.String
 }
 ```
+
+反射获取类的构造函数
 
 ```java
 // 获取 参数是parameterTypes 的public构造函数
@@ -97,6 +101,8 @@ Optional<Constructor<?>> enclosingConstructor = Optional.ofNullable(cls1.getEncl
 System.out.println(enclosingConstructor.orElse(null)); // null
 ```
 
+反射获得类的成员方法
+
 ```java
 Method method1 = cls1.getMethod("equals", Object.class);
 System.out.println(method1.toString()); // public boolean java.lang.String.equals(java.lang.Object)
@@ -114,6 +120,8 @@ Method[] declaredMethods = cls1.getDeclaredMethods();
 Optional<Method> enclosingMethod = Optional.ofNullable(cls1.getEnclosingMethod());
 ```
 
+反射获得类的字段
+
 ```java
 Field field1 = cls1.getField("CASE_INSENSITIVE_ORDER");
 System.out.println(field1.toString()); // public static final java.util.Comparator java.lang.String.CASE_INSENSITIVE_ORDER
@@ -127,6 +135,8 @@ Field field2 = cls1.getDeclaredField("CASE_INSENSITIVE_ORDER");
 
 Field[] declaredFields = cls1.getDeclaredFields();
 ```
+
+反射获得类的注解
 
 ```java
 Class<?> cls = Class.forName("java.util.function.BiConsumer");
