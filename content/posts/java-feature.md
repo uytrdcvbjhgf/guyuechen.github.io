@@ -1,5 +1,5 @@
 +++
-title = 'Java中的一些进阶特性'
+title = 'java中的一些进阶特性'
 date = 2024-09-09T11:03:04+08:00
 categories = ['java']
 tags = ['java']
