@@ -6473,7 +6473,10 @@ System.arraycopy(src, 0, dest, 0, 5);
 【正例】（二维数组复制）
 
 ```java
-int[][] src = {{1, 2}, {3, 4}};
+int[][] src = new int[][] {
+    {1, 2},
+    {3, 4}
+};
 int[][] dest = new int[2][2];
 
 System.arraycopy(src, 0, dest, 0, 2);
