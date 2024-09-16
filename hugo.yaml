@@ -1,6 +1,6 @@
-baseURL: "https://guyuechen.github.io/" # 主站的 URL
+baseURL: "https://guyuechen.icu/" # 主站的 URL
 title: Yuechen's Blog # 站点标题
-copyright: "[©2024 Yuechen's Blog](https://guyuechen.github.io/)" # 网站的版权声明，通常显示在页脚
+copyright: "[©2024 Yuechen's Blog](https://guyuechen.icu/)" # 网站的版权声明，通常显示在页脚
 theme: PaperMod # 主题
 languageCode: zh-cn # 语言
 
@@ -76,8 +76,6 @@ params:
       这里主要记录了我的笔记。
       <br>
       博客因为托管在 Github 上，图床也打算迁到 AWS S3，总之挂上一个梯子可能会让访问更顺畅。
-      <br>
-      也可以在其他地方访问我的文字材料，如： [小顾的笔记](https://guyuechen.icu/)
       <br>
   # 社交帐号的按钮
   socialIcons:
