@@ -1,16 +1,11 @@
-body {
-  font-size: 1.2rem;
+body, .post-content {
+  font-size: 1rem;
   line-height: 1.5;
   margin: 0;
 }
 
 .post-content pre, code {
   font-family: "YaHei Consolas Hybrid", monospace;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   line-height: 1.2;
-}
-
-.post-content {
-	font-size: 1.2rem;
-  line-height: 1.2em;
 }
