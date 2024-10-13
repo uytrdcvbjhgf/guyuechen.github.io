@@ -5,17 +5,17 @@ url: "/about/"
 summary: about
 ---
 
-> Education 
+### Education 
 
-- M.Sc. Kyushu University (JP)
-- B.Sc. Shanghai University (PRC)  
+- M.Eng. Kyushu University (JP)
+- B.Eng. Shanghai University (PRC)  
 
-> Experience
+### Experience
 
 - Senior System Engineer at Accenture (ATCC)  
 - Backend Developer at Huawei (Data Storage Product Line)  
 
-> Skills
+### Skills
 
 - Languages: Java, C/C++, JavaScript/TypeScript, Python, Go  
 - Cloud Platforms: AWS, Azure, Aliyun  
@@ -24,7 +24,7 @@ summary: about
 - Frameworks: Spring (Spring Boot, Spring Cloud), Vue, Angular, React, Selenium, Cucumber, Robot Framework, pytest, JUnit, Spock, etc.  
 - CI/CD pipelines setup and automation, large-scale distributed systems design.
 
-> Certifications
+### Certifications
 
 - AWS Certified Solutions Architect (Professional)  
 - Oracle Certified Java Professional (OCJP)  
