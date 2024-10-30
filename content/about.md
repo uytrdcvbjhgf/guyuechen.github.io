@@ -14,6 +14,7 @@ summary: about
 - Frameworks: Spring (Spring Boot, Spring Cloud), Vue, Angular, React, Selenium, Cucumber, Robot Framework, pytest, JUnit, Spock, etc.  
 - CI/CD pipelines setup and automation, large-scale distributed systems design.
 
+<br>
 
 ## Certifications
 
