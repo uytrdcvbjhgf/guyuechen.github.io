@@ -40,9 +40,6 @@ tags = ['refactor']
 ```java
 /**
  * 戏剧演员
- *
- * @author y00512616 yangchanglin
- * @since 2021-10-30
  */
 public class TheatricalPlayers {
     private static MysqlConnection mysqlConnection;
@@ -172,9 +169,6 @@ public enum PlayType {
 ```java
 /**
  * 戏剧演员
- *
- * @author y00512616 yangchanglin
- * @since 2021-10-30
  */
 public class TheatricalPlayers {
     private static MysqlConnection mysqlConnection;

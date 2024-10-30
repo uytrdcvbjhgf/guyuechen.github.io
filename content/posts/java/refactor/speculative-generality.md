@@ -46,9 +46,6 @@ tags = ['refactor']
 ```java
 /**
  * 健康指标计算服务
- *
- * @author g00510072
- * @since 2021-10-19
  */
 public class HealthServiceImp implements HealthService<PersonForHealth> {
     @Override
@@ -89,9 +86,6 @@ public class HealthServiceImp implements HealthService<PersonForHealth> {
 ```java
 /**
  * 健康指标计算服务接口
- *
- * @author g00510072
- * @since 2021-10-19
  */
 public interface HealthService<T extends Animal> {
     /**
@@ -121,9 +115,6 @@ public interface HealthService<T extends Animal> {
 ```java
 /**
  * 人员健康信息
- *
- * @author g00510072
- * @since 2021-10-27
  */
 public class PersonForHealth extends Person {
     private final BodyMassInfo bodyMassInfo;
@@ -155,9 +146,6 @@ public class PersonForHealth extends Person {
 ```java
 /**
  * 人员信息
- *
- * @author g00510072
- * @since 2021-10-27
  */
 public abstract class Person implements Animal {
     private final String name;
@@ -187,9 +175,6 @@ public abstract class Person implements Animal {
 
 /**
  * 性别
- *
- * @author g00510072
- * @since 2021-10-19
  */
 public enum Gender {
     FEMALE(0),
@@ -210,9 +195,6 @@ public enum Gender {
 ```java
 /**
  * 动物接口
- *
- * @author g00510072
- * @since 2021-10-27
  */
 public interface Animal {
 }
@@ -221,9 +203,6 @@ public interface Animal {
 ```java
 /**
  * 未来可能会用到的扩展信息
- *
- * @author g00510072
- * @since 2021-10-27
  */
 public interface FutureMayUseInfo {
 }
@@ -273,9 +252,6 @@ public class PersonForHealth extends Person {
 ```java
 /**
  * 身高体重相关信息处理
- *
- * @author g00510072
- * @since 2021-10-19
  */
 public class BodyMassInfo {
     // 身高，单位m
@@ -325,9 +301,6 @@ public class BodyMassInfo {
 ```java
 /**
  * 健康指标计算服务
- *
- * @author g00510072
- * @since 2021-10-19
  */
 public class HealthServiceImp implements HealthService<PersonForHealth> {
     @Override
@@ -375,9 +348,6 @@ public class HealthServiceImp implements HealthService<PersonForHealth> {
 ```java
 /**
  * 健康指标计算服务
- *
- * @author g00510072
- * @since 2021-10-19
  */
 public class HealthServiceImp {
     public double getBodyFatPercentage(Person person) {
@@ -399,9 +369,6 @@ public class HealthServiceImp {
 ```java
 /**
  * 人员健康信息
- *
- * @author g00510072
- * @since 2021-10-27
  */
 public class Person {
 
@@ -456,9 +423,6 @@ public class Person {
 
 /**
  * 性别
- *
- * @author g00510072
- * @since 2021-10-19
  */
 public enum Gender {
     FEMALE(0),
@@ -479,9 +443,6 @@ public enum Gender {
 ```java
 /**
  * 模拟client调用
- *
- * @author g00510072
- * @since 2021-10-19
  */
 public class Client {
     public static void main(String[] args) {

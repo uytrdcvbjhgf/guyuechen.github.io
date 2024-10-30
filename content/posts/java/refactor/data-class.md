@@ -54,9 +54,6 @@ DataClass是指：它们拥有一些字段，以及用于访问（读写）这�
 ```java
 /**
  * 部门信息
- *
- * @author z00602558
- * @since 2021-07-15
  */
 public class Department {
     public String minister; // 部长
@@ -90,9 +87,6 @@ public class Department {
  * 男女比例与Hrbp里面计算存在重复代码，如果统计规则变化则需要同时修改两处
  *
  * demo中代码中没有考虑空指针相关等异常，实际项目请充分考虑异常场景处理
- *
- * @author z00602558
- * @since 2021-07-17
  */
 public class Audit {
     /**
@@ -121,9 +115,6 @@ public class Audit {
 ```java
 /**
  * hrbp管理
- *
- * @author z00602558
- * @since 2021-07-17
  */
 public class Hrbp {
     private final List<Department> departments; // 部门列表
@@ -156,9 +147,6 @@ public class Hrbp {
 ```java
 /**
  * 部门信息
- *
- * @author z00602558
- * @since 2021-07-15
  */
 public class Department {
     private final String minister; // 部长
@@ -200,9 +188,6 @@ public class Department {
 ```java
 /**
  * 部门信息
- *
- * @author z00602558
- * @since 2021-07-15
  */
 public class Department {
     private final String minister; // 部长
@@ -266,9 +251,6 @@ public class Audit {
 ```java
 /**
  * hrbp管理
- *
- * @author z00602558
- * @since 2021-07-17
  */
 public class Hrbp {
     private final List<Department> departments; // 部门列表

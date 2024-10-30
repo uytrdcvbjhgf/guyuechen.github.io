@@ -41,9 +41,6 @@ tags = ['refactor']
 ```java
 /**
  * 员工个人信息
- *
- * @author h30008445
- * @since 2021-06-17
  */
 public class Employee {
     private String name;
@@ -150,9 +147,6 @@ public class Employee {
 ```java
 /**
  * 部门信息
- *
- * @author h30008445
- * @since 2021-06-17
  */
 public class Department {
     private String id;
@@ -267,9 +261,6 @@ public class Department {
 ```java
 /**
  * 员工个人信息
- *
- * @author h30008445
- * @since 2021-06-17
  */
 public class Employee {
     private String name;
@@ -331,9 +322,6 @@ public class Employee {
 ```java
 /**
  * 披萨配送赔付信息
- *
- * @author h30008445
- * @since 2021-06-18
  */
 public class PizzaDelivery {
     private int timeOfLateDeliveries;
@@ -367,9 +355,6 @@ public class PizzaDelivery {
 ```java
 /**
  * 披萨配送赔付信息
- *
- * @author h30008445
- * @since 2021-06-18
  */
 public class PizzaDelivery {
     private int timeOfLateDeliveries;

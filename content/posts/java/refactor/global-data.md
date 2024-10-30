@@ -36,9 +36,6 @@ tags = ['refactor']
 ```java
 /**
  * 班级学生信息
- *
- * @author q00521996
- * @since 2021-11-04
  */
 public class ClassStudentsInfo {
     /**
@@ -56,9 +53,6 @@ public class ClassStudentsInfo {
 ```java
 /***
  * class信息管理类
- * 
- * @author q00521996
- * @since 2021-11-01
  */
 public class ClassManage {
     private final ClassOtherInfoProcessor classOtherInfoProcessor = new ClassOtherInfoProcessor();
@@ -130,9 +124,6 @@ public class ClassManage {
 ```java
 /**
  * 模拟Client端调用
- *
- * @author q00521996
- * @since 2021-11-02
  */
 public class Client {
     public static void main(String[] args) {
@@ -154,9 +145,6 @@ public class Client {
 ```java
 /**
  * 模拟其他模块对班级相关信息的处理逻辑
- *
- * @author q00521996
- * @since 2021-11-02
  */
 public class ClassOtherInfoProcessor {
     private Map<String, String> classStudentInfo;
@@ -193,9 +181,6 @@ public class ClassOtherInfoProcessor {
 ```java
 /**
  * 班级学生信息
- *
- * @author q00521996
- * @since 2021-11-04
  */
 public class ClassStudentsInfo {
     /**
@@ -239,9 +224,6 @@ public class ClassStudentsInfo {
 ```java
 /***
  * class信息管理类
- * 
- * @author q00521996
- * @since 2021-11-01
  */
 public class ClassManage {
     private final ClassOtherInfoProcessor classOtherInfoProcessor = new ClassOtherInfoProcessor();

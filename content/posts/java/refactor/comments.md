@@ -58,9 +58,6 @@ public class Render {
 ```java
 /**
  * 待支付信息
- *
- * @author z00378401
- * @since 2021-09-06
  */
 public class Owing {
     private static final String LINE_SEPARATOR = System.lineSeparator();
@@ -134,9 +131,6 @@ public class Render {
 ```java
 /**
  * 待支付信息
- *
- * @author z00378401
- * @since 2021-09-06
  */
 public class Owing {
     private static final String LINE_SEPARATOR = System.lineSeparator();

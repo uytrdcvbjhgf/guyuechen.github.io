@@ -58,9 +58,6 @@ tags = ['refactor']
 ```java
 /**
  * 币种
- *
- * @author z00602558
- * @since 2021-11-02
  */
 public enum Currency {
     CNY,
@@ -87,9 +84,6 @@ public enum Currency {
 ```java
 /**
  * 币种
- *
- * @author z00602558
- * @since 2021-11-02
  */
 public enum Currency {
     CNY,
@@ -162,9 +156,6 @@ public enum Currency {
 ```java
 /**
  * 薪资管理
- *
- * @author z00602558
- * @since 2021-11-02
  */
 public class SalaryService {
     /**
@@ -235,9 +226,6 @@ public class SalaryService {
 ```java
 /**
  * 薪资管理
- *
- * @author z00602558
- * @since 2021-11-02
  */
 public class SalaryService {
     /**

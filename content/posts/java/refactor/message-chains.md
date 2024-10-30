@@ -40,47 +40,36 @@ tags = ['refactor']
 - InformationClient直接访问Person就能得出Street对象（这里是部门对象）
 - 人、部门、地址、街道整个依赖关系对client透明
 - 后面如果发生变化和重构，外部无感知
-  ![](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/518b5b6521f9fa87ef2d7ae43ef81223.svg)```java
-  /**
-
+  ![](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/518b5b6521f9fa87ef2d7ae43ef81223.svg)
+  
+```java
+/**
  * 信息服务类，作为代理解决
-   *
-
- * @author m00546179
-
- * @since 2021-11-11
-   */
-   public class InformationClient {
-   /**
-
+ */
+public class InformationClient {
+  /**
     * 获取员工所在的部门地址街道名称
-      *
+    *
     * @param person 当前员工
     * @return 街道名称
-      */
-      public String getServerStreetName(Person person) {
-      return person.getDepartment().getAddress().getStreet().getStreetName();
-      }
+    */
+  public String getServerStreetName(Person person) {
+    return person.getDepartment().getAddress().getStreet().getStreetName();
+  }
 
-   /**
-
+  /**
     * 获取员工所在的部门地址街道编号
-      *
+    *
     * @param person 当前员工
     * @return 街道编号
-      */
-      public Integer getServerStreetNo(Person person) {
-      return person.getDepartment().getAddress().getStreet().getStreetNo();
-      }
-      }
+    */
+  public Integer getServerStreetNo(Person person) {
+    return person.getDepartment().getAddress().getStreet().getStreetNo();
+  }
+}
 
-```
-​```java
 /**
  * 一个员工个人信息， 包含部门{@link Department}信息。
- *
- * @author m00546179
- * @since 2021-11-11
  */
 public class Person {
     /** 部门信息 */
@@ -104,9 +93,6 @@ public class Person {
 ```java
 /**
  * 信息服务类，作为代理解决
- *
- * @author m00546179
- * @since 2021-11-11
  */
 public class InformationClient {
     /**
@@ -129,14 +115,9 @@ public class InformationClient {
         return person.getDepartmentStreet().getStreetNo();
     }
 }
-```
 
-```java
 /**
  * 一个员工个人信息， 包含部门{@link Department}信息。
- *
- * @author m00546179
- * @since 2021-11-11
  */
 public class Person {
     /** 部门信息 */

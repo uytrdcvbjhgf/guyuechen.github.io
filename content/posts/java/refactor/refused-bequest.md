@@ -51,9 +51,7 @@ tags = ['refactor']
 ```java
 /**
  * @filename: PersonalInformation
- * @author: h30008445
  * @description: 用户个人信息
- * @remark: created by 黄刚/h30008445 at 2021/11/1
  */
 public abstract class PersonInfo {
     /**
@@ -174,9 +172,7 @@ public abstract class PersonInfo {
 ```java
 /**
  * @filename: Children
- * @author: h30008445
  * @description: 儿童信息
- * @remark: created by 黄刚/h30008445 at 2021/11/1
  */
 public class Children extends PersonInfo {
     public Children(String name, int age, double height, double weight, int basePensionWage, int retiredYears,
@@ -209,9 +205,7 @@ public class Children extends PersonInfo {
 ```java
 /**
  * @filename: Adult
- * @author: h30008445
  * @description: 成年人信息
- * @remark: created by 黄刚/h30008445 at 2021/11/1
  */
 public class Adult extends PersonInfo {
     public Adult(String name, int age, double height, double weight, int basePensionWage, int retiredYears,
@@ -244,9 +238,7 @@ public class Adult extends PersonInfo {
 ```java
 /**
  * @filename: Old
- * @author: h30008445
  * @description: 老年人信息
- * @remark: created by 黄刚/h30008445 at 2021/11/1
  */
 public class Old extends PersonInfo {
     public Old(String name, int age, double height, double weight, int basePensionWage, int retiredYears,
@@ -282,9 +274,7 @@ public class Old extends PersonInfo {
 ```java
 /**
  * @filename: PersonalInformation
- * @author: h30008445
  * @description: 用户个人信息
- * @remark: created by 黄刚/h30008445 at 2021/11/1
  */
 public abstract class PersonInfo {
     /**
@@ -324,9 +314,7 @@ public abstract class PersonInfo {
 ```java
 /**
  * @filename: Children
- * @author: h30008445
  * @description: 儿童信息
- * @remark: created by 黄刚/h30008445 at 2021/11/1
  */
 public class Children extends PersonInfo {
     /**
@@ -355,9 +343,7 @@ public class Children extends PersonInfo {
 ```java
 /**
  * @filename: Adult
- * @author: h30008445
  * @description: 成年人信息
- * @remark: created by 黄刚/h30008445 at 2021/11/1
  */
 public class Adult extends PersonInfo {
 
@@ -387,9 +373,7 @@ public class Adult extends PersonInfo {
 ```java
 /**
  * @filename: Old
- * @author: h30008445
  * @description: 老年人信息
- * @remark: created by 黄刚/h30008445 at 2021/11/1
  */
 public class Old extends PersonInfo {
     /**
@@ -441,9 +425,7 @@ public class Old extends PersonInfo {
 ```java
 /**
  * @filename: PersonalInformation
- * @author: h30008445
  * @description: 用户个人信息
- * @remark: created by 黄刚/h30008445 at 2021/11/1
  */
 public class PersonalInformation extends PlatAccountInformation {
     private String name;
@@ -481,9 +463,7 @@ public class PersonalInformation extends PlatAccountInformation {
 ```java
 /**
  * @filename: UserInformation
- * @author: h30008445
  * @description: 平台用户所需信息
- * @remark: created by 黄刚/h30008445 at 2021/11/1
  */
 public class PlatAccountInformation {
     private String account;
@@ -521,9 +501,7 @@ public class PlatAccountInformation {
 ```java
 /**
  * @filename: ClientView
- * @author: h30008445
  * @description: 用户平台展示类
- * @remark: created by 黄刚/h30008445 at 2021/11/1
  */
 public class PublicPlatView {
     /**
@@ -586,9 +564,7 @@ public class PersonalInformation {
 ```java
 /**
  * @filename: PersonalInformation
- * @author: h30008445
  * @description: 用户个人信息
- * @remark: created by 黄刚/h30008445 at 2021/11/1
  */
 public class PlatAccountInformation {
     private final PersonalInformation personalInformation = new PersonalInformation();
@@ -652,9 +628,7 @@ public class PlatAccountInformation {
 ```java
 /**
  * @filename: ClientView
- * @author: h30008445
  * @description: 用户平台展示类
- * @remark: created by 黄刚/h30008445 at 2021/11/1
  */
 public class PublicPlatView {
     /**

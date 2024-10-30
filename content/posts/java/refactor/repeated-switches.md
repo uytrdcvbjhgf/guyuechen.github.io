@@ -39,9 +39,6 @@ tags = ['refactor']
 ```java
 /**
  * 饲养宠物耗费精力
- *
- * @author d00506401
- * @since 2021-06-18
  */
 public class PetCosts {
     private final Pet pet;
@@ -109,9 +106,6 @@ public class PetCosts {
 ```java
 /**
  * 饲养宠物耗费的精力
- *
- * @author d00506401
- * @since 2021-06-18
  */
 public class KeepPetCosts {
     /**
@@ -134,9 +128,6 @@ public class KeepPetCosts {
 ```java
 /**
  * 饲养宠物耗费精力
- *
- * @author d00506401
- * @since 2021-06-18
  */
 public abstract class PetCosts {
     protected final Pet pet;
@@ -280,9 +271,6 @@ public class PetCostsFactory {
 ```java
 /**
  * 饲养宠物耗费的精力
- *
- * @author d00506401
- * @since 2021-06-18
  */
 public class KeepPetCosts {
     /**

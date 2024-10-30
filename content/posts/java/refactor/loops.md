@@ -92,9 +92,6 @@ public class Apple {
 ```java
 /**
  * 统计苹果信息
- *
- * @author l00266403
- * @since 2021-09-02
  */
 public class AppleStatistics {
     /**
@@ -129,9 +126,6 @@ public class AppleStatistics {
 ```java
 /**
  * 苹果信息统计client方调用
- *
- * @author l00266403
- * @since 2021-09-02
  */
 public class Client {
     public static void main(String[] args) {
@@ -156,9 +150,6 @@ public class Client {
 ```java
 /**
  * 统计苹果信息
- *
- * @author l00266403
- * @since 2021-09-02
  */
 public class AppleStatistics {
     /**

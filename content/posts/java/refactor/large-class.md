@@ -42,9 +42,6 @@ tags = ['refactor']
 ```java
 /**
  * 工作人员信息
- *
- * @author g00510072
- * @since 2021-08-25
  */
 public class Workman {
     private final String name;
@@ -150,9 +147,6 @@ public class Workman {
 ```java
 /**
  * 工作人员信息
- *
- * @author g00510072
- * @since 2021-08-25
  */
 public class Workman {
     private final String name;
@@ -282,9 +276,6 @@ public class Contacts {
 ```java
 /**
  * 工作人员信息
- *
- * @author g00510072
- * @since 2021-08-25
  */
 public abstract class Workman {
     private final String name;
@@ -429,9 +420,6 @@ public class InvalidWorkman extends Workman {
 ```java
 /**
  * 工作人员信息
- *
- * @author g00510072
- * @since 2021-08-25
  */
 public abstract class Workman {
     private final String name;

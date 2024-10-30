@@ -52,9 +52,6 @@ tags = ['refactor']
 ```java
 /**
  * 飞机航线
- *
- * @author 00581743
- * @since 2021-11-15
  */
 public class Plane {
     private final Logger logger;
@@ -100,9 +97,6 @@ public class Plane {
 ```java
 /**
  * 飞机航线
- *
- * @author 00581743
- * @since 2021-11-15
  */
 public class Plane {
     private final Logger logger;

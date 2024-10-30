@@ -37,10 +37,7 @@ tags = ['refactor']
 
 ```java
 /**
- * 账户信息
- *
- * @author y00512616
- * @since 2021-08-05
+ * 账户信息5
  */
 public class Account {
     private final String name;
@@ -136,10 +133,7 @@ public class Account {
 
 ```java
 /**
- * 账户信息
- *
- * @author y00512616
- * @since 2021-08-05
+ * 账户信息5
  */
 public class Account {
     private final String name;
@@ -244,10 +238,7 @@ public class Evaluator {
 
 ```java
 /**
- * 路由消息处理
- *
- * @author y00512616
- * @since 2021-08-05
+ * 路由消息处理5
  */
 public class RoutingHandler {
     /**
@@ -275,10 +266,7 @@ public class RoutingHandler {
 
 ```java
 /**
- * 路由接口
- *
- * @author y00512616
- * @since 2021-08-05
+ * 路由接口5
  */
 public interface Router {
     /**
@@ -297,10 +285,7 @@ public interface Router {
 
 ```java
 /**
- * 路由消息处理
- *
- * @author y00512616
- * @since 2021-08-05
+ * 路由消息处理5
  */
 public class RoutingHandler {
     /**
@@ -322,10 +307,7 @@ public class RoutingHandler {
 
 ```java
 /**
- * 路由接口
- *
- * @author y00512616
- * @since 2021-08-05
+ * 路由接口5
  */
 public interface Router {
     /**
@@ -349,10 +331,7 @@ public class NullRouter implements Router {
 
 ```java
 /**
- * 路由方式工厂
- *
- * @author y00512616
- * @since 2021-08-05
+ * 路由方式工厂5
  */
 public class RouterFactory {
     /**

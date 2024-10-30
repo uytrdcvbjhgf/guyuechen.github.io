@@ -42,9 +42,6 @@ CourseSelectionSystemApi包含了对外提供的接口。
 ```java
 /**
  * 选课系统管理
- *
- * @author l00266403
- * @since 2021-11-12
  */
 public class CourseSelectionManager {
     /**
@@ -62,9 +59,6 @@ public class CourseSelectionManager {
 ```java
 /**
  * 选课管理系统对外api
- *
- * @author l00266403
- * @since 2021-11-11
  */
 public class CourseSelectionSystemApi extends CourseSelectionManager {
     /**
@@ -148,9 +142,6 @@ public class CourseSelectionSystemApi extends CourseSelectionManager {
 ```java
 /**
  * 课程管理
- *
- * @author l00266403
- * @since 2021-11-05
  */
 public class CourseManager {
     private static final List<Course> COURSES = new ArrayList<>();
@@ -228,9 +219,6 @@ public class CourseManager {
 ```java
 /**
  * 学生管理类
- *
- * @author l00266403
- * @since 2021-11-05
  */
 public class StudentManager {
     private static final List<Student> STUDENTS = new ArrayList<>();
@@ -492,9 +480,6 @@ public class CourseSelectionManager {
 ```java
 /**
  * 课程管理
- *
- * @author l00266403
- * @since 2021-11-05
  */
 public class CourseManager {
     private static final List<Course> COURSES = new ArrayList<>();
@@ -529,9 +514,6 @@ public class CourseManager {
 ```java
 /**
  * 学生管理类
- *
- * @author l00266403
- * @since 2021-11-05
  */
 public class StudentManager {
     private static final List<Student> STUDENTS = new ArrayList<>();
@@ -566,9 +548,6 @@ public class StudentManager {
 ```java
 /**
  * 案例入口类
- *
- * @author l00266403
- * @since 2021-11-05
  */
 public class Client {
     private static final CourseSelectionSystemApi COURSE_SELECTION_SYSTEM_API = new CourseSelectionSystemApi();
@@ -622,9 +601,6 @@ public class Client {
 ```java
 /**
  * 课程信息
- *
- * @author l00266403
- * @since 2021-11-05
  */
 public class Course {
     private final String name; // history, literature, music ..
@@ -658,9 +634,6 @@ public enum Gender {
 
 /**
  * 学生信息
- *
- * @author l00266403
- * @since 2021-11-05
  */
 public class Student {
     private final int id;

@@ -42,10 +42,6 @@ InvoiceFormatter知道了过多关于Invoice和InvoiceLine的细节。 通过Inv
 ```java
 /**
  * 发票信息
- * 
- * @author g00385500 gaoyuan
- * @version 1.0
- * @since 2021/10/30
  */
 public class Invoice {
     private final String buyer;
@@ -77,10 +73,6 @@ public class Invoice {
 ```java
 /**
  * 发票单行明细
- *
- * @author g00385500 gaoyuan
- * @version 1.0
- * @since 2021/10/30
  */
 public class InvoiceLine {
     private final String product;
@@ -112,10 +104,6 @@ public class InvoiceLine {
 ```java
 /**
  * 发票格式化
- *
- * @author g00385500 gaoyuan
- * @version 1.0
- * @since 2021/10/30
  */
 public class InvoiceFormatter {
     /**
@@ -196,10 +184,6 @@ public class InvoiceFormatter {
 ```java
 /**
  * 发票信息
- * 
- * @author g00385500 gaoyuan
- * @version 1.0
- * @since 2021/10/30
  */
 public class Invoice {
     private final String buyer;
@@ -240,10 +224,6 @@ public class Invoice {
 ```java
 /**
  * 发票单行明细
- *
- * @author g00385500 gaoyuan
- * @version 1.0
- * @since 2021/10/30
  */
 public class InvoiceLine {
     private final String product;
@@ -279,10 +259,6 @@ public class InvoiceLine {
 ```java
 /**
  * 发票格式化
- *
- * @author g00385500 gaoyuan
- * @version 1.0
- * @since 2021/10/30
  */
 public class InvoiceFormatter {
     /**

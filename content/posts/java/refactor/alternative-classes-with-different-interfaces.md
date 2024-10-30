@@ -52,9 +52,6 @@ tags = ['refactor']
 ```java
 /**
  * 雇员
- *
- * @author 00618893
- * @since 2021-11-15
  */
 public class Employee {
     private String identity;
@@ -97,9 +94,6 @@ public class Employee {
 ```java
 /**
  * 工人
- *
- * @author 00618893
- * @since 2021-11-15
  */
 public class Worker {
     private String id;
@@ -141,9 +135,6 @@ public class Worker {
 ```java
 /**
  * 制造服务
- *
- * @author 00618893
- * @since 2021-11-15
  */
 public class ManufactureService {
     private String workerName;
@@ -186,9 +177,6 @@ public class ManufactureService {
 ```java
 /**
  * 工人
- *
- * @author 00618893
- * @since 2021-11-15
  */
 public class Worker {
 
@@ -239,9 +227,6 @@ public class Worker {
 ```java
 /**
  * 制造服务
- *
- * @author 00618893
- * @since 2021-11-15
  */
 public class ManufactureService {
     private String workerName;
@@ -295,9 +280,6 @@ Quotation和SalesOrder共享了一些功能，但没有共同的基类/接口：
 ```java
 /**
  * 报价单
- *
- * @author 00618893
- * @since 2021-11-15
  */
 public class Quotation {
     /**
@@ -365,9 +347,6 @@ public class Quotation {
 ```java
 /**
  * 销售订单
- *
- * @author 00618893
- * @since 2021-11-15
  */
 public class SalesOrder {
     /**
@@ -482,9 +461,6 @@ public class AbstractDocument {
 ```java
 /**
  * 销售订单
- *
- * @author 00618893
- * @since 2021-11-15
  */
 public class SalesOrder extends AbstractDocument {
 
@@ -514,9 +490,6 @@ public class SalesOrder extends AbstractDocument {
 ```java
 /**
  * 报价单
- *
- * @author 00618893
- * @since 2021-11-15
  */
 public class Quotation extends AbstractDocument {
 

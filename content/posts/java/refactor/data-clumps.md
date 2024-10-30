@@ -43,9 +43,6 @@ tags = ['refactor']
 ```java
 /**
  * 用户信息
- *
- * @author l00631077
- * @since 2021-11-03
  */
 public class PersonInfoManage {
     private String firstName;
@@ -160,9 +157,6 @@ public class PersonInfoManage {
 ```java
 /**
  * 用户信息
- *
- * @author l00631077
- * @since 2021-11-03
  */
 public class PersonInfoManage {
 

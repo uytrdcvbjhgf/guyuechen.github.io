@@ -54,9 +54,6 @@ tags = ['refactor']
 ```java
 /**
  * 房屋信息处理
- *
- * @author l30016005
- * @since 2021-11-08
  */
 public class House {
     private static final double FIRST_HOUSE_PAY_RATE = 0.35;
@@ -141,9 +138,6 @@ public class House {
 ```java
 /**
  * 大户型
- *
- * @author l30016005
- * @since 2021-11-08
  */
 public class BigHouse extends House {
     private static final int BIG_HOUSE_AREA = 140;
@@ -166,9 +160,6 @@ public class BigHouse extends House {
 ```java
 /**
  * 房屋信息数据模型
- *
- * @author l30016005
- * @since 2021-11-08
  */
 public class HouseData {
     private final double square;
@@ -200,9 +191,6 @@ public class HouseData {
 ```java
 /**
  * 旧版本使用的房屋信息数据模型
- *
- * @author l30016005
- * @since 2021-11-08
  */
 public class HouseDataOld {
     private final double square;
