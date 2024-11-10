@@ -53,11 +53,14 @@ GitHub Pages 可以作为图床使用，适合存储静态文件（如 .jpg、.p
 
    - 在 `Markdown` 选项卡中，找到 `Image Upload`（图片上传）。
 
-   - 选择 `Custom`，并填写上传命令。可以使用以下命令（假设你已在终端中配置了 git）：
+     - 选择 `Custom`，并填写上传命令。可以使用以下命令（假设你已在终端中配置了 git）：
 
-     ``` bash
-     git add . && git commit -m "Update images" && git push origin main
-     ```
+       `git add . && git commit -m "Update images" && git push origin main`
+       
+     - 使用 PicGo 作为默认的图片上传服务
+
+       ![image-20241110213440646](https://raw.githubusercontent.com/guyuechen/gallery/main/img/202411102134695.png)
+       
 
 4. **测试上传**：
 
