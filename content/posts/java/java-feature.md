@@ -544,7 +544,7 @@ public final class MyTask implements Runnable {
 
 示例： 
 
-![image-20230624200604629](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/image-20230624200604629.png)
+![image-20230624200604629](https://raw.githubusercontent.com/guyuechen/gallery/main/img/image-20230624200604629.png)
 
    - 对象A、B、C不是垃圾
    - 对象F是垃圾，引用计数为0，被回收
@@ -562,7 +562,7 @@ GC Roots：
 
 示例：
 
-![image-20230624200652996](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/image-20230624200652996.png)
+![image-20230624200652996](https://raw.githubusercontent.com/guyuechen/gallery/main/img/image-20230624200652996.png)
 
    - 对象A、B、C可以被遍历到，不是垃圾
    - 对象D、E不会被遍历到，会被回收
@@ -570,7 +570,7 @@ GC Roots：
 
 > 垃圾回收算法
 
-![image-20230624200745019](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/image-20230624200745019.png)
+![image-20230624200745019](https://raw.githubusercontent.com/guyuechen/gallery/main/img/image-20230624200745019.png)
 
 - 清除（sweep）
   原理： 
@@ -582,7 +582,7 @@ GC Roots：
      -  优点：速度快
      -  缺点：容易造成内存碎片，分配效率低
 
-![image-20230624200832970](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/image-20230624200832970.png)
+![image-20230624200832970](https://raw.githubusercontent.com/guyuechen/gallery/main/img/image-20230624200832970.png)
 
 - 复制（copy）
 
@@ -598,7 +598,7 @@ GC Roots：
 > 垃圾收集器
 
 -  jvm堆划分 
-   ![image-20230624200947196](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/image-20230624200947196.png)
+   ![image-20230624200947196](https://raw.githubusercontent.com/guyuechen/gallery/main/img/image-20230624200947196.png)
    - jvm将堆划分为新生代和老年代。新生代存放新创建的对象，当对象生存超过一定时间时，会被移动至老年代。新生代采用的 GC 称为minor GC，老年代发生的 GC 称为 full GC 或 major GC，发生full GC会伴随至少一次minor GC。
 
 -  Minor GC 
@@ -624,7 +624,7 @@ GC Roots：
 
 > 类加载过程
 
-![image-20230624201040667](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/image-20230624201040667.png)
+![image-20230624201040667](https://raw.githubusercontent.com/guyuechen/gallery/main/img/image-20230624201040667.png)
 
 - 加载 
   - 将java字节码从不同数据源读到jvm中，数据源包括zip压缩包，网络，运行时计算生成，其他文件生成，数据库等。
@@ -638,7 +638,7 @@ GC Roots：
 
 > ClassLoader层次结构
 
-![image-20230624201110407](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/image-20230624201110407.png)
+![image-20230624201110407](https://raw.githubusercontent.com/guyuechen/gallery/main/img/image-20230624201110407.png)
 
 ```java
 if (parent != null) {
@@ -731,7 +731,7 @@ class B extends A {
 
 > Javac编译器
 
-![image.png](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/1686187041983-9a27644a-f2d2-43e7-b283-74f5a89d5bf1.png)
+![image.png](https://raw.githubusercontent.com/guyuechen/gallery/main/img/1686187041983-9a27644a-f2d2-43e7-b283-74f5a89d5bf1.png)
 
 - 过程 
   - 源文件 > 字节码
@@ -750,7 +750,7 @@ class B extends A {
 
 > Java 即时编译器
 
-![image.png](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/1686187049204-eda35347-1d19-4132-9d01-f9a0ca882099.png)
+![image.png](https://raw.githubusercontent.com/guyuechen/gallery/main/img/1686187049204-eda35347-1d19-4132-9d01-f9a0ca882099.png)
 
 -  过程 
    - 字节码 > 机器码
@@ -769,10 +769,10 @@ class B extends A {
    - 方法被执行多次
    - 方法中的循环体被执行多次
 
-![image.png](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/1686187059671-48146a2a-702d-44ae-b5d9-9292285d7b4d.png)
+![image.png](https://raw.githubusercontent.com/guyuechen/gallery/main/img/1686187059671-48146a2a-702d-44ae-b5d9-9292285d7b4d.png)
 
 -  优化 
-   ![image.png](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/1686187068149-94b3da0e-6ecc-44be-8897-57a3272e1a75.png) 
+   ![image.png](https://raw.githubusercontent.com/guyuechen/gallery/main/img/1686187068149-94b3da0e-6ecc-44be-8897-57a3272e1a75.png) 
 -  实验 
    -  `-XX:+PrintCompilation` 查看被编译的方法   
    -  `-XX:+PrintInlining` 查看被内联的方法  
@@ -784,7 +784,7 @@ class B extends A {
 ## JDBC数据库开发
 
 JDBC是Java程序访问数据库的标准接口，不依赖于特定的数据库。
-![image.png](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/1686187132083-2e25b247-b4a7-4114-87a4-045ffad7298f.png)
+![image.png](https://raw.githubusercontent.com/guyuechen/gallery/main/img/1686187132083-2e25b247-b4a7-4114-87a4-045ffad7298f.png)
 
 > 基本组件
 
@@ -909,7 +909,7 @@ public class Test {
 - 用于描述IP地址和端口，是基于网络层之上的通信方式
 - 主要有TCP和UDP两种协议，Java中的Socket特指TCP连接的抽象
 
-![image.png](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/1686187157561-61dd1b67-e4ff-49aa-bcc3-3fd550a78531.png)
+![image.png](https://raw.githubusercontent.com/guyuechen/gallery/main/img/1686187157561-61dd1b67-e4ff-49aa-bcc3-3fd550a78531.png)
 
 > Socket API
 

@@ -46,7 +46,7 @@ tags = ["java", "json"]
 
 * java里操作json的技术一览
 
-  ![image-20210816004456117](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/image-20210816004456117.png)
+  ![image-20210816004456117](https://raw.githubusercontent.com/guyuechen/gallery/main/img/image-20210816004456117.png)
 
 ## 4 `fastjson`
 

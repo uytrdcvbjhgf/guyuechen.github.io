@@ -211,7 +211,7 @@ IDEA 编译错误，会以显著的波浪线（一般为红色）提示。这类
 
 在 IDEA 的 Help->Keyboard Shortcuts PDF 中，可以导出所有的快捷键
 
-![image-20230623214908815](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/image-20230623214908815.png)
+![image-20230623214908815](https://raw.githubusercontent.com/guyuechen/gallery/main/img/image-20230623214908815.png)
 
 
 

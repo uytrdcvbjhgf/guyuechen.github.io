@@ -31,7 +31,7 @@ DataClass是指：它们拥有一些字段，以及用于访问（读写）这�
 
 **代码背景**
 部门及员工信息管理
-![](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/80e5aeb9a1713a51a6f440532e8ad2ff.svg)
+![](https://raw.githubusercontent.com/guyuechen/gallery/main/img/80e5aeb9a1713a51a6f440532e8ad2ff.svg)
 
 - Staff类为员工原始信息，属于数据模型， 存储于数据库中 
   - 部长minister、部门名称name为部门Department固有属性，在业务代码中一旦设置后不会更改

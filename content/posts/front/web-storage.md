@@ -34,7 +34,7 @@ tags = ["front","javascript"]
 
 ## 发展历程
 
-![image-20240901102457285](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/202409011025394.png)
+![image-20240901102457285](https://raw.githubusercontent.com/guyuechen/gallery/main/img/202409011025394.png)
 
 本次我将介绍以下几本种常见的解决方案：
 
@@ -50,7 +50,7 @@ Cookie，即HTTP Cookie，是服务器发送到用户浏览器（或使用JS在�
 
 [1] : http的每一次请求都是一次全新的，独立的请求,服务器不保存该客户端已经登录过的状态。
 
-![image-20240901102523940](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/202409011025000.png)
+![image-20240901102523940](https://raw.githubusercontent.com/guyuechen/gallery/main/img/202409011025000.png)
 
 - Cookie只适合存储很小的数据（最大为4KB）；
 - Cookie数据**始终**在同源的请求中携带（即使不需要）；
@@ -60,7 +60,7 @@ Cookie，即HTTP Cookie，是服务器发送到用户浏览器（或使用JS在�
 
 如何查看Cookie？以Chrome为例如下所示：
 
-![image-20240901102546826](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/202409011025873.png)
+![image-20240901102546826](https://raw.githubusercontent.com/guyuechen/gallery/main/img/202409011025873.png)
 
 ------
 
@@ -455,10 +455,10 @@ request.onsuccess = function () {
 
 ## 比较
 
-![image-20240901102610375](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/202409011026423.png)
+![image-20240901102610375](https://raw.githubusercontent.com/guyuechen/gallery/main/img/202409011026423.png)
 
 
 
 ## 案例介绍
 
-![image-20240901102635012](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/202409011026075.png)
+![image-20240901102635012](https://raw.githubusercontent.com/guyuechen/gallery/main/img/202409011026075.png)

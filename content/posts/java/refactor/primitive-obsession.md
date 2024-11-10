@@ -241,7 +241,7 @@ public class Coordinate {
 }
 ```
 
-![](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/846b31af98bce11bdf12a3dee2e7e2df.svg)
+![](https://raw.githubusercontent.com/guyuechen/gallery/main/img/846b31af98bce11bdf12a3dee2e7e2df.svg)
 
 > 操作手法
 

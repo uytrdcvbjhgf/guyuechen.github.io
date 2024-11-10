@@ -40,7 +40,7 @@ tags = ['refactor']
 - InformationClient直接访问Person就能得出Street对象（这里是部门对象）
 - 人、部门、地址、街道整个依赖关系对client透明
 - 后面如果发生变化和重构，外部无感知
-  ![](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/518b5b6521f9fa87ef2d7ae43ef81223.svg)
+  ![](https://raw.githubusercontent.com/guyuechen/gallery/main/img/518b5b6521f9fa87ef2d7ae43ef81223.svg)
   
 ```java
 /**

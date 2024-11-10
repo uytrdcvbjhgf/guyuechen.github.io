@@ -456,7 +456,7 @@ public class Client {
 ```
 
 重构前后类关系对比
-![](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/3629a70b4c7d11901952083b51116951.svg)![](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/88ded80c9e5d66c8712697049ea76e8b.svg)
+![](https://raw.githubusercontent.com/guyuechen/gallery/main/img/3629a70b4c7d11901952083b51116951.svg)![](https://raw.githubusercontent.com/guyuechen/gallery/main/img/88ded80c9e5d66c8712697049ea76e8b.svg)
 
 > 操作手法
 

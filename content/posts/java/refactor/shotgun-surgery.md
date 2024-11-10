@@ -31,7 +31,7 @@ tags = ['refactor']
 
 > 案例：某跨国公司员工的薪资管理
 
-![](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/2982f3748150256555c4f923f75c5556.svg)
+![](https://raw.githubusercontent.com/guyuechen/gallery/main/img/2982f3748150256555c4f923f75c5556.svg)
 
 > “霰弹式修改”有哪些表现？
 
@@ -441,7 +441,7 @@ public class PaySlip implements Cloneable {
 }
 ```
 
-![](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/83b8395695925a8ca52a7e643fb82bd3.svg)
+![](https://raw.githubusercontent.com/guyuechen/gallery/main/img/83b8395695925a8ca52a7e643fb82bd3.svg)
 
 > 操作手法
 

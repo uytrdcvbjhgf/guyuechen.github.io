@@ -299,7 +299,7 @@ public class StudentManager {
 > 通过转换为static（便于搬移）、搬移字段、函数等手法，将各自模块的数据尽可能移动到一起，消除模块间的循环依赖
 > 继续通过搬移字段、搬移函数、转换为instance方法等重构手法，将 student 、course 两个模 块共同的行为搬移到新的模块CourseSelectionManager中，消除潜在的循环依赖风险，且将student和course完全解耦
 
-![](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/4e1b54f68b81f7acc4bbc6dbe3176b2f.svg)![](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/eddaa382b3a43433d6d20d5e96b3cabf.svg)
+![](https://raw.githubusercontent.com/guyuechen/gallery/main/img/4e1b54f68b81f7acc4bbc6dbe3176b2f.svg)![](https://raw.githubusercontent.com/guyuechen/gallery/main/img/eddaa382b3a43433d6d20d5e96b3cabf.svg)
 
 > 改进后
 
@@ -685,8 +685,8 @@ public class Student {
 
 修改前
 
-<img src="https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/1687342674490-a91a51eb-62af-46a4-917b-3c76bafcca62.png" alt="image.png" style="zoom:80%;" />
+<img src="https://raw.githubusercontent.com/guyuechen/gallery/main/img/1687342674490-a91a51eb-62af-46a4-917b-3c76bafcca62.png" alt="image.png" style="zoom:80%;" />
 
 修改后
 
-<img src="https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/1687342699851-e0bf0bdb-4587-4595-aca2-b3512ec704d1.png" alt="image.png" style="zoom:80%;" />
+<img src="https://raw.githubusercontent.com/guyuechen/gallery/main/img/1687342699851-e0bf0bdb-4587-4595-aca2-b3512ec704d1.png" alt="image.png" style="zoom:80%;" />

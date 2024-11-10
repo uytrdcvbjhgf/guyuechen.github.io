@@ -39,7 +39,7 @@ Mock 可以理解为创建一个虚假的对象，或者说模拟出一个对象
 
 ## Mockito 中的常用方法
 
-<img src="https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/image-20230723142906360.png" alt="image-20230723142906360" style="zoom: 50%;" />
+<img src="https://raw.githubusercontent.com/guyuechen/gallery/main/img/image-20230723142906360.png" alt="image-20230723142906360" style="zoom: 50%;" />
 
 > `mock()` 与 `@Mock`
 
@@ -139,7 +139,7 @@ void check() {
 
 新版本的 Mockito 是支持 mock 静态方法的，因此省去了再引入 PowerMock 的必要。
 
-![image-20230723144610142](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/image-20230723144610142.png)
+![image-20230723144610142](https://raw.githubusercontent.com/guyuechen/gallery/main/img/image-20230723144610142.png)
 
 ```xml
 <!--注意: springboot版本为2.7.5-->
@@ -500,9 +500,9 @@ class RegistrationServiceImplTest {
 
 > 上述测试的结果
 
-![image-20230723175601472](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/image-20230723175601472.png)
+![image-20230723175601472](https://raw.githubusercontent.com/guyuechen/gallery/main/img/image-20230723175601472.png)
 
-![image-20230723175624378](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/image-20230723175624378.png)
+![image-20230723175624378](https://raw.githubusercontent.com/guyuechen/gallery/main/img/image-20230723175624378.png)
 
 # 其他参考资料
 

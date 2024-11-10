@@ -13,7 +13,7 @@ tags = ["git"]
 
 换个角度可以理解为「将分支的基础从一个提交改成另一个提交，使其看起来就像是从另一个提交中创建了分支一样」，如下图：
 
-<img src="https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/git-rebase-visual.png" alt="git-rebase.png" style="zoom: 50%;" />
+<img src="https://raw.githubusercontent.com/guyuechen/gallery/main/img/git-rebase-visual.png" alt="git-rebase.png" style="zoom: 50%;" />
 
 假设我们从 `Master` 的提交 A 创建了 `Feature` 分支进行新的功能开发，这时 A 就是 `Feature` 的基端。
 
@@ -60,7 +60,7 @@ A---B---C master
 
 执行过程如下图所示：
 
-![Dec-30-2020-merge-example](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/Dec-30-2020-merge-example.gif)
+![Dec-30-2020-merge-example](https://raw.githubusercontent.com/guyuechen/gallery/main/img/Dec-30-2020-merge-example.gif)
 
 提交历史如下：
 
@@ -88,7 +88,7 @@ A---B---C master
 
 执行过程如下图所示：
 
-![Dec-30-2020-rebase-example](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/Dec-30-2020-rebase-example.gif)
+![Dec-30-2020-rebase-example](https://raw.githubusercontent.com/guyuechen/gallery/main/img/Dec-30-2020-rebase-example.gif)
 
 提交历史如下：
 
@@ -149,7 +149,7 @@ git push --force
 
 > `git rebase`压缩commit的演示
 
-![image-20230715215554644](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/image-20230715215554644.png)
+![image-20230715215554644](https://raw.githubusercontent.com/guyuechen/gallery/main/img/image-20230715215554644.png)
 
 ```perl
 git rebase -i HEAD~n
@@ -169,11 +169,11 @@ squash # 使用该commit，将commit信息合入上一个commit
 fixup # 使用该commit，丢弃commit信息
 ```
 
-![image-20230715222035981](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/image-20230715222035981.png)
+![image-20230715222035981](https://raw.githubusercontent.com/guyuechen/gallery/main/img/image-20230715222035981.png)
 
 操作完之后，发现commit都合并成了一个。
 
-![image-20230715222355031](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/image-20230715222355031.png)
+![image-20230715222355031](https://raw.githubusercontent.com/guyuechen/gallery/main/img/image-20230715222355031.png)
 
 `git push --force` 强行提交！
 
@@ -396,7 +396,7 @@ Git 在自动合并时会使用「[递归三路合并](https://en.wikipedia.org/
 
 先从「三路合并」算法开始，假设我们有以下提交历史：
 
-![Dec-29-2020 22-40-46](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/Dec-29-2020-merge.gif)
+![Dec-29-2020 22-40-46](https://raw.githubusercontent.com/guyuechen/gallery/main/img/Dec-29-2020-merge.gif)
 
 上图中我们在 `master` 合并了 `feature` 分支，现在我们回溯一下合并的过程：
 
@@ -415,7 +415,7 @@ Git 在自动合并时会使用「[递归三路合并](https://en.wikipedia.org/
 
 三路合并算法的基础是找到被合并文件的共同祖先，在一些简单的场景中这还能行的通，但在遇到[十字交叉合并（criss-cross merge）](https://zh.wikipedia.org/wiki/合并_(版本控制)#cite_note-2)时，不存在唯一的最近共同祖先，如下图：
 
-<img src="https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/20201229152228-criss-cross-merge.png" alt="20201229152228-criss-cross-merge" style="zoom: 33%;" />
+<img src="https://raw.githubusercontent.com/guyuechen/gallery/main/img/20201229152228-criss-cross-merge.png" alt="20201229152228-criss-cross-merge" style="zoom: 33%;" />
 
 现在我们需要从 `main` 分支合并 `feature` 分支，即把 C7 合并到 C8，会发现 C8 和 C7 有两个共同祖先，这下怎么办呢？
 
@@ -494,7 +494,7 @@ Fast-forward
 
 过程如下：
 
-![Dec-29-2020 22-50-28](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/Dec-29-2020-fast-forward.gif)
+![Dec-29-2020 22-50-28](https://raw.githubusercontent.com/guyuechen/gallery/main/img/Dec-29-2020-fast-forward.gif)
 
 由于我们想要合并的分支 `feature` 所指向的提交 D 是 `master` 的直接后继， 因此 Git 会直接将 `HEAD` 指针向前移动。
 
@@ -546,7 +546,7 @@ a - b - c - d - f' - g'   master
 
 过程示意如下：
 
-![Jan-26-2021-git-cherry-pick](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/Jan-26-2021-git-cherry-pick.gif)
+![Jan-26-2021-git-cherry-pick](https://raw.githubusercontent.com/guyuechen/gallery/main/img/Jan-26-2021-git-cherry-pick.gif)
 
 在动图中，我们在开发主分支 `master` 添加了一些新的功能提交，修复了一些 bug 并合入了两个 `bugfix` 分支，然后又将 `bugfix` 分支中的所有提交 `cherry-pick` 到了 `release` 分支。
 
@@ -621,7 +621,7 @@ git checkout b15cc74
 
 `checkout` 命令的执行过程如以下动图所示：
 
-![Jan-11-2021-git-checkout](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/Jan-11-2021-git-checkout.gif)
+![Jan-11-2021-git-checkout](https://raw.githubusercontent.com/guyuechen/gallery/main/img/Jan-11-2021-git-checkout.gif)
 
 1. 首先 HEAD 会直接指向 `b15cc74` 提交，进入分离 HEAD 状态，即不再指向分支引用：
 
@@ -649,7 +649,7 @@ git checkout b15cc74 README.md
 
 执行过程如如以下动图所示：
 
-![Jan-11-2021-git-checkout-file](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/Jan-11-2021-git-checkout-file.gif)
+![Jan-11-2021-git-checkout-file](https://raw.githubusercontent.com/guyuechen/gallery/main/img/Jan-11-2021-git-checkout-file.gif)
 
 1. 它会找到该提交，并在该提交的文件快照中匹配文件路径对应的文件，但并**不会移动** HEAD：
 
@@ -671,7 +671,7 @@ git checkout b15cc74 README.md
 
 它的工作方式更多了，有 `—soft`、 `--mixed`、`--hard` 三种主要的命令选项，分别对应更新不同数量的树：
 
-<img src="https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/iShot2021-01-07-git-reset.png" alt="iShot2021-01-07 22.21.30" style="zoom: 33%;" />
+<img src="https://raw.githubusercontent.com/guyuechen/gallery/main/img/iShot2021-01-07-git-reset.png" alt="iShot2021-01-07 22.21.30" style="zoom: 33%;" />
 
 > `--soft`
 
@@ -700,7 +700,7 @@ git status
 
 执行过程如以下动图所示：
 
-![Jan-11-2021-git-reset-soft](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/Jan-11-2021-git-reset-soft.gif)
+![Jan-11-2021-git-reset-soft](https://raw.githubusercontent.com/guyuechen/gallery/main/img/Jan-11-2021-git-reset-soft.gif)
 
 1. 首先将 HEAD 及其指向的分支引用指向 `b15cc74` 提交，本示例中 HEAD 原本指向 `master` ，执行操作之后依然指向 `master`：
 
@@ -755,7 +755,7 @@ git status
 
 执行过程如以下动图所示：
 
-![Jan-11-2021-git-reset-mixed](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/Jan-11-2021-git-reset-mixed.gif)
+![Jan-11-2021-git-reset-mixed](https://raw.githubusercontent.com/guyuechen/gallery/main/img/Jan-11-2021-git-reset-mixed.gif)
 
 1. 更新 HEAD 指向 `b15cc74` 提交，重置提交历史的过程与 `--soft` 完全相同。
 2. 之后还会更新暂存区，将其填充为 `b15cc74` 提交的文件快照，暂存区中的原有内容将会丢失。
@@ -795,7 +795,7 @@ git status
 
 执行过程如以下动图所示：
 
-![Jan-11-2021-git-reset-hard](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/Jan-11-2021-git-reset-hard.gif)
+![Jan-11-2021-git-reset-hard](https://raw.githubusercontent.com/guyuechen/gallery/main/img/Jan-11-2021-git-reset-hard.gif)
 
 1. 更新 HEAD 指向 `b15cc74` 提交，重置提交历史的过程与 `--soft` 及 `--mixed` 选项相同。
 2. 更新暂存区，将其填充为 `b15cc74` 提交的文件快照，暂存区中的原有内容将会丢失。
@@ -882,7 +882,7 @@ git reset [<tree-ish>] <pathspec>…
 
 `revert` 操作会接收指定的提交，反转该提交引入的更改，并创建一个新的「回滚提交」记录反转更改，然后更新分支引用，使其指向该提交。如以下动图所示：
 
-![Jan-11-2021-git-revert](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/Jan-11-2021-git-revert.gif)
+![Jan-11-2021-git-revert](https://raw.githubusercontent.com/guyuechen/gallery/main/img/Jan-11-2021-git-revert.gif)
 
 相比 `reset` ，`revert` 会在提交历史中增加一个新的提交，而不会对之前的提交进行任何更改。 默认情况下 `revert` 会自动执行如下步骤：
 
@@ -1134,13 +1134,13 @@ git clone git@companygit:szv-y.codehub.huawei.com:2222/om/fsm.git
 
 Github 一般是公开库，当然没有人愿意别人直接在自己的仓库上面修改代码。当然当其他人想要给自己合并代码时，一般是要 fork 一个仓库，然后在开发者自己的仓库开发，开发完成后给原创仓库提交PR合并请求，请求原仓库主人把你的代码拉（pull）回去。
 
-<img src="https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/image-20230716195851143.png" alt="image-20230716195851143" style="zoom: 25%;" />
+<img src="https://raw.githubusercontent.com/guyuechen/gallery/main/img/image-20230716195851143.png" alt="image-20230716195851143" style="zoom: 25%;" />
 
 > 一般的 Gitlab 工作流程
 
 Gitlab 一般是公司的私有库，一个工作团队维护一个仓库，通常大家会新建自己的开发分支，开发完成后，把代码合并到主分支。
 
-<img src="https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/image-20230716200013551.png" alt="image-20230716200013551" style="zoom: 25%;" />
+<img src="https://raw.githubusercontent.com/guyuechen/gallery/main/img/image-20230716200013551.png" alt="image-20230716200013551" style="zoom: 25%;" />
 
 > BUT
 
@@ -1165,7 +1165,7 @@ Pull Request 和 Merge Request 是一个东西。
 
 这是最常见和最直接的合并方式，也是 GitHub 和 GitLab 等代码托管平台的默认实现方式。
 
-![Dec-29-2020 22-40-46](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/Dec-29-2020-merge.gif)
+![Dec-29-2020 22-40-46](https://raw.githubusercontent.com/guyuechen/gallery/main/img/Dec-29-2020-merge.gif)
 
 当我们将功能分支合入主分支时，Git 会对两个分支进行递归三路合并，并以合并结果创建一个新的 Merge 提交。
 
@@ -1204,7 +1204,7 @@ git merge feature
 
 过程如下图所示：
 
-![Dec-31-2020-rebase&fast-forfward](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/Dec-31-2020-rebase&fast-forfward.gif)
+![Dec-31-2020-rebase&fast-forfward](https://raw.githubusercontent.com/guyuechen/gallery/main/img/Dec-31-2020-rebase&fast-forfward.gif)
 
 我们首先用 `rebase` 将 `master` 合并到了 `feature`，即使两个分支都有不同的提交，也得到了一条完全线性的 `feature` 分支。
 
@@ -1635,7 +1635,7 @@ ea4c48a0984880bda4031f0713229229c12793e4
 
 最后，让我们来看一下三棵树之间的工作流程：
 
-<img src="https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/git-three-trees.png" alt="Untitled" style="zoom:25%;" />
+<img src="https://raw.githubusercontent.com/guyuechen/gallery/main/img/git-three-trees.png" alt="Untitled" style="zoom:25%;" />
 
 1. 假设我们进入到一个新目录，其中有一个 `README` 文件。此时暂存区为空，提交历史为空，HEAD 引用指向未创建的 `master` 分支。
 2. 现在我们想提交该文件，首先需要通过 `git add` 将其添加到暂存区。此时 Git 将在 `.git/objects` 目录中以该文件的内容生成一个 `blob` 对象，并将 `blob` 对象的信息添加到 `.git/index` 文件中。

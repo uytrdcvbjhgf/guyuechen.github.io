@@ -288,7 +288,7 @@ public class KeepPetCosts {
 ```
 
 
-![](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/a8e699132676ecd53af6716cd901c0ff.svg)> 操作手法
+![](https://raw.githubusercontent.com/guyuechen/gallery/main/img/a8e699132676ecd53af6716cd901c0ff.svg)> 操作手法
 
 | 操作                   | 快捷键（推荐）                            | Ctrl+Alt+Shift+T（或：鼠标右键“Refactor”） |
 | ---------------------- | ----------------------------------------- | ------------------------------------------ |

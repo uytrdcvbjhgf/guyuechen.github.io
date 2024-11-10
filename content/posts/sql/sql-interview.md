@@ -65,7 +65,7 @@ order by sum(score) desc
 limit 1
 ```
 
-![image-20231004144944663](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/image-20231004144944663.png)
+![image-20231004144944663](https://raw.githubusercontent.com/guyuechen/gallery/main/img/image-20231004144944663.png)
 
 ```sql
 -- 查出分数为最高分的所有学生id
@@ -80,7 +80,7 @@ having sum(score) =
 )
 ```
 
-![image-20231004145042418](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/image-20231004145042418.png)
+![image-20231004145042418](https://raw.githubusercontent.com/guyuechen/gallery/main/img/image-20231004145042418.png)
 
 ```sql
 -- 两表连接得到其他需要的信息
@@ -102,7 +102,7 @@ ON
 s.id = t.student_id
 ```
 
-![image-20231004145258381](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/image-20231004145258381.png)
+![image-20231004145258381](https://raw.githubusercontent.com/guyuechen/gallery/main/img/image-20231004145258381.png)
 
 > 求单科最高的学生的名字以及他们的分数
 
@@ -113,7 +113,7 @@ from score
 group by course_id
 ```
 
-![image-20231004152115447](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/image-20231004152115447.png)
+![image-20231004152115447](https://raw.githubusercontent.com/guyuechen/gallery/main/img/image-20231004152115447.png)
 
 ```sql
 -- 查出得到单科最高分的所有学生（单表自连接）
@@ -131,7 +131,7 @@ and
 s1.score = s2.max_score
 ```
 
-![image-20231004152156889](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/image-20231004152156889.png)
+![image-20231004152156889](https://raw.githubusercontent.com/guyuechen/gallery/main/img/image-20231004152156889.png)
 
 ```sql
 -- 最后再两表连接得到其他需要的信息（最后2个left join就是让id转成对应释义）
@@ -148,4 +148,4 @@ left join course c on c.id = s1.course_id
 left join student st on st.id = s1.student_id
 ```
 
-![image-20231004152226326](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/image-20231004152226326.png)
+![image-20231004152226326](https://raw.githubusercontent.com/guyuechen/gallery/main/img/image-20231004152226326.png)

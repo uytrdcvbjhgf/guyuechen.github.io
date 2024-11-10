@@ -32,7 +32,7 @@ tags = ['refactor']
 - 当前系统使用的房屋数据模型，包含单价、面积、竣工时间，以及对应的get方法
 - 封装了房屋数据处理方法的类
 - 专门处理大房子信息的类，设计之初曾拥有很多职责，演进过程中其他功能逐渐删除，当前只剩判断是否是大房子的方法
-  ![](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/32a3667cf4ce4cfd804efe5ec45ce255.svg)
+  ![](https://raw.githubusercontent.com/guyuechen/gallery/main/img/32a3667cf4ce4cfd804efe5ec45ce255.svg)
 
 **症状/问题**
 
