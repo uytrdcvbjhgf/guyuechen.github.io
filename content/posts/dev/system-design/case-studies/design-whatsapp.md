@@ -22,6 +22,8 @@ Implement the `WhatsApp` class:
 - `void sendGroupMessage(int fromUser, int groupId, String message)` Sends a message with the text `message` by the user with id: `fromUser` to the group with id: `groupId`. The message should be sent to all members of the group **except** the sender. Users added afterwards to the group should **not** receive the message. Also, this call should be **ignored** if the user is not a part of the group, or if the group does not exist.
 - `List<String> getMessagesForUser(int userId)` Returns all the personal and group messages that were sent to the user with id: `userId` ordered by the **latest** ones first.
 
+
+
 ### Example 1:
 
 ```
@@ -54,6 +56,8 @@ whatsApp.getMessagesForUser(4); // return ["seeyousoon", "hellofour"]
                                // Two messages were sent to user 4, so we return them.
                                // Note that user 4 did not receive the message "helloeveryone".
 ```
+
+
 
 ### Constraints:
 
