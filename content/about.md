@@ -7,7 +7,7 @@ summary: about
 
 ## Skills
 
-- Languages: Java, C/C++, JavaScript/TypeScript, Python, Go  
+- Languages: Java, C/C++, JavaScript/TypeScript, Python, Go, Perl
 - Cloud Platforms: AWS, Azure, Aliyun  
 - DevOps: Docker, Kubernetes, Jenkins, Ansible, Terraform  
 - Databases: MySQL, Oracle, DB2, PostgreSQL, MongoDB, Redis  
