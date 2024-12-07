@@ -3,7 +3,6 @@ title = 'Design Facebook'
 date = 2024-11-30T22:32:01+08:00
 categories = ["system-design"]
 tags = ["system-design"]
-
 +++
 
 Design a system like **Facebook** with the following features:
