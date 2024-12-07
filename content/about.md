@@ -11,7 +11,7 @@ summary: about
 - Cloud Platforms: AWS, Azure, Aliyun  
 - DevOps: Docker, Kubernetes, Jenkins, Ansible, Terraform  
 - Databases: MySQL, Oracle, DB2, PostgreSQL, MongoDB, Redis  
-- Frameworks: Spring (Spring Boot, Spring Cloud), Vue, Angular, React, Selenium, Cucumber, Robot Framework, pytest, JUnit, Spock, etc.  
+- Frameworks: Spring (Spring Boot, Spring Cloud), Vue, Angular, React, Cucumber, Robot Framework, pytest, Selenium, JUnit, Spock, etc.  
 - CI/CD pipelines setup and automation, large-scale distributed systems design.
 
 <br>
