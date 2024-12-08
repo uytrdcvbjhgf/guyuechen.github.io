@@ -1,5 +1,5 @@
 +++
-title = 'Aop'
+title = '面向切面编程 (AOP)'
 date = 2024-12-08T20:29:23+08:00
 categories = ['java']
 tags = ['java', "spring", "springboot"]
@@ -376,7 +376,7 @@ public class LoggingAspect {
 }
 ```
 
-#### **详细说明：**
+**详细说明：**
 
 - **@Pointcut**：定义切入点，指定在哪些方法上应用日志。
 - **@Before**：在方法执行之前记录方法名称和参数。
@@ -406,7 +406,7 @@ public class PerformanceAspect {
 }
 ```
 
-#### **详细说明：**
+**详细说明：**
 
 - **@Around**：环绕通知能够在方法前后添加逻辑，并决定是否执行目标方法。
 - **ProceedingJoinPoint**：用于调用目标方法，支持方法参数和返回值的处理。
