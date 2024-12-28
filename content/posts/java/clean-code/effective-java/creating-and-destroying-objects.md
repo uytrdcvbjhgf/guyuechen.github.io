@@ -3,7 +3,6 @@ title = '《Effective Java》精读之创建和销毁对象'
 date = 2024-12-28T21:13:59+08:00
 categories = ['java']
 tags = ['java','effective-java']
-
 +++
 
 在《Effective Java》第3版中，创建和销毁对象是一个非常基础且重要的主题。本篇文章将深入讨论关于如何高效、安全地创建和销毁对象的最佳实践，从而帮助你在编写Java代码时做出更好的决策，提升代码质量和性能。
