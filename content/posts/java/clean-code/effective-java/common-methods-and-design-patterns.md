@@ -1,5 +1,5 @@
 +++
-title = 'Common Methods and Design Patterns'
+title = '《Effective Java》精读之通用方法和设计模式'
 date = 2024-12-28T21:27:34+08:00
 categories = ['java']
 tags = ['java','effective-java']

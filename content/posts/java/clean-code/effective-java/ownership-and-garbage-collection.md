@@ -1,5 +1,5 @@
 +++
-title = 'Ownership and Garbage Collection'
+title = '《Effective Java》精读之所有权和垃圾回收'
 date = 2024-12-28T21:23:58+08:00
 categories = ['java']
 tags = ['java','effective-java']
