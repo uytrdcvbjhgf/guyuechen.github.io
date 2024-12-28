@@ -123,8 +123,8 @@ public class Car {
 
 **代码示例：**
 
-```
-java复制代码// 单例模式实现
+```java
+// 单例模式实现
 public class Singleton {
     private static final Singleton instance = new Singleton();
 
