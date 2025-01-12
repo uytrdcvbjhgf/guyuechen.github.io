@@ -5,182 +5,248 @@ categories = ['java']
 tags = ['java','effective-java']
 +++
 
-在《Effective Java》第3版中，创建和销毁对象是一个非常基础且重要的主题。本篇文章将深入讨论关于如何高效、安全地创建和销毁对象的最佳实践，从而帮助你在编写Java代码时做出更好的决策，提升代码质量和性能。
+### 1. 考虑使用构造器代替可变参数的工厂方法
 
-## 1. **考虑使用构造器代替可变参数的工厂方法**
+在面对多个构造参数时，工厂方法提供了一种灵活的选择，但若可变参数的数量和类型太多时，会使得代码变得难以理解和使用。使用构造器更简洁明了，特别是在参数数量较少时。
 
-**总结：**
-
-Java提供了可变参数（Varargs）作为一种方便的方法来处理多个参数。然而，过度依赖可变参数会导致代码在可读性和类型安全上出现问题。工厂方法（Factory Method）通常比可变参数方法更易于理解和使用，尤其是在需要更多控制时。
+**总结：** 使用构造器代替可变参数的工厂方法，能提高代码的简洁性和可维护性。工厂方法更适用于有多个选项的构造，而构造器则适合简单的对象创建。
 
 **代码示例：**
 
 ```java
-// 使用可变参数的方法
-public class Product {
-    private String name;
-    private double price;
+public class NutritionFacts {
+    private final int servingSize;  // 每份的量
+    private final int servings;     // 每个包装的份数
+    private final int calories;     // 每份的卡路里
+    private final int fat;          // 每份的脂肪
 
-    public Product(String... params) {
-        if (params.length == 2) {
-            this.name = params[0];
-            this.price = Double.parseDouble(params[1]);
+    // 构造器代替了可变参数的工厂方法
+    public NutritionFacts(int servingSize, int servings, int calories, int fat) {
+        this.servingSize = servingSize;
+        this.servings = servings;
+        this.calories = calories;
+        this.fat = fat;
+    }
+}
+```
+
+核心点：通过构造器传递每个参数，避免了使用工厂方法时可能带来的复杂性和可变参数问题。
+
+---
+
+### 2. 考虑使用构建器模式
+
+当构造方法需要传入大量参数时，构建器模式是一种非常好的解决方案，它将构建过程分解成多个步骤，让代码更加清晰。
+
+**总结：** 构建器模式特别适合参数多且不可选的构造函数，可以逐步设置参数，提高代码可读性和可维护性。
+
+**代码示例：**
+
+```java
+public class NutritionFacts {
+    private final int servingSize;
+    private final int servings;
+    private final int calories;
+    private final int fat;
+    
+    public static class Builder {
+        // 这是构建器的成员变量
+        private final int servingSize;
+        private final int servings;
+        private int calories = 0; // 默认值
+        private int fat = 0;      // 默认值
+
+        // 构建器的构造函数，接受必须的参数
+        public Builder(int servingSize, int servings) {
+            this.servingSize = servingSize;
+            this.servings = servings;
+        }
+
+        // 方法链式设置可选参数
+        public Builder calories(int calories) {
+            this.calories = calories;
+            return this;
+        }
+
+        public Builder fat(int fat) {
+            this.fat = fat;
+            return this;
+        }
+
+        // 构建方法
+        public NutritionFacts build() {
+            return new NutritionFacts(this);
         }
     }
-}
 
-// 使用工厂方法
-public class Product {
-    private String name;
-    private double price;
-
-    private Product(String name, double price) {
-        this.name = name;
-        this.price = price;
-    }
-
-    public static Product createProduct(String name, double price) {
-        return new Product(name, price);
+    // 使用构建器的构造函数来初始化 NutritionFacts 对象
+    private NutritionFacts(Builder builder) {
+        this.servingSize = builder.servingSize;
+        this.servings = builder.servings;
+        this.calories = builder.calories;
+        this.fat = builder.fat;
     }
 }
 ```
 
-在此示例中，使用工厂方法`createProduct()`代替了带有可变参数的构造器，使得代码更加明确和类型安全。
+核心点：通过Builder模式分步初始化对象，避免了构造函数参数过多的复杂性，并允许灵活设置参数。
 
-## 2. **避免创建不必要的对象**
+---
 
-**总结：**
+### 3. 强制单例属性，通过私有构造器或枚举类型
 
-每个对象的创建都有一定的性能开销，尤其是在高频操作中。避免不必要的对象创建可以提高程序的性能。在Java中，如果多个地方使用相同的数据，最好复用对象而不是每次都创建新对象。
+确保类只有一个实例时，可以使用私有构造器或枚举类型来实现单例模式。枚举类型是实现单例模式最简单且线程安全的方式。
+
+**总结：** 单例模式确保类只有一个实例，并且防止通过构造器创建其他实例。枚举类型是实现单例的最佳选择。
 
 **代码示例：**
 
 ```java
-// 不必要的对象创建
-public class DataProcessor {
-    public void process() {
-        String temp = new String("Hello");
-        System.out.println(temp);
-    }
-}
+public enum Singleton {
+    INSTANCE;
 
-// 更好的做法，复用现有对象
-public class DataProcessor {
-    private static final String HELLO = "Hello";
-
-    public void process() {
-        System.out.println(HELLO);
+    public void doSomething() {
+        System.out.println("Doing something...");
     }
 }
 ```
 
-在这个例子中，避免了每次调用`process()`方法时都创建一个新的`String`对象，而是复用了常量`HELLO`，提高了性能。
+核心点：通过`enum`类型来实现单例模式，它本身就是线程安全的，且由JVM保证只会存在一个实例。
 
-## 3. **使对象不可变**
+---
 
-**总结：**
+### 4. 强制不可实例化，通过私有构造器
 
-不可变对象是设计良好的对象，它们的状态在对象创建后无法改变。这种设计不仅可以避免并发问题，还能使得代码更加简洁和安全。在设计不可变对象时，应避免提供任何修改对象状态的方法。
+如果类不应该被实例化，可以通过私有构造器禁止外部代码实例化该类，确保只有静态方法可以访问。
+
+**总结：** 使用私有构造器来防止类被实例化，这通常适用于工具类或只需要静态方法的类。
 
 **代码示例：**
 
 ```java
-// 可变对象
-public class User {
-    private String name;
-
-    public void setName(String name) {
-        this.name = name;
+public class UtilityClass {
+    // 私有构造器确保不能实例化
+    private UtilityClass() {
+        throw new AssertionError("Cannot instantiate UtilityClass");
     }
 
-    public String getName() {
-        return name;
-    }
-}
-
-// 不可变对象
-public final class User {
-    private final String name;
-
-    public User(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
+    public static void utilityMethod() {
+        System.out.println("Utility method invoked");
     }
 }
 ```
 
-不可变对象`User`的状态一旦设定就不可改变，确保了线程安全和数据的一致性。
+核心点：通过私有构造器，类变得不可实例化，确保工具类只提供静态方法，不会被误用。
 
-## 4. **考虑使用静态工厂方法**
+---
 
-**总结：**
+### 5. 优先使用依赖注入，而非硬编码资源
 
-静态工厂方法相比于构造器有几个优点：它们允许命名创建方法，能够返回父类类型（即灵活的多态），以及可以缓存对象以提高性能（例如单例模式）。静态工厂方法可以使得代码更加清晰和可维护。
+依赖注入（DI）是一种常用的设计模式，通过外部注入依赖，而不是在类内部硬编码资源，这有助于提高代码的可测试性和灵活性。
+
+**总结：** 依赖注入有助于降低类之间的耦合度，使得代码更易于测试和维护。
 
 **代码示例：**
 
 ```java
-// 构造器
-public class DatabaseConnection {
-    public DatabaseConnection() {
-        // 初始化数据库连接
-    }
-}
+public class DatabaseService {
+    private final DatabaseConnection connection;
 
-// 静态工厂方法
-public class DatabaseConnection {
-    private static final DatabaseConnection INSTANCE = new DatabaseConnection();
-
-    private DatabaseConnection() {
-        // 初始化数据库连接
+    // 通过构造器注入依赖
+    public DatabaseService(DatabaseConnection connection) {
+        this.connection = connection;
     }
 
-    public static DatabaseConnection getInstance() {
-        return INSTANCE;
+    public void queryDatabase() {
+        connection.connect();
+        // 执行数据库查询
     }
 }
 ```
 
-静态工厂方法`getInstance()`可以确保`DatabaseConnection`对象的唯一性，这样的设计能够提高性能并减少资源消耗。
+核心点：通过构造器注入数据库连接对象，避免了硬编码的依赖，增加了灵活性和可测试性。
 
-## 5. **避免使用“清理”方法，如`finalize`**
 
-**总结：**
 
-`finalize()`方法曾经用于清理对象占用的资源，但其不确定的调用时机和垃圾回收的不可预测性使得它难以使用。Java 9及以后版本已经废弃了`finalize()`方法，因此不推荐使用它来处理资源的释放。更好的做法是使用`try-with-resources`语句或显式的清理方法。
+### 6. 避免创建不必要的对象
+
+避免无意义的对象创建，尤其是当对象的生命周期很短或重复创建时，这会带来不必要的性能开销。
+
+**总结：** 在可能的情况下，尽量避免不必要的对象创建，可以通过共享对象或缓存策略来减少对象创建的次数。
 
 **代码示例：**
 
 ```java
-// 使用finalize方法
-public class Resource {
-    @Override
-    protected void finalize() throws Throwable {
-        // 释放资源
-        System.out.println("Cleaning up resources...");
+public class StringPool {
+    public static void main(String[] args) {
+        // 使用String池机制避免创建不必要的对象
+        String s1 = "Hello";
+        String s2 = "Hello";
+
+        System.out.println(s1 == s2);  // 输出 true，表示共享了同一个对象
     }
 }
+```
 
-// 使用try-with-resources
-public class Resource implements AutoCloseable {
+核心点：通过Java的String池机制来避免不必要的对象创建。
+
+---
+
+### 7. 消除过时的对象引用
+
+如果某个对象不再被使用，及时将其引用设置为`null`或通过其他方式释放引用，以便垃圾回收器可以回收资源。
+
+**总结：** 对象的引用需要及时清理，以防止内存泄漏。
+
+**代码示例：**
+
+```java
+public class MemoryManager {
+    private SomeResource resource;
+
+    public void releaseResource() {
+        resource = null;  // 释放对资源的引用，允许GC回收
+    }
+}
+```
+
+核心点：通过将不再需要的对象引用设为`null`，帮助垃圾回收器回收资源，避免内存泄漏。
+
+---
+
+### 8. 避免使用finalizer和清理方法
+
+`finalize`方法已被废弃，尽量避免使用它来清理资源。应该使用`try-with-resources`或显式的关闭方法来释放资源。
+
+**总结：** 避免使用`finalize`方法，优先使用`try-with-resources`来管理资源，确保资源及时释放。
+
+**代码示例：**
+
+```java
+public class ResourceHandler implements AutoCloseable {
     @Override
     public void close() {
-        // 释放资源
-        System.out.println("Cleaning up resources...");
+        // 清理资源
     }
-}
-
-// 在使用时
-try (Resource resource = new Resource()) {
-    // 使用资源
 }
 ```
 
-使用`AutoCloseable`接口和`try-with-resources`确保了资源能够在使用完毕后及时释放，避免了`finalize()`的不确定性和性能问题。
+核心点：`try-with-resources`确保资源自动关闭，避免了使用`finalize`带来的问题。
 
-------
+---
 
-在《Effective Java》第3版中，关于创建和销毁对象的最佳实践为我们提供了很多有用的指导。通过避免不必要的对象创建、使用不可变对象、合理使用工厂方法以及避免`finalize()`等不稳定的清理方法，我们可以写出更高效、可维护且易于理解的Java代码。在日常开发中，掌握这些最佳实践，不仅能提高程序的性能，还能减少因错误使用对象生命周期管理带来的问题。
+### 9. 优先使用try-with-resources，而非try-finally
+
+**总结：** `try-with-resources`语句是处理资源的最佳方式，能自动关闭资源，减少了代码复杂度，并且避免资源泄漏。
+
+**代码示例：**
+
+```java
+try (BufferedReader br = new BufferedReader(new FileReader("file.txt"))) {
+    String line = br.readLine();
+    System.out.println(line);
+} catch (IOException e) {
+    e.printStackTrace();
+}
+```
+
