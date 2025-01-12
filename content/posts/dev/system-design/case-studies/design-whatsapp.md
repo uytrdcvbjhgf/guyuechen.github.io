@@ -153,60 +153,60 @@ class WhatsApp {
     }
 }
 
-class IdGen{
+class IdGen {
     int next;
     
-    public IdGen(){
+    public IdGen() {
         next = 1;
     }
     
-    public int genId(){
+    public int genId() {
         return next++;
     }
 }
 
-class User{
+class User {
     List<Message> messages;
     
-    public User(){
+    public User() {
         messages = new LinkedList<>();
     }
     
-    public void receiveMessage(Message msg){
+    public void receiveMessage(Message msg) {
         messages.add(0, msg);
     }
     
-    public List<Message> getMessages(){
+    public List<Message> getMessages() {
         return messages;
     }
 }
 
-class Group{
+class Group {
     List<User> members;
     
-    public Group(List<User> initialMembers){
+    public Group(List<User> initialMembers) {
         members = new LinkedList<>();
         members.addAll(initialMembers);
     }
     
-    public void addMember(User user){
+    public void addMember(User user) {
         if(!isMember(user)) {
             members.add(user);
         }
     }
     
-    public void sendToMembers(User sender, Message msg){
+    public void sendToMembers(User sender, Message msg) {
         if(!isMember(sender)) {
             return;
         }
-        for(User member : members){
+        for(User member : members) {
             if(sender != member) {
                 member.receiveMessage(msg);
             }
         }
     }
     
-    private boolean isMember(User user){
+    private boolean isMember(User user) {
         return members.contains(user);
     }
 }
@@ -214,11 +214,11 @@ class Group{
 class Message{
     String contents;
     
-    public Message(String contents){
+    public Message(String contents) {
         this.contents = contents;
     }
     
-    public String getContents(){
+    public String getContents() {
         return contents;
     }
 }
