@@ -3,7 +3,6 @@ title = 'Design Uber'
 date = 2024-12-28T15:36:25+08:00
 categories = ["system-design"]
 tags = ["system-design"]
-
 +++
 
 Implement a **Cab Booking Application** (like Uber) which facilitates:
