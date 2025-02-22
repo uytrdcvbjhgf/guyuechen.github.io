@@ -137,12 +137,10 @@ class RateLimiter {
 		timeWindow = T;
 	}
 
-	// Returns true if there were less than N requests that we allowed in the last T seconds.
 	public boolean shouldAllow(int timestamp) {
 
 		int minAllowedTime = timestamp - timeWindow+1 ;
 		while(allowedRequests.size() > 0 && allowedRequests.getFirst() < minAllowedTime) {
-			// Request is in the past when we don't care. Remove it from the queue.
 			allowedRequests.removeFirst();
 		}
 		if(allowedRequests.size() < limit) {
