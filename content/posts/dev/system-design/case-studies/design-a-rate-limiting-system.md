@@ -128,27 +128,26 @@ public class RateLimiter {
  * boolean param_1 = obj.shouldAllow(timestamp);
  */
 class RateLimiter {
-
-	int limit;
-	int timeWindow;
-	LinkedList<Integer> allowedRequests = new LinkedList<>();
-	public RateLimiter(int N, int T) {
-		limit = N;
-		timeWindow = T;
+    
+    int limit;
+    int timeWindow;
+    LinkedList<Integer> allowedRequests = new LinkedList<>();
+    public RateLimiter(int N, int T) {
+        limit = N;
+        timeWindow = T;
 	}
 
-	public boolean shouldAllow(int timestamp) {
-
-		int minAllowedTime = timestamp - timeWindow+1 ;
+    public boolean shouldAllow(int timestamp) {
+        int minAllowedTime = timestamp - timeWindow+1 ;
 		while(allowedRequests.size() > 0 && allowedRequests.getFirst() < minAllowedTime) {
-			allowedRequests.removeFirst();
-		}
-		if(allowedRequests.size() < limit) {
-			allowedRequests.add(timestamp);
+            allowedRequests.removeFirst();
+        }
+        if(allowedRequests.size() < limit) {
+            allowedRequests.add(timestamp);
 			return true;
-		}
-		return false;
-	}
+        }
+        return false;
+    }
 }
 ```
 
