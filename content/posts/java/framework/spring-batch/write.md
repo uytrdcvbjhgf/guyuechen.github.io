@@ -1,5 +1,5 @@
 +++
-title = 'Write'
+title = 'SpringBatch中的I/O（数据输入）'
 date = 2025-02-25T20:03:01+08:00
 categories = ['java']
 tags = ['java', "spring", "springboot", "springbatch"]
