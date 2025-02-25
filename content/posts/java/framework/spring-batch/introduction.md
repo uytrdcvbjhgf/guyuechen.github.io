@@ -235,27 +235,20 @@ spring.batch.jdbc.initialize-schema=always
 #### `JobInstance` 
 
 该概念与`Job`的关系和 Java 中实例和类的关系一样。
-
 `Job`定义了一个工作流程，`JobInstance`就是该工作流程的一个具体实例。
-
 一个`Job`可以有多个`JobInstance`。
-
 多个`JobInstance`的区别其实就是下述`JobParameters`的不同导致的。
 
 #### `JobParameters `
 
 是组可以贯穿整`Job`的运行时配置参数。
-
 不同的配置将产生不同的`JobInstance`。
-
 如果你是使用相同的`JobParameters`运行同一个`Job`，那么这次运行会重用上次的参数。
 
 #### `JobExecution `
 
 该概念表示`JobInstance`的一次运行。 
-
 `JobInstance`运行时可能会成功或者失败。
-
 每次`JobInstance`的运行都会产生 1个`JobExecution`。（即便每次的参数都一样）
 
 ![img](https://raw.githubusercontent.com/guyuechen/gallery/main/img/1680057296693-dab38cc7-ff8d-4952-936d-0893610d8f21.png)
@@ -263,9 +256,7 @@ spring.batch.jdbc.initialize-schema=always
 #### `StepExecution` 
 
 类似于`JobExecution`，该对象表示`Step`的运行。
-
 `Step`是`Job`的一部分，因此一个`StepExecution`会关联到一个`JobExecution`。
-
 另外，该对象还会存储如下`Step`运行相关的所有信息。
 
 ![img](https://raw.githubusercontent.com/guyuechen/gallery/main/img/1680057534057-292bb6b7-46ef-49bf-ab96-39b9b669a751.png)
@@ -273,11 +264,7 @@ spring.batch.jdbc.initialize-schema=always
 #### `ExecutionContext` 
 
 即上下文，有`JobExecutionContext`和`StepExecutionContext`两种分别对应前面的Job/Step。
-
 从前面的`JobExecution`、`StepExecution`的属性介绍中已经提到该概念。
-
 说穿了，该概念就是指一个容器。（类似于 Spring 中的 ApplicationContext）
-
 该容器由 Batch框架 控制，框架会对该容器持久化。
-
 开发者可以使用该容器保存一些信息，以支持在整个`Job`或`Step`中共享这些数据。（依赖注入）

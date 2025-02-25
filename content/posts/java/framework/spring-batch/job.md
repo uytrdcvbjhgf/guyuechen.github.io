@@ -7,6 +7,8 @@ tags = ['java', "spring", "springboot", "springbatch"]
 
 ## 2. 作业流
 
+![image-20250225200155488](https://raw.githubusercontent.com/guyuechen/gallery/main/img/202502252001560.png)
+
 ### 2.1 Job 的创建和使用
 
 `Job`：批处理中的核心概念，是 Batch操作的基础单元。每个`Job`有1个或多个`Step`。
