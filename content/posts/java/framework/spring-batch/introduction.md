@@ -5,7 +5,7 @@ categories = ['java']
 tags = ['java', "spring", "springboot", "springbatch"]
 +++
 
-# 1. 简介
+## 1. 简介
 
 Spring Batch是一个基于Spring框架的批处理框架，它提供了一组完整的API和工具，用于处理大量数据操作，例如读取、处理和写入数据。Spring Batch具有高度可扩展性，允许处理从小型到大型、复杂的批处理作业。
 
@@ -23,7 +23,7 @@ https://gitee.com/gu-yuechen/spring-batch-study
 
 
 
-## 1.1 学习资源与概述
+### 1.1 学习资源与概述
 
 对于 Spring Batch 的学习资料，[Spring的官方文档](https://docs.spring.io/spring-batch/docs/current/api/) 是最好的起点。
 
@@ -39,7 +39,7 @@ https://gitee.com/gu-yuechen/spring-batch-study
 - Start/Stop/Restart (启动/停止/再启动) 
 - Retry/Skip (重试/跳过)
 
-![img](https://raw.githubusercontent.com/guyuechen/gallery/main/img/1679994270947-1fbac15e-a677-4fce-87a2-2ff4b91c649a.png)
+![image-20250225194609740](https://raw.githubusercontent.com/guyuechen/gallery/main/img/202502251946862.png)
 
 该框架一共有**4个主要角色**：
 
@@ -50,7 +50,7 @@ https://gitee.com/gu-yuechen/spring-batch-study
 
 
 
-## 1.2 搭建 SpringBatch 项目
+### 1.2 搭建 SpringBatch 项目
 
 > https://start.spring.io/
 
@@ -116,7 +116,7 @@ pom.xml
 
 
 
-## 1.3 SpringBatch 入门级程序
+### 1.3 SpringBatch 入门级程序
 
 JobConfiguration.java
 
@@ -180,7 +180,7 @@ public class JobConfiguration {
 
 
 
-## 1.4 DB 替换为 MySQL
+### 1.4 DB 替换为 MySQL
 
 pom.xml
 
@@ -226,13 +226,13 @@ spring.batch.jdbc.initialize-schema=always
 
 
 
-## 1.5 核心 API 介绍
+### 1.5 核心 API 介绍
 
-![img](https://raw.githubusercontent.com/guyuechen/gallery/main/img/1679994270947-1fbac15e-a677-4fce-87a2-2ff4b91c649a.png)
+![image-20250225194814909](https://raw.githubusercontent.com/guyuechen/gallery/main/img/202502251948989.png)
 
-![img](https://raw.githubusercontent.com/guyuechen/gallery/main/img/1680056544918-3c1d4acf-9229-4960-be95-f9a91f5f98df.png)
 
-### `JobInstance` 
+
+#### `JobInstance` 
 
 该概念与`Job`的关系和 Java 中实例和类的关系一样。
 
@@ -242,7 +242,7 @@ spring.batch.jdbc.initialize-schema=always
 
 多个`JobInstance`的区别其实就是下述`JobParameters`的不同导致的。
 
-### `JobParameters `
+#### `JobParameters `
 
 是组可以贯穿整`Job`的运行时配置参数。
 
@@ -250,7 +250,7 @@ spring.batch.jdbc.initialize-schema=always
 
 如果你是使用相同的`JobParameters`运行同一个`Job`，那么这次运行会重用上次的参数。
 
-### `JobExecution `
+#### `JobExecution `
 
 该概念表示`JobInstance`的一次运行。 
 
@@ -260,7 +260,7 @@ spring.batch.jdbc.initialize-schema=always
 
 ![img](https://raw.githubusercontent.com/guyuechen/gallery/main/img/1680057296693-dab38cc7-ff8d-4952-936d-0893610d8f21.png)
 
-### `StepExecution` 
+#### `StepExecution` 
 
 类似于`JobExecution`，该对象表示`Step`的运行。
 
@@ -270,7 +270,7 @@ spring.batch.jdbc.initialize-schema=always
 
 ![img](https://raw.githubusercontent.com/guyuechen/gallery/main/img/1680057534057-292bb6b7-46ef-49bf-ab96-39b9b669a751.png)
 
-### `ExecutionContext` 
+#### `ExecutionContext` 
 
 即上下文，有`JobExecutionContext`和`StepExecutionContext`两种分别对应前面的Job/Step。
 
