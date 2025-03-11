@@ -1,8 +1,9 @@
 +++
-title = 'SpringBatch中的I/O（数据输入）'
+title = 'SpringBatch中的I/O（数据输出）'
 date = 2025-02-25T20:03:01+08:00
 categories = ['java']
 tags = ['java', "spring", "springboot", "springbatch"]
+
 +++
 
 ## 4. 数据输出
