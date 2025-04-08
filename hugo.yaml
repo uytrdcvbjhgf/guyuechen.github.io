@@ -68,14 +68,16 @@ params:
   # 首页的文章上方的一些信息
   homeInfoParams:
     # 首页的 profile 内容
-    Title: "Hey Guys 👋"
+    Title: "Welcome to my tech blog!"
     # 首页的 profile 内容
     Content: >
-      Welcome to my Blog!
+      Here, I document my technical notes and project experiences.
       <br>
-      这里主要记录了我的笔记。
+      The blog is hosted on GitHub Pages, and the image hosting has been migrated to GitHub as well.
       <br>
-      博客托管在 Github Pages 上，图床也已从阿里云迁到 Github，如果访问不流畅可能需要科学上网。
+      If the access is slow, consider using a VPN.
+      <br>
+      Hope you find these resources helpful! 🚀
       <br>
   # 社交帐号的按钮
   socialIcons:
