@@ -10,22 +10,33 @@ body, .post-content {
   line-height: 1.2;
 }
 
+/* 一级列表左对齐 h2，保持整体整洁 */
+.content {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.content > ul {
+  padding-left: 0;
+  margin-left: 1.5em;
+}
+
 /* 子列表：保留缩进 */
 .content ul li > ul,
 .content ul li > ol {
   padding-left: 1.5em;
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
+  margin-top: 0.4em;
+  margin-bottom: 0.4em;
 }
 
 /* 一级列表项之间增加间距 */
 .content > ul > li {
-  margin-bottom: 0.8em;
+  margin-bottom: 0.6em;
 }
 
 /* 二级及以下列表项稍微收紧 */
 .content ul ul li {
-  margin-bottom: 0.3em;
+  margin-bottom: 0.2em;
 }
 
 /* 所有 section 内部，增加段落之间间距 */
