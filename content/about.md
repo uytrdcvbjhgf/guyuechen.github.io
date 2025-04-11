@@ -10,14 +10,14 @@ summary: about
 - **Languages**: C/C++, Java, Python, JavaScript/TypeScript, Go, Groovy, Perl, Shell/Bash
 
 - **Frameworks**  
-  - **Backend:** Spring (Boot, MVC, Webflux, Cloud, Security, Batch, Data)  
-  - **Frontend:** Angular, Vue, React, Next.js  
-  - **Testing:** JUnit, Spock, pytest, Selenium  
-  - **Automation:** Cucumber, Robot Framework
+  - **Backend**: Spring (Boot, MVC, Webflux, Cloud, Security, Batch, Data)  
+  - **Frontend**: Angular, Vue, React, Next.js  
+  - **Testing**: JUnit, Spock, pytest, Selenium  
+  - **Automation**: Cucumber, Robot Framework
 
 - **Databases**  
-  - Relational: MySQL, Oracle, DB2, PostgreSQL, SQLite  
-  - NoSQL: MongoDB, Redis, Elasticsearch, Cassandra
+  - **Relational**: MySQL, Oracle, DB2, PostgreSQL, SQLite  
+  - **NoSQL**: MongoDB, Redis, Elasticsearch, Cassandra
 
 - **Cloud Platforms**: AWS, Azure, Aliyun  
 - **DevOps**: Docker, Kubernetes, Jenkins, Ansible, Terraform  
