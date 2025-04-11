@@ -7,12 +7,19 @@ summary: about
 
 ## Skills
 
-- Languages: Java, C/C++, JavaScript/TypeScript, Python, Groovy, Go, Perl
+- Languages: C/C++, Java, Python, JavaScript/TypeScript, Go, Groovy, Perl, Shell/Bash
+- Frameworks: 
+  - Backend: Spring (Boot, MVC, Webflux, Cloud, Security, Batch, Data), MyBatis, Hibernate
+  - Frontend: Angular, Vue, React, Next.js
+  - Testing: JUnit, Spock, pytest, Selenium
+  - Automation: Cucumber, Robot Framework
+- Databases:
+  - Relational: MySQL, Oracle, DB2, PostgreSQL, SQLite
+  - NoSQL: MongoDB, Redis, Elasticsearch, Cassandra
 - Cloud Platforms: AWS, Azure, Aliyun  
-- DevOps: Docker, Kubernetes, Jenkins, Ansible, Terraform  
-- Databases: MySQL, Oracle, DB2, PostgreSQL, MongoDB, Redis  
-- Frameworks: Spring (Spring Boot, Spring Cloud), Vue, Angular, React, Cucumber, Robot Framework, pytest, Selenium, JUnit, Spock, etc.  
-- CI/CD pipelines setup and automation, large-scale distributed systems design.
+- DevOps: Docker, Kubernetes, Jenkins, Ansible, Terraform
+- CI/CD pipelines setup and automation
+- Large-scale distributed systems design
 
 <br>
 
