@@ -20,7 +20,7 @@ body, .post-content {
 
 /* 一级列表项之间增加间距 */
 .content > ul > li {
-  margin-bottom: 1em;
+  margin-bottom: 0.8em;
 }
 
 /* 二级及以下列表项稍微收紧 */
@@ -40,7 +40,7 @@ body, .post-content {
 
 /* 增加 Skills 和 Certifications 间的空间 */
 .content h2 {
-  margin-top: 2em;
+  margin-top:1.5em;
   margin-bottom: 0.8em;
   font-size: 1.5em;
 }

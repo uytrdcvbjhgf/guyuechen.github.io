@@ -7,8 +7,7 @@ summary: about
 
 ## Skills
 
-- **Languages**  
-  C/C++, Java, Python, JavaScript/TypeScript, Go, Groovy, Perl, Shell/Bash
+- **Languages**: C/C++, Java, Python, JavaScript/TypeScript, Go, Groovy, Perl, Shell/Bash
 
 - **Frameworks**  
   - **Backend:** Spring (Boot, MVC, Webflux, Cloud, Security, Batch, Data)  
