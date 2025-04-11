@@ -1,5 +1,5 @@
 +++
-title = '常见网络问题排查方法及解决'
+title = '常见网络问题排查及解决'
 date = 2025-03-13T20:52:55+08:00
 categories = ['network']
 tags = ['network']
