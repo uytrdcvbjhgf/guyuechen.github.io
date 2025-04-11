@@ -23,8 +23,6 @@ summary: about
 - **DevOps**: Docker, Kubernetes, Jenkins, Ansible, Terraform  
 - **Others**: CI/CD pipelines setup and automation, Large-scale distributed systems design
 
-<br>
-
 ## Certifications
 
 - AWS Certified Solutions Architect (Professional) 

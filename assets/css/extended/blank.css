@@ -51,14 +51,9 @@ body, .post-content {
 
 /* 增加 Skills 和 Certifications 间的空间 */
 .content h2 {
-  margin-top:1.2em;
-  margin-bottom: 0.8em;
+  margin-top:1em;
+  margin-bottom: 0.5em;
   font-size: 1.5em;
-}
-
-/* 如果 h2 紧跟在 h1 后 */
-.content h1 + h2 {
-  margin-top: 2em;
 }
 
 /* 加点整体左右内边距（可选） */
