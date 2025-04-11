@@ -10,8 +10,43 @@ body, .post-content {
   line-height: 1.2;
 }
 
+/* 子列表：保留缩进 */
 .content ul li > ul,
 .content ul li > ol {
   padding-left: 1.5em;
   margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+/* 一级列表项之间增加间距 */
+.content > ul > li {
+  margin-bottom: 1em;
+}
+
+/* 二级及以下列表项稍微收紧 */
+.content ul ul li {
+  margin-bottom: 0.3em;
+}
+
+/* 所有 section 内部，增加段落之间间距 */
+.content p {
+  margin: 0.3em 0;
+}
+
+/* 加粗标签后的间距，防止连在一起太紧 */
+.content strong {
+  margin-right: 0.3em;
+}
+
+/* 增加 Skills 和 Certifications 间的空间 */
+.content h2 {
+  margin-top: 2em;
+  margin-bottom: 0.8em;
+  font-size: 1.5em;
+}
+
+/* 加点整体左右内边距（可选） */
+.content {
+  padding-left: 1em;
+  padding-right: 1em;
 }
