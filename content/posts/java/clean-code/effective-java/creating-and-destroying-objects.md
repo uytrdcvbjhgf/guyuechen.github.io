@@ -1,5 +1,5 @@
 +++
-title = '《Effective Java》精读之创建和销毁对象'
+title = '"Effective Java"精读之创建和销毁对象'
 date = 2024-12-28T21:13:59+08:00
 categories = ['java']
 tags = ['java','effective-java']

@@ -1,5 +1,5 @@
 +++
-title = '《Effective Java》精读之所有对象通用的方法'
+title = '"Effective Java"精读之所有对象通用的方法'
 date = 2025-01-12T22:42:48+08:00
 categories = ['java']
 tags = ['java','effective-java']
