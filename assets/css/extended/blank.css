@@ -1,6 +1,6 @@
 body, .post-content {
-  font-size: 1.1rem;
-  line-height: 1.5;
+  font-size: 1.0rem;
+  line-height: 1.4;
   margin: 0;
 }
 
@@ -11,53 +11,53 @@ body, .post-content {
 }
 
 /* 一级列表左对齐 h2，保持整体整洁 */
-.content {
+.about-content {
   padding-left: 0;
   padding-right: 0;
 }
 
-.content > ul {
+.about-content > ul {
   padding-left: 0;
   margin-left: 1.5em;
 }
 
 /* 子列表：保留缩进 */
-.content ul li > ul,
-.content ul li > ol {
+.about-content ul li > ul,
+.about-content ul li > ol {
   padding-left: 1.5em;
   margin-top: 0.4em;
   margin-bottom: 0.4em;
 }
 
 /* 一级列表项之间增加间距 */
-.content > ul > li {
+.about-content > ul > li {
   margin-bottom: 0.4em;
 }
 
 /* 二级及以下列表项稍微收紧 */
-.content ul ul li {
+.about-content ul ul li {
   margin-bottom: 0.2em;
 }
 
 /* 所有 section 内部，增加段落之间间距 */
-.content p {
+.about-content p {
   margin: 0.3em 0;
 }
 
 /* 加粗标签后的间距，防止连在一起太紧 */
-.content strong {
+.about-content strong {
   margin-right: 0.3em;
 }
 
 /* 增加 Skills 和 Certifications 间的空间 */
-.content h2 {
+.about-content h2 {
   margin-top:1em;
   margin-bottom: 0.5em;
   font-size: 1.5em;
 }
 
 /* 加点整体左右内边距（可选） */
-.content {
+.about-content {
   padding-left: 1em;
   padding-right: 1em;
 }
