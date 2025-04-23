@@ -1,19 +1,20 @@
+@import url('https://fonts.cdnfonts.com/css/jetbrains-mono');
+
 :root {
   --primary-font: 'Source Han Sans SC', 'Source Han Sans CN', 'WenQuanYi Micro Hei', 'Microsoft YaHei';
-  --code-font: 'Consolas', var(--primary-font);
-  --base-font-size: 1rem;
+  --code-font: 'JetBrains Mono', var(--primary-font);
 }
 
 body, .post-content {
   font-family: var(--primary-font);
-  font-size: calc(var(--base-font-size) * 0.8;
+  font-size: 0.8rem;
   line-height: 1.4;
   margin: 0;
 }
 
 .post-content pre, code {
   font-family: var(--code-font) !important;
-  font-size: calc(var(--base-font-size) * 1.1;
+  font-size: 1.1rem;
   line-height: 1.2;
 }
 
