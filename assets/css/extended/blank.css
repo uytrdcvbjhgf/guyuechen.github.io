@@ -1,11 +1,13 @@
 /* 字体设置 */
 body, .post-content {
+  font-family: 'Source Han Serif SC', 'Source Han Serif CN', 'Noto Serif CJK SC', 'Noto Serif SC', serif;
   font-size: 1.0rem;
   line-height: 1.4;
   margin: 0;
 }
 
 .post-content pre, code {
+  font-family: 'JetBrains Mono', 'Fira Mono', 'Courier New', $font-family-base, monospace !important;
   font-size: 1.1rem;
   line-height: 1.2;
 }
