@@ -2,18 +2,17 @@
 
 :root {
   --primary-font: 'Source Han Sans SC', 'Source Han Sans CN', 'WenQuanYi Micro Hei', 'Microsoft YaHei';
-  --code-font: 'JetBrains Mono', var(--primary-font);
 }
 
 body, .post-content {
   font-family: var(--primary-font);
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   line-height: 1.4;
   margin: 0;
 }
 
 .post-content pre, code {
-  font-family: var(--code-font) !important;
+  font-family: 'JetBrains Mono' !important;
   font-size: 1.1rem;
   line-height: 1.2;
 }
