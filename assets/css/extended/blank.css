@@ -1,18 +1,19 @@
 :root {
   --primary-font: 'Source Han Sans SC', 'Source Han Sans CN', 'WenQuanYi Micro Hei', 'Microsoft YaHei';
-  --code-font: 'Consolas', var(--primary-font), sans-serif;
+  --code-font: 'Consolas', 'Source Code Pro', 'Lucida Console', var(--primary-font), sans-serif;
+  --base-font-size: 1rem;
 }
 
 body, .post-content {
   font-family: var(--primary-font);
-  font-size: 1.0rem;
+  font-size: calc(var(--base-font-size) * 0.9;
   line-height: 1.4;
   margin: 0;
 }
 
 .post-content pre, code {
   font-family: var(--code-font) !important;
-  font-size: 1.1rem;
+  font-size: calc(var(--base-font-size) * 1.1;
   line-height: 1.2;
 }
 
