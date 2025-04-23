@@ -1,13 +1,13 @@
 /* 字体设置 */
 body, .post-content {
-  font-family: 'Source Han Serif SC', 'Source Han Serif CN', 'Noto Serif CJK SC', 'Noto Serif SC', serif;
+  font-family: 'Noto Sans CJK SC', 'PingFang SC', 'Source Han Sans SC', 'Source Han Sans CN', 'WenQuanYi Micro Hei', 'Microsoft YaHei';
   font-size: 1.0rem;
   line-height: 1.4;
   margin: 0;
 }
 
 .post-content pre, code {
-  font-family: 'JetBrains Mono', 'Fira Mono', 'Courier New', $font-family-base, monospace !important;
+  font-family: 'Roboto Slab', 'Noto Sans CJK SC', 'PingFang SC', 'Source Han Sans SC', 'Source Han Sans CN', 'WenQuanYi Micro Hei', 'Microsoft YaHei', sans-serif !important;
   font-size: 1.1rem;
   line-height: 1.2;
 }
