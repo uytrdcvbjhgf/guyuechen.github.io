@@ -11,7 +11,7 @@ body, .post-content {
 
 /* 代码块和行内代码字体设置 */
 code, .post-content pre {
-    font-family: 'Cascadia Code', 'Microsoft YaHei', monospace;
+    font-family: 'Cascadia Code', 'Microsoft YaHei' !important;
     font-size: 1.1rem;
     line-height: 1.2;
 }
