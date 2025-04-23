@@ -1,12 +1,12 @@
 :root {
   --primary-font: 'Source Han Sans SC', 'Source Han Sans CN', 'WenQuanYi Micro Hei', 'Microsoft YaHei';
-  --code-font: 'Consolas', 'Source Code Pro', 'Lucida Console', var(--primary-font), sans-serif;
+  --code-font: 'Consolas', var(--primary-font);
   --base-font-size: 1rem;
 }
 
 body, .post-content {
   font-family: var(--primary-font);
-  font-size: calc(var(--base-font-size) * 0.9;
+  font-size: calc(var(--base-font-size) * 0.8;
   line-height: 1.4;
   margin: 0;
 }
