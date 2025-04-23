@@ -1,6 +1,6 @@
 :root {
-  --primary-font: 'PingFang SC', 'Source Han Sans SC', 'Source Han Sans CN', 'WenQuanYi Micro Hei', 'Microsoft YaHei';
-  --code-font: 'JetBrains Mono', var(--primary-font), sans-serif;
+  --primary-font: 'Source Han Sans SC', 'Source Han Sans CN', 'WenQuanYi Micro Hei', 'Microsoft YaHei';
+  --code-font: 'Consolas', var(--primary-font), sans-serif;
 }
 
 body, .post-content {
