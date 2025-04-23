@@ -1,13 +1,15 @@
+/* 字体设置 */
 body, .post-content {
-  font-size: 1.0rem;
-  line-height: 1.4;
-  margin: 0;
+  font-family: 'Noto Sans', 'Microsoft YaHei', sans-serif;
+  font-size: 1.0rem;
+  line-height: 1.4;
+  margin: 0;
 }
 
 .post-content pre, code {
-  font-family: "YaHei Consolas Hybrid", monospace;
-  font-size: 1.1rem;
-  line-height: 1.2;
+  font-family: 'Fira Code', 'Microsoft YaHei', monospace;
+  font-size: 1.1rem;
+  line-height: 1.2;
 }
 
 /* 一级列表左对齐 h2，保持整体整洁 */
