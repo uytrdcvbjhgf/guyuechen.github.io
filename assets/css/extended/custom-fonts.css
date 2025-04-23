@@ -6,13 +6,13 @@ code {
 }
 
 body, .post-content {
-    font-family: 'Microsoft YaHei', sans-serif;
-    font-size: 0.9rem;
-    line-height: 1.4;
-    margin: 0;
+  font-family: 'Microsoft YaHei', sans-serif;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  margin: 0;
 }
 
 code, .post-content pre {
-    font-size: 1.2rem;
-    line-height: 1.2;
+  font-size: 1.2rem;
+  line-height: 1.2;
 }
