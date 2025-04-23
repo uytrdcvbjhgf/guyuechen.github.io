@@ -5,9 +5,13 @@ code {
   font-family: 'Cascadia Code', 'Microsoft YaHei' !important;
 }
 
+.post-content, .markdown {
+  font-size: 85%;
+}
+
 body, .post-content {
   font-family: 'Microsoft YaHei', sans-serif;
-  font-size: 0.8rem;
+  font-size: 1rem;
   line-height: 1.4;
   margin: 0;
 }
