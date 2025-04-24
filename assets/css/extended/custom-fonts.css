@@ -2,7 +2,7 @@
 @import url('https://fonts.cdnfonts.com/css/microsoft-yahei');
 
 code {
-  font-family: 'Cascadia Code', 'Microsoft YaHei' !important;
+  font-family: 'Cascadia Code', 'Roboto Mono', 'Menlo', 'Consolas', 'Microsoft YaHei' !important;
 }
 
 .post-content, .markdown {
