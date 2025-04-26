@@ -6,8 +6,8 @@ code {
   font-family: 'Roboto Mono', 'Menlo', 'Consolas', 'Microsoft YaHei' !important;
 }
 
-:not(pre) > code {
-  font-size: 1.1em !important;
+.post-content :not(pre) > code {
+  font-size: 1.0em !important;
   padding: 0.2em 0.4em !important;
 }
 
