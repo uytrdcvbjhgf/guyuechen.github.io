@@ -22,7 +22,7 @@ Implement the `Facebook` class:
 
 ### Example 1:
 
-```
+```json
 Input
 ["Facebook", "addFriend", "writePost", "writePost", "writePost", "writePost", "showPosts", "showPosts", "addFriend", "showPosts", "showPosts", "showPosts"]
 [[], [1, 2], [1, "postone"], [2, "posttwo"], [3, "postthree"], [2, "postfour"], [2], [3], [2, 3], [1], [2], [3]]

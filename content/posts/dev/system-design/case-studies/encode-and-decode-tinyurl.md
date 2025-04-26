@@ -20,7 +20,7 @@ Implement the `Solution` class:
 
 ### Example 1:
 
-```
+```json
 Input: url = "https://leetcode.com/problems/design-tinyurl"
 Output: "https://leetcode.com/problems/design-tinyurl"
 

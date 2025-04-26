@@ -25,7 +25,7 @@ Design the `Uber` class:
 
 ### Example 1:
 
-```
+```json
 Input
 ["Uber", "startTrip", "addCab", "addCab", "getNearestCabs", "startTrip", "endTrip", "endTrip", "getNearestCabs"]
 [[], [5, 10, 15], [10, 10], [30, 30], [1, 12, 15], [1, 5, 5], [5, 0, 0], [1, 0, 0], [5, 30, 30]]

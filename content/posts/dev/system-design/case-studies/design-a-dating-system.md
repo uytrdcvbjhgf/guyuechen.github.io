@@ -28,7 +28,7 @@ Implement the `Tinder` class:
 
 ### Example 1:
 
-```
+```json
 Input
 ["Tinder", "getMatches", "signup", "getMatches", "signup", "getMatches", "getMatches", "signup", "signup", "getMatches", "signup", "getMatches", "getMatches", "signup", "getMatches", "getMatches"]
 [[], [1], [1, 0, 1, 25, 20, 30, ["Singing", "Dancing", "Reading", "Skating"]], [1], [2, 1, 0, 27, 23, 30, ["Painting", "Basketball"]], [1], [2], [3, 1, 0, 25, 20, 30, ["Singing", "Skating"]], [4, 1, 0, 25, 20, 30, ["Singing", "Writing", "Coding"]], [1], [5, 1, 0, 31, 24, 37, ["Singing", "Dancing", "Reading", "Skating"]], [1], [5], [6, 0, 1, 30, 25, 33, ["Volleyball", "Skating"]], [5], [6]]

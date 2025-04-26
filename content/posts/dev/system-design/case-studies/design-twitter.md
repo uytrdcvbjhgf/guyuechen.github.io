@@ -19,7 +19,7 @@ Implement the `Twitter` class:
 
 ### Example 1:
 
-```
+```json
 Input
 ["Twitter", "postTweet", "getNewsFeed", "follow", "postTweet", "getNewsFeed", "unfollow", "getNewsFeed"]
 [[], [1, 5], [1], [1, 2], [2, 6], [1], [1, 2], [1]]

@@ -26,7 +26,7 @@ Implement the `WhatsApp` class:
 
 ### Example 1:
 
-```
+```json
 Input
 ["WhatsApp", "createGroup", "sendMessage", "sendMessage", "getMessagesForUser", "sendGroupMessage", "getMessagesForUser", "addUserToGroup", "sendGroupMessage", "getMessagesForUser", "getMessagesForUser"]
 [[], [[1, 2, 3]], [2, "hellotwo"], [4, "hellofour"], [2], [1, 1, "helloeveryone"], [2], [1, 4], [1, 1, "seeyousoon"], [2], [4]]

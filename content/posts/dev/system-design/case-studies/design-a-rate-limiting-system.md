@@ -18,7 +18,7 @@ Implement the **RateLimiter** class:
 
 ### Example 1:
 
-```
+```json
 Input
 ["RateLimiter", "shouldAllow", "shouldAllow", "shouldAllow", "shouldAllow", "shouldAllow"]
 [[3, 5], [1], [1], [2], [3], [8]]

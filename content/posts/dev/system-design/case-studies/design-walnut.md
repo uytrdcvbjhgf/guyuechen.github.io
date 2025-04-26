@@ -37,7 +37,7 @@ Note that all answers within `10-5` of the actual answer will be considered acce
 
 ### Example 1:
 
-```
+```json
 Input
 ["Walnut", "getAverageUserEarnings", "parseText", "parseText", "parseText", "parseText", "parseText", "getTotalUserEarnings", "getTotalUserExpenses", "getAverageUserEarnings", "getAverageUserExpenses"]
 [[], [], [1, "deposit $120.45"], [1, "credit $238.98"], [1, "Transaction Cost USD 25.55"], [1, "debited $14790"], [1, "deposited $1000.00"], [1], [1], [], []]

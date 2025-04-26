@@ -26,7 +26,7 @@ Design the `LogAggregator` class:
 
 ### Example 1:
 
-```
+```json
 Input
 ["LogAggregator", "pushLog", "pushLog", "pushLog", "pushLog", "pushLog", "pushLog", "pushLog", "pushLog", "pushLog", "pushLog", "pushLog", "pushLog", "getLogsFromMachine", "getLogsOfService", "search", "search"]
 [[3, 3], [2322, 1, 1, "Machine 1 Service 1 Log 1"], [2312, 1, 1, "Machine 1 Service 1 Log 2"], [2352, 1, 1, "Machine 1 Service 1 Log 3"], [2298, 1, 1, "Machine 1 Service 1 Log 4"], [23221, 1, 2, "Machine 1 Service 2 Log 1"], [23121, 1, 2, "Machine 1 Service 2 Log 2"], [23222, 2, 2, "Machine 2 Service 2 Log 1"], [23122, 2, 2, "Machine 2 Service 2 Log 2"], [23521, 1, 2, "Machine 1 Service 2 Log 3"], [22981, 1, 2, "Machine 1 Service 2 Log 4"], [23522, 2, 2, "Machine 2 Service 2 Log 3"], [22982, 2, 2, "Machine 2 Service 2 Log 4"], [2], [2], [1, "Log 1"], [2, "Log 3"]]
