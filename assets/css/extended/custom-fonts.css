@@ -6,6 +6,10 @@ code {
   font-family: 'Roboto Mono', 'Menlo', 'Consolas', 'Microsoft YaHei' !important;
 }
 
+code:not(pre code) {
+  font-size: 1.3rem;
+}
+
 .post-content, .markdown {
   font-size: 80%;
 }
