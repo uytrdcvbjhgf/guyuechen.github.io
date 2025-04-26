@@ -7,7 +7,7 @@ code {
 }
 
 .post-content :not(pre) > code {
-  font-size: 1.0em !important;
+  font-size: 0.9em !important;
   padding: 0.2em 0.4em !important;
 }
 
