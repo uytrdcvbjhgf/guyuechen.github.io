@@ -7,8 +7,8 @@ code {
 }
 
 :not(pre) > code {
-  font-size: 1.1em;
-  padding: 0.2em 0.4em;
+  font-size: 1.1em !important;
+  padding: 0.2em 0.4em !important;
 }
 
 .post-content, .markdown {
