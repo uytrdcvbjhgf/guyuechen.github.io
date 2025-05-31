@@ -1,12 +1,12 @@
 +++
-title = '深入理解 package-lock.json 的用途与适用场景'
+title = '深入理解 package-lock.json'
 date = 2025-05-31T12:38:34+09:00
 categories = ["front"]
 tags = ["front"]
 
 +++
 
-## `package.json` 与 `package-lock.json` 的区别
+## `package.json` 与 `package-lock.json`
 
 任何 Node.js 应用程序一般都有一个 `package.json` 文件，用来描述项目基本信息、依赖包名称和版本、脚本等内容。
 
