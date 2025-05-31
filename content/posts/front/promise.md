@@ -5,8 +5,6 @@ categories = ["front"]
 tags = ["front", "javascript", "Promise"]
 +++
 
-# Promise
-
 ## 1. Promises API Reference
 
 ### 1.1. Promise#then

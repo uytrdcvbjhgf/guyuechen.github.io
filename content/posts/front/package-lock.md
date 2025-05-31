@@ -1,12 +1,10 @@
 +++
-title = 'Package Lock'
+title = '深入理解 `package-lock.json` 的用途与适用场景'
 date = 2025-05-31T12:38:34+09:00
 categories = ["front"]
 tags = ["front"]
 
 +++
-
-# 深入理解 `package-lock.json` 的用途与适用场景
 
 ## `package.json` 与 `package-lock.json` 的区别
 
