@@ -68,9 +68,7 @@ params:
     Title: "Welcome to my tech blog."
     # 首页的 profile 内容
     Content: >
-      Here, I document my technical notes and project experiences.
-      <br>
-      Hope you find these resources helpful. 🐒
+      来看一只🐒的自我修养
       <br>
   # 社交帐号的按钮
   socialIcons:
