@@ -28,10 +28,50 @@ DataClass是指：它们拥有一些字段，以及用于访问（读写）这�
 
 > 案例
 
-
 **代码背景**
 部门及员工信息管理
-![](https://raw.githubusercontent.com/guyuechen/gallery/main/img/80e5aeb9a1713a51a6f440532e8ad2ff.svg)
+
+```mermaid
+classDiagram
+    %% --- 类定义 ---
+    class Audit {
+        <<C>>
+        +Audit()
+        +auditGenderRatio(department: Department): double
+    }
+    class Hrbp {
+        <<C>>
+        +Hrbp(departments: List~Department~)
+        +getStaffNumOfGender(gender: Gender): long
+    }
+    class Department {
+        <<C>>
+        -name: String
+        -staffs: List~Staff~
+        -minister: String
+        +Department(name: String, minister: String)
+        +deleteStaff(staff: Staff): void
+        +addStaff(staff: Staff): void
+        +getStaffNumOfGender(gender: Gender): long
+        +addStaff(staffs: List~Staff~): void
+    }
+    class Staff {
+        <<C>>
+        -age: int
+        -name: String
+        -departmentName: String
+        -gender: Gender
+        +Staff(name: String, gender: Gender, age: int, departmentName: String)
+    }
+
+    %% --- 关系连线 ---
+    Audit --> Department : departments
+	Hrbp --> Department : departments
+	Department o-- Staff : staffs
+
+```
+
+
 
 - Staff类为员工原始信息，属于数据模型， 存储于数据库中 
   - 部长minister、部门名称name为部门Department固有属性，在业务代码中一旦设置后不会更改
