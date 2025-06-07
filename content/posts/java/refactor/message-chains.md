@@ -40,8 +40,54 @@ tags = ['refactor']
 - InformationClient直接访问Person就能得出Street对象（这里是部门对象）
 - 人、部门、地址、街道整个依赖关系对client透明
 - 后面如果发生变化和重构，外部无感知
-  ![](https://raw.githubusercontent.com/guyuechen/gallery/main/img/518b5b6521f9fa87ef2d7ae43ef81223.svg)
-  
+```mermaid
+classDiagram
+    class InformationClient {
+        <<C>>
+        +getServerStreetNo(person: Person): Integer
+        +getServerStreetName(person: Person): String
+    }
+
+    class Person {
+        <<C>>
+        -department: Department
+        +department: Department
+    }
+
+    class Department {
+        <<C>>
+        -address: Address
+        +address: Address
+    }
+
+    class Address {
+        <<C>>
+        -street: Street
+        +street: Street
+    }
+
+    class Street {
+        <<C>>
+        -streetNo: Integer
+        -streetName: String
+        +streetName: String
+        +streetNo: Integer
+    }
+
+    %% 关联关系，带属性名和多重性
+    InformationClient ..> Person
+    InformationClient ..> Department
+    InformationClient ..> Address
+    InformationClient ..> Street
+
+    Person *-- "1" Department : department 1
+    Department *-- "1" Address : address 1
+    Address *-- "1" Street : street 1
+
+```
+
+
+
 ```java
 /**
  * 信息服务类，作为代理解决

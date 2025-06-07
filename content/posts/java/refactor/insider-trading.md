@@ -299,7 +299,155 @@ public class StudentManager {
 > 通过转换为static（便于搬移）、搬移字段、函数等手法，将各自模块的数据尽可能移动到一起，消除模块间的循环依赖
 > 继续通过搬移字段、搬移函数、转换为instance方法等重构手法，将 student 、course 两个模 块共同的行为搬移到新的模块CourseSelectionManager中，消除潜在的循环依赖风险，且将student和course完全解耦
 
-![](https://raw.githubusercontent.com/guyuechen/gallery/main/img/4e1b54f68b81f7acc4bbc6dbe3176b2f.svg)![](https://raw.githubusercontent.com/guyuechen/gallery/main/img/eddaa382b3a43433d6d20d5e96b3cabf.svg)
+```mermaid
+classDiagram
+    class CourseSelectionSystemApi {
+        <<C>>
+        +queryStudentCourseTeacher(int, String): String
+        +importStudents(students: List~Student~): void
+        +importCourses(courses: List~Course~): void
+        +queryStudentSelectCourses(studentId: int): List~Course~
+        +assignCourses(studentId: int, courseNames: List~String~): void
+        +statisticStudentByGender(className: String, gender: Gender): long
+    }
+    class CourseSelectionManager {
+        <<C>>
+        +create(): void
+    }
+    class CourseManager {
+        <<C>>
+        +importCourses(courses: List~Course~): void
+        +queryCourse(courseName: String): Course
+        +queryStudentCourseTeacher(studentManager: StudentManager, studentId: int, courseName: String): String
+        +addStudentInCourse(courseName: String, student: Student): void
+        +statisticStudentByGender(className: String, gender: Gender): long
+    }
+    class StudentManager {
+        <<C>>
+        +importStudents(students: List~Student~): void
+        +assignCourses(courseManager: CourseManager, studentId: int, courseNames: List~String~): void
+        +selectCourse(courseManager: CourseManager, studentId: int, courseNames: List~String~): void
+        +queryStudent(studentId: int): Student
+        +queryStudentSelectCourses(studentId: int): List~Course~
+    }
+    class Course {
+        <<C>>
+        -teacher: String
+        -name: String
+        +name: String
+        +teacher: String
+    }
+    class Student {
+        <<C>>
+        -id: int
+        -name: String
+        -gender: Gender
+        +name: String
+        +gender: Gender
+        +id: int
+    }
+    class Gender {
+        <<E>>
+        +values(): Gender[]
+        +valueOf(name: String): Gender
+    }
+
+    %% 关联关系
+    CourseSelectionSystemApi ..> CourseSelectionManager : studentManager
+    CourseSelectionSystemApi ..> CourseManager : courseManager
+
+    CourseSelectionManager --> CourseManager : courseManager
+    CourseSelectionManager --> StudentManager : studentManager
+
+    CourseManager --> Course : COURSES *
+    CourseManager --> StudentManager : 
+    CourseManager ..> Student : 
+    CourseManager ..> Gender : 
+
+    StudentManager --> Student : STUDENTS *
+    StudentManager --> Course : 
+
+    Student --> Gender : gender 1
+
+    %% 泛型/多重性关系可通过注释或关系名在箭头后补充
+
+```
+
+```mermaid
+classDiagram
+    class CourseSelectionSystemApi {
+        <<C>>
+        +queryStudentCourseTeacher(int, String): String
+        +importStudents(List~Student~): void
+        +importCourses(List~Course~): void
+        +queryStudentSelectCourses(int): List~Course~
+        +assignCourses(int, List~String~): void
+        +statisticStudentByGender(String, Gender): long
+    }
+
+    class CourseSelectionManager {
+        <<C>>
+        +importStudents(List~Student~): void
+        +assignCourses(int, List~String~): void
+        +addStudentInCourse(String, Student): void
+        +importCourses(List~Course~): void
+        +selectCourse(int, List~String~): void
+        +queryStudentCourseTeacher(int, String): String
+        +statisticStudentByGender(String, Gender): long
+        +queryStudentSelectCourses(int): List~Course~
+    }
+
+    class CourseManager {
+        <<C>>
+        +queryCourse(String): Course
+        +importCourses(List~Course~): void
+    }
+
+    class StudentManager {
+        <<C>>
+        +importStudents(List~Student~): void
+        +queryStudent(int): Student
+    }
+
+    class Course {
+        <<C>>
+        -teacher: String
+        -name: String
+        +name: String
+        +teacher: String
+    }
+
+    class Student {
+        <<C>>
+        -id: int
+        -name: String
+        -gender: Gender
+        +name: String
+        +gender: Gender
+        +id: int
+    }
+
+    class Gender {
+        <<E>>
+        +values(): Gender[]
+        +valueOf(String): Gender
+    }
+
+    %% 关系连线（含多重性/属性名）
+    CourseSelectionSystemApi --> "1" CourseSelectionManager : courseSelectionManager 1
+    CourseSelectionSystemApi --> "1" StudentManager : studentManager 1
+
+    CourseSelectionManager --> "1" CourseManager : courseManager 1
+    CourseSelectionManager --> "1" StudentManager : studentManager 1
+
+    CourseManager --> "*" Course : COURSES *
+    StudentManager --> "*" Student : STUDENTS *
+
+    Student --> "1" Gender : gender 1
+
+```
+
+
 
 > 改进后
 

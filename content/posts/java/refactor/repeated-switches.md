@@ -287,8 +287,65 @@ public class KeepPetCosts {
 }
 ```
 
+```mermaid
+classDiagram
+    class PetCostsFactory {
+        <<C>>
+        +createPetCosts(pet: Pet): PetCosts
+    }
 
-![](https://raw.githubusercontent.com/guyuechen/gallery/main/img/a8e699132676ecd53af6716cd901c0ff.svg)> 操作手法
+    class CatCosts {
+        <<C>>
+        +dailyCompanyTime: String
+        +cleanFrequency: String
+        +dailyPay: double
+    }
+
+    class DogCosts {
+        <<C>>
+        +dailyCompanyTime: String
+        +cleanFrequency: String
+        +dailyPay: double
+    }
+
+    class FishCosts {
+        <<C>>
+        +dailyCompanyTime: String
+        +cleanFrequency: String
+        +dailyPay: double
+    }
+
+    class UnknownPetCosts {
+        <<C>>
+        +dailyCompanyTime: String
+        +cleanFrequency: String
+        +dailyPay: double
+    }
+
+    class PetCosts {
+        <<C>>
+        +dailyCompanyTime: String
+        +cleanFrequency: String
+        +dailyPay: double
+    }
+
+    %% 继承关系
+    CatCosts --|> PetCosts
+    DogCosts --|> PetCosts
+    FishCosts --|> PetCosts
+    UnknownPetCosts --|> PetCosts
+
+    %% 工厂创建依赖关系
+    PetCostsFactory ..> CatCosts    : create
+    PetCostsFactory ..> DogCosts    : create
+    PetCostsFactory ..> FishCosts   : create
+    PetCostsFactory ..> UnknownPetCosts : create
+
+```
+
+
+
+> 操作手法
 
 | 操作                   | 快捷键（推荐）                            | Ctrl+Alt+Shift+T（或：鼠标右键“Refactor”） |
 | ---------------------- | ----------------------------------------- | ------------------------------------------ |

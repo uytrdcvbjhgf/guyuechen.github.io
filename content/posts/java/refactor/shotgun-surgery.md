@@ -31,7 +31,74 @@ tags = ['refactor']
 
 > 案例：某跨国公司员工的薪资管理
 
-![](https://raw.githubusercontent.com/guyuechen/gallery/main/img/2982f3748150256555c4f923f75c5556.svg)
+```mermaid
+classDiagram
+    class SalaryService {
+        <<C>>
+        +raisePay(employee: Employee, money: Money): void
+        -exchangeRateToCny(currency: Currency): double
+        #doSomeRecord(employee: Employee): void
+        +calculateDetailOfPaySlip(paySlip: PaySlip): PaySlip
+    }
+
+    class Employee {
+        <<C>>
+        +name: String
+        +id: int
+        +salary: Money
+    }
+
+    class Money {
+        <<C>>
+        +currency: Currency
+        +amount: double
+    }
+
+    class PaySlip {
+        <<C>>
+        +insurance: double
+        +actualPay: double
+        +employeeId: int
+        +tax: double
+        +basePay: double
+        +clone(): PaySlip
+        +calculateTaxForPaySlip(): void
+        +calculateInsuranceForPaySlip(): void
+        +calculateActualPayForPaySlip(): void
+    }
+
+    class SupportedCurrencyChecker {
+        <<C>>
+        +isSupported(currency: Currency): boolean
+    }
+
+    class RateService {
+        <<C>>
+        +queryExchangeRate(from: Currency, to: Currency): double
+        #doSomeBusiness(from: Currency, to: Currency): void
+        +queryAllRatesToCny(): Map~Currency, Double~
+        +exchangeRateToCny(currency: Currency): double
+    }
+
+    class Currency {
+        <<E>> <<enumeration>>
+        +values(): Currency[]
+        +valueOf(name: String): Currency
+    }
+
+    %% 关联关系
+    Employee --> "1" Money : salary 1
+    Money --> "1" Currency : currency 1
+    SupportedCurrencyChecker --> "*" Currency : SUPPORTED_CURRENCY *
+    SalaryService ..> Employee
+    SalaryService ..> PaySlip
+    Money ..> SupportedCurrencyChecker : create
+    RateService ..> Currency
+    PaySlip ..> Employee
+
+```
+
+
 
 > “霰弹式修改”有哪些表现？
 

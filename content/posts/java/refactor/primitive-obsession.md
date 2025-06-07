@@ -4,7 +4,7 @@ date = 2024-10-13T18:23:07+08:00
 categories = ['java']
 tags = ['refactor']
 +++
----
+
 
 **定义**
 
@@ -241,7 +241,43 @@ public class Coordinate {
 }
 ```
 
-![](https://raw.githubusercontent.com/guyuechen/gallery/main/img/846b31af98bce11bdf12a3dee2e7e2df.svg)
+```mermaid
+classDiagram
+    class AirLineFactory {
+        <<C>>
+        +createAbstractAirLine(type: String, coordinates: List~Coordinate~): AbstractAirLine
+    }
+
+    class DomesticAirLine {
+        <<C>>
+        #validateCoordinate(coordinate: Coordinate): void
+    }
+
+    class AbstractAirLine {
+        <<C>>
+        -airLineType: String
+        -coordinates: List~Coordinate~
+        +airLineType: String
+        +coordinates: List~Coordinate~
+        +validate(): void
+        #validateCoordinate(coordinate: Coordinate): void
+    }
+
+    class AirLine {
+        <<I>> <<interface>>
+        +airLineType: String
+        +coordinates: List~Coordinate~
+        +validate(): void
+    }
+
+    %% 关系
+    AirLineFactory ..> DomesticAirLine : create
+    DomesticAirLine --|> AbstractAirLine
+    AbstractAirLine ..|> AirLine
+
+```
+
+
 
 > 操作手法
 

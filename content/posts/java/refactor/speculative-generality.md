@@ -456,7 +456,109 @@ public class Client {
 ```
 
 重构前后类关系对比
-![](https://raw.githubusercontent.com/guyuechen/gallery/main/img/3629a70b4c7d11901952083b51116951.svg)![](https://raw.githubusercontent.com/guyuechen/gallery/main/img/88ded80c9e5d66c8712697049ea76e8b.svg)
+
+```mermaid
+classDiagram
+    class BodyMassInfo {
+        <<C>>
+        -height: double
+        -weight: double
+        +weight: double
+        +height: double
+        +bodyMassIndex: double
+    }
+
+    class FutureMayUseInfo {
+        <<I>> <<interface>>
+    }
+
+    class HealthServiceImp {
+        <<C>>
+        +isObese(person: PersonForHealth, value: double): boolean
+        +getBasalMetabolism(person: PersonForHealth): double
+        +getBodyMassIndex(person: PersonForHealth): double
+        +getBodyFatPercentage(person: PersonForHealth): double
+    }
+
+    class PersonForHealth {
+        <<C>>
+        -futureMayUseInfo: FutureMayUseInfo
+        -bodyMass: BodyMassInfo
+        +futureMayUseInfo: FutureMayUseInfo
+    }
+
+    class Person {
+        <<C>>
+        -age: int
+        -name: String
+        -gender: Gender
+        +name: String
+        +age: int
+        +gender: Gender
+    }
+
+    class HealthService {
+        <<I>> <<interface>>
+        +isObese(t: T, value: double): boolean
+        +getBasalMetabolism(t: T): double
+        +getBodyFatPercentage(t: T): double
+    }
+
+    class Animal {
+        <<I>> <<interface>>
+    }
+
+    class Gender {
+        <<E>> <<enumeration>>
+        -code: int
+        +code: int
+        +valueOf(name: String): Gender
+        +values(): Gender[]
+    }
+
+    %% 关系
+    HealthServiceImp ..|> HealthService
+    PersonForHealth --|> Person
+    Person ..|> Animal
+
+    %% 可选依赖/关联关系可补充
+
+```
+
+```mermaid
+classDiagram
+    class Gender {
+        <<E>> <<enumeration>>
+        -code: int
+        +code: int
+        +valueOf(name: String): Gender
+        +values(): Gender[]
+    }
+
+    class HealthServiceImp {
+        <<C>>
+        +isObese(person: Person): boolean
+        +getBodyFatPercentage(person: Person): double
+    }
+
+    class Person {
+        <<C>>
+        -name: String
+        -height: double
+        -gender: Gender
+        -age: int
+        -weight: double
+        +name: String
+        +weight: double
+        +bodyMassIndex: double
+        +gender: Gender
+        +age: int
+        +height: double
+    }
+
+```
+
+
 
 > 操作手法
 
