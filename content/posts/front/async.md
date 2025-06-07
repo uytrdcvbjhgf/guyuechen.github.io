@@ -429,4 +429,3 @@ async function main() {
 - [MDN - Promise](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise)
 - [MDN - async/await](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/async_function)
 - [异步编程: 一次性搞懂 Promise, async, await (#js #javascript) - Bilibili 视频](https://www.bilibili.com/video/BV1WP4y187Tu/?spm_id_from=333.337.search-card.all.click&vd_source=6f178e5bb1d1bb35491b6cee8bc840e8)
-- [You Don’t Know JS - Async & Performance](https://github.com/getify/You-Dont-Know-JS/blob/2nd-ed/async %26 performance/ch2.md)
