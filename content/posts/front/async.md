@@ -249,13 +249,13 @@ async function rightLoop(arr) {
 
 #### 补充说明
 
-- 如果顺序强依赖，必须串行 await
-- 如果只需全部完成，Promise.all 并行即可
+- 如果顺序强依赖，必须串行 `await`
+- 如果只需全部完成，`Promise.all` 并行即可
 
 #### 最佳实践
 
 - 不依赖的异步任务尽量用 `Promise.all` 提高效率
-- 只要 await 写在赋值左侧就是并行，否则就是串行
+- `await` 写在方法左侧是串行，`await` 写在赋值左侧（赋值的是 Promise 对象）是并行
 
 > 以下是一种常见的串行任务写法（每次 await，等待前一步完成）
 
@@ -308,7 +308,7 @@ const [a, b] = await Promise.all([fetchA(), fetchB()]);
 - 多层 await 串行会有性能损失
 - 并发控制、超时处理需要手动实现
 
-#### 更细粒度的并发控制（不常用）
+#### 更细粒度的并发控制
 
 比如有 100 个任务要处理，但只允许最多并发 5 个：
 
@@ -341,7 +341,7 @@ await asyncPool(5, tasks, task => fetchTask(task));
 - 超过最大数量时，`await Promise.race(executing)` 等待最早完成的一个
 - **这样 JS 代码手动控制最大并发数**
 
-#### 利用工具函数超时处理（不常用）
+#### 利用工具函数超时处理
 
 Promise 本身没有内置超时。需要结合 `Promise.race` 手动实现：
 
