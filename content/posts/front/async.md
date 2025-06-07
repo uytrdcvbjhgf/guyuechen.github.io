@@ -175,7 +175,7 @@ async function foo() {
 
 #### await 表达式
 
-`await` 只能在 async 函数中使用，等待一个 Promise resolve，拿到 resolve 的值：
+`await` **只能在 async 函数中使用**，等待一个 Promise resolve，拿到 resolve 的值：
 
 ```js
 async function getData() {
@@ -185,9 +185,9 @@ async function getData() {
 }
 ```
 
-#### 错误捕获js
+#### 错误捕获
 
-结合 try/catch，可优雅处理异常：
+结合 try / catch，可优雅处理异常：
 
 ```js
 async function safeRequest() {
@@ -202,7 +202,7 @@ async function safeRequest() {
 }
 ```
 
-------
+
 
 ### 2.3. 串行与并行
 
@@ -233,7 +233,7 @@ async function parallel() {
 - 不依赖的异步任务尽量用 `Promise.all` 提高效率
 - 只要 await 写在赋值左侧，就是并行，否则就是串行
 
-------
+
 
 ### 2.4. for 循环异步与最佳实践
 
@@ -260,28 +260,28 @@ async function rightLoop(arr) {
 - 如果顺序强依赖，必须串行 await
 - 如果只需全部完成，Promise.all 并行即可
 
-------
 
-### 2.5. async/await 的局限
 
-- 不能直接捕获顶层未处理的 promise reject（需 try/catch 或 catch）
+### 2.5. `async` / `await` 的局限
+
+- 不能直接捕获顶层未处理的 promise reject（需 try / catch 或 catch）
 - 多层 await 串行会有性能损失
 - 并发控制、超时处理需要手动实现
 
-------
 
-## 3. Promise 与 async/await 的实践建议
 
-- **推荐优先用 async/await**，搭配 try/catch，使异步逻辑结构清晰
+## 3. `Promise` 与 `async` / `await` 的实践建议
+
+- **推荐优先用 `async` / `await`**，搭配 try / catch，使异步逻辑结构清晰
 - 多个异步任务可用 `Promise.all` 批量并行，提高效率
-- 针对异步异常，务必捕获处理，避免“未捕获 Promise 错误”导致页面崩溃
+- 针对异步异常，**务必捕获处理**，避免“未捕获 Promise 错误”导致页面崩溃
 - 注意 async 函数返回值始终是 Promise，调用方要用 await 或 then 获取结果
 
-------
 
-## 4. 代码示例汇总
 
-### 4.1. 经典回调地狱
+## 4. 代码示例
+
+### 回调地狱
 
 ```js
 getData(function(res1) {
@@ -293,7 +293,7 @@ getData(function(res1) {
 });
 ```
 
-### 4.2. Promise 优化
+### `Promise` 优化
 
 ```js
 getData()
@@ -307,7 +307,7 @@ getData()
     });
 ```
 
-### 4.3. async/await 极简重写
+### `async` / `await` 极简重写
 
 ```js
 async function main() {
@@ -322,9 +322,9 @@ async function main() {
 }
 ```
 
-------
 
-## 3. 参考文献
+
+## 5. 参考文献
 
 - [JavaScript Promise迷你书](http://liubin.org/promises-book)
 - [MDN - Promise](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise)
