@@ -10,7 +10,7 @@ tags = ["front","javascript"]
 
 JavaScript 诞生于 1995 年 Netscape 浏览器，为了解决**网页的交互需求**。
 
-JavaScript 的设计初衷是操作网页（DOM），单线程可以避免多个线程同时操作页面导致的竞态和一致性问题。这也决定了 JS**只能同时做一件事**。
+JavaScript 的设计初衷是操作网页（DOM），单线程可以避免多个线程同时操作页面导致的竞态和一致性问题。这也决定了 JavaScript 本质上**只能同时做一件事**。
 
 **核心设计目标**：
 
@@ -161,6 +161,4 @@ setTimeout
 - [MDN：Web Workers](https://developer.mozilla.org/zh-CN/docs/Web/API/Web_Workers_API)
 
 - [MDN：SharedArrayBuffer 和 Atomics](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer)
-
-- [You-Dont-Know-JS: Async & Performance](https://github.com/getify/You-Dont-Know-JS/blob/2nd-ed/async %26 performance/ch1.md)
 
