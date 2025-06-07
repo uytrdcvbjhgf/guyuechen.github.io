@@ -24,9 +24,52 @@ tags = ['refactor']
 
 > 案例1：问题代码
 
-
 **代码背景**
-![](https://raw.githubusercontent.com/guyuechen/gallery/main/img/7ca64f57cc2a87fa6ef7d7ade9040876.svg)
+
+```mermaid
+classDiagram
+    class PersonInfo {
+        <<C>>
+        +commutingTimeEveryWeek: int
+        +childInfo: String
+        +reachSchoolAge: boolean
+        +obese: boolean
+        +oldInfo: String
+        +adultInfo: String
+        +PersonInfo(name: String, age: int, height: double, weight: double, commuteTime: int, childrenNum: int, adultNum: int, oldNum: int)
+        +printInfo(): String
+        +calculateMonthlyPensionWage(): int
+    }
+    class Adult {
+        <<C>>
+        +obese: boolean
+        +reachSchoolAge: boolean
+        +Adult(name: String, age: int, height: double, weight: double, commuteTime: int, adultNum: int, oldNum: int)
+        +printInfo(): String
+        +calculateMonthlyPensionWage(): int
+    }
+    class Children {
+        <<C>>
+        +obese: boolean
+        +reachSchoolAge: boolean
+        +Children(name: String, age: int, height: double, weight: double, childrenNum: int, adultNum: int, oldNum: int)
+        +calculateMonthlyPensionWage(): int
+        +printInfo(): String
+    }
+    class Old {
+        <<C>>
+        +obese: boolean
+        +reachSchoolAge: boolean
+        +Old(name: String, age: int, height: double, weight: double, oldNum: int, adultNum: int, childrenNum: int)
+        +calculateMonthlyPensionWage(): int
+        +printInfo(): String
+    }
+
+    Adult --|> PersonInfo
+    Children --|> PersonInfo
+    Old --|> PersonInfo
+
+```
 
 - 描述了个人信息的数据模型
 - 包含人员信息基类，以及老人、成人、孩子三个子类。老人、成 人、孩子类通过继承人员信息类获取相关信息，并实现、重写、 调用对应接口、方法等 
