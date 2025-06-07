@@ -3,7 +3,6 @@ title = '前端异步编程指南'
 date = 2024-09-01T10:20:13+08:00
 categories = ["front"]
 tags = ["front", "javascript", "Promise", "async"]
-
 +++
 
 ## 背景：为什么需要异步？
@@ -12,7 +11,7 @@ tags = ["front", "javascript", "Promise", "async"]
 
 JavaScript 是**单线程**执行的。这意味着一次只能做一件事，如果一段代码运行时间过长，整个页面就会“卡死”。为了保证**页面流畅**，大多数 I/O 操作（如网络请求、定时器、文件读取等）都采用**异步**方式执行。
 
-### 最初的异步之回调(callback)
+### 最初的异步：回调
 
 早期，异步主要通过**回调函数**来实现。例如：
 
@@ -47,7 +46,7 @@ Promise 最初由社区提出，并在 ES6 标准中正式纳入。它本质上�
 
 #### Promise 三种状态
 
-- **Pending**（进行中）
+- Pending（进行中）
 - **Fulfilled**（已成功）
 - **Rejected**（已失败）
 
@@ -55,7 +54,7 @@ Promise 最初由社区提出，并在 ES6 标准中正式纳入。它本质上�
 
 ### 1.2. Promise 基础用法
 
-#### 创建 `Promise` 实例
+#### `Promise` 实例
 
 ```js
 const promise = new Promise((resolve, reject) => {
@@ -66,31 +65,6 @@ const promise = new Promise((resolve, reject) => {
         reject('失败原因');
     }
 });
-```
-
-#### `then` 与 `catch`
-
-```js
-promise
-    .then(result => {
-        console.log('成功', result);
-    })
-    .catch(error => {
-        console.error('失败', error);
-    });
-```
-
-#### 链式调用与异常捕获
-
-```js
-doSomething()
-    .then(result => doAnotherThing(result))
-    .then(finalResult => {
-        // 对最终结果进行操作
-    })
-    .catch(error => {
-        // 捕捉任意环节的异常
-    });
 ```
 
 ####  `promise.then(onFulfilled, onRejected);`
@@ -111,12 +85,12 @@ promise.then((value) => {
 });
 ```
 
-对这个promise对象定义了处理onFulfilled和onRejected的函数（handler）。
+对这个 promise 对象定义了处理 onFulfilled 和 onRejected 的函数（handler）。
 
-这个promise对象会在变为resolve或者reject的时候分别调用相应注册的回调函数。
+该对象会在变为 resolve 或者 reject 的时候分别调用相应注册的回调函数。
 
-- 当handler返回一个正常值的时候，这个值会传递给promise对象的onFulfilled方法。
-- 定义的handler中产生异常的时候，这个值则会传递给promise对象的onRejected方法。
+- 当 handler 返回一个正常值的时候，这个值会传递给 promise 对象的 onFulfilled 方法。
+- 定义的 handler 中产生异常的时候，这个值则会传递给 promise 对象的 onRejected 方法。
 
 #### `promise.catch(onRejected);`
 
@@ -126,7 +100,7 @@ promise
     .catch(error => console.error(error));
 ```
 
-这是一个等价于`promise.then(undefined, onRejected)` 的语法糖。
+这是一个等价于 `promise.then(undefined, onRejected)` 的语法糖。
 
 ####  `Promise.resolve` 与 `Promise.reject`
 
@@ -216,6 +190,17 @@ async function serial() {
 }
 ```
 
+```mermaid
+flowchart TD
+    Start --> A[Start fetch A]
+    A --> B[Wait for A]
+    B --> C[Start fetch B depend on A]
+    C --> D[Wait for B]
+    D --> End[Return result]
+```
+
+> 两个请求**不能串行发起**，`总耗时 = a耗时 + b耗时`
+
 #### 并行异步（互不依赖，效率更高）
 
 ```js
@@ -228,16 +213,23 @@ async function parallel() {
 }
 ```
 
-**最佳实践**：
+```mermaid
+flowchart TD
+    Start --> A[Start fetch A and fetch B]
+    A --> B1[Wait for A]
+    A --> B2[Wait for B]
+    B1 --> C[Both done]
+    B2 --> C
+    C --> End[Return result]
+```
 
-- 不依赖的异步任务尽量用 `Promise.all` 提高效率
-- 只要 await 写在赋值左侧，就是并行，否则就是串行
+> a、b 两个请求**同时并发发起**，`总耗时 = max(a耗时, b耗时)`
 
 
 
 ### 2.4. for 循环异步与最佳实践
 
-#### 错误写法（全部串行，性能差）
+#### 低效写法（全部串行，性能差）
 
 ```js
 async function wrongLoop(arr) {
@@ -247,7 +239,7 @@ async function wrongLoop(arr) {
 }
 ```
 
-#### 最佳写法（并行批量发起）
+#### 高效写法（并行批量发起）
 
 ```js
 async function rightLoop(arr) {
@@ -255,10 +247,58 @@ async function rightLoop(arr) {
 }
 ```
 
-**补充说明**：
+#### 补充说明
 
 - 如果顺序强依赖，必须串行 await
 - 如果只需全部完成，Promise.all 并行即可
+
+#### 最佳实践
+
+- 不依赖的异步任务尽量用 `Promise.all` 提高效率
+- 只要 await 写在赋值左侧就是并行，否则就是串行
+
+> 以下是一种常见的串行任务写法（每次 await，等待前一步完成）
+
+```js
+async function serial() {
+    const a = await fetchA(); // 只有fetchA完成后才会往下走
+	const b = await fetchB(); // 等a拿到结果后，才会发起fetchB
+	return [a, b];
+}
+```
+
+**执行流程：**
+
+1. 发起 fetchA()
+2. **等待 fetchA 完成**，拿到结果赋值给 a
+3. 发起 fetchB()
+4. **等待 fetchB 完成**，拿到结果赋值给 b
+
+> 可以改写成以下并行写法
+
+```js
+async function parallel() {
+    const promiseA = fetchA(); // 立即发起
+    const promiseB = fetchB(); // 立即发起
+    const a = await promiseA;  // 等promiseA完成
+    const b = await promiseB;  // 等promiseB完成
+    return [a, b];
+}
+```
+
+**执行流程：**
+
+1. 发起 fetchA()，得到 promiseA
+2. 发起 fetchB()，得到 promiseB
+3. **此时 fetchA 和 fetchB 已经同时在跑了**
+4. await promiseA 和 await promiseB 只是等待各自的 Promise 完成
+5. 两个请求是**同时进行**的
+
+> 或者直接更简洁：
+
+```js
+const [a, b] = await Promise.all([fetchA(), fetchB()]);
+```
 
 
 
@@ -281,7 +321,7 @@ async function rightLoop(arr) {
 
 ## 4. 代码示例
 
-### 回调地狱
+### 😈 回调地狱
 
 ```js
 getData(function(res1) {
@@ -293,7 +333,7 @@ getData(function(res1) {
 });
 ```
 
-### `Promise` 优化
+### 👻 `Promise` 优化
 
 ```js
 getData()
@@ -307,7 +347,7 @@ getData()
     });
 ```
 
-### `async` / `await` 极简重写
+### 😇 `async` / `await` 极简重写
 
 ```js
 async function main() {
