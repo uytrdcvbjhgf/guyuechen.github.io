@@ -1,39 +1,37 @@
-<!-- layouts/partials/mermaid.html -->
 <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.0/dist/mermaid.min.js"></script>
 <script>
-  // 自定义配色
   const lightTheme = {
     background: '#fff',
     primaryColor: '#f3f6fa',
     primaryTextColor: '#24292f',
     primaryBorderColor: '#b2becd',
     lineColor: '#90a4ae',
-    fontFamily: 'inherit',
+    fontFamily: 'Segoe UI, PingFang SC, Hiragino Sans GB, Microsoft YaHei, sans-serif',
+    fontSize: '16px',
+    nodePadding: '12',
     edgeLabelBackground: '#f3f6fa'
   };
 
   const darkTheme = {
-    background: '#22272e',
-    primaryColor: '#30363d',
-    primaryTextColor: '#d6e3ff',
-    primaryBorderColor: '#4a90e2',
-    lineColor: '#6bb8ff',
-    fontFamily: 'inherit',
-    edgeLabelBackground: '#30363d'
+    background: '#23272e',
+    primaryColor: '#313843',
+    primaryTextColor: '#e9eef6',
+    primaryBorderColor: '#9da5b4',
+    lineColor: '#7bb7ff',
+    fontFamily: 'Segoe UI, PingFang SC, Hiragino Sans GB, Microsoft YaHei, sans-serif',
+    fontSize: '16px',
+    nodePadding: '12',
+    edgeLabelBackground: '#3a414d'
   };
 
   function getMermaidThemeConfig() {
-    // 判断主题
     if (document.body.classList.contains('dark')) {
       return { theme: "dark", themeVariables: darkTheme };
     }
     return { theme: "default", themeVariables: lightTheme };
   }
 
-  document.addEventListener("DOMContentLoaded", function() {
-    const mermaidConfig = Object.assign({ startOnLoad: false }, getMermaidThemeConfig());
-    mermaid.initialize(mermaidConfig);
-
+  function renderAllMermaid() {
     document.querySelectorAll('code.language-mermaid').forEach(function(block) {
       const pre = block.parentElement;
       const mermaidDiv = document.createElement('div');
@@ -42,9 +40,14 @@
       pre.parentElement.replaceChild(mermaidDiv, pre);
     });
     mermaid.init();
+  }
+
+  document.addEventListener("DOMContentLoaded", function() {
+    const mermaidConfig = Object.assign({ startOnLoad: false }, getMermaidThemeConfig());
+    mermaid.initialize(mermaidConfig);
+    renderAllMermaid();
   });
 
-  // Papermod 监听变化并动态切换 Mermaid 配色
   const observer = new MutationObserver(() => {
     const mermaidConfig = Object.assign({ startOnLoad: false }, getMermaidThemeConfig());
     mermaid.initialize(mermaidConfig);
