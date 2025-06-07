@@ -9,7 +9,7 @@ tags = ["front", "javascript", "Promise", "async"]
 
 首先谈一谈前端异步编程的历史背景。
 
-JavaScript 是**单线程**执行的。这意味着一次只能做一件事，如果一段代码运行时间过长，整个页面就会“卡死”。为了保证**页面流畅**，大多数 I/O 操作（如网络请求、定时器、文件读取等）都采用**异步**方式执行。
+JavaScript 是[单线程](https://guyuechen.icu/posts/front/single-thread-in-js/)执行的。这意味着一次只能做一件事，如果一段代码运行时间过长，整个页面就会“卡死”。为了保证**页面流畅**，大多数 I/O 操作（如网络请求、定时器、文件读取等）都采用**异步**方式执行。
 
 ### 最初的异步：回调
 
@@ -307,6 +307,65 @@ const [a, b] = await Promise.all([fetchA(), fetchB()]);
 - 不能直接捕获顶层未处理的 promise reject（需 try / catch 或 catch）
 - 多层 await 串行会有性能损失
 - 并发控制、超时处理需要手动实现
+
+#### 更细粒度的并发控制（不常用）
+
+比如有 100 个任务要处理，但只允许最多并发 5 个：
+
+```js
+async function asyncPool(limit, arr, iteratorFn) {
+    const ret = [];
+    const executing = [];
+    for (const item of arr) {
+        const p = Promise.resolve().then(() => iteratorFn(item));
+        ret.push(p);
+
+        if (limit <= arr.length) {
+            const e = p.then(() => executing.splice(executing.indexOf(e), 1));
+            executing.push(e);
+            if (executing.length >= limit) {
+                await Promise.race(executing);
+            }
+        }
+    }
+    return Promise.all(ret);
+}
+
+// 使用示例
+await asyncPool(5, tasks, task => fetchTask(task));
+```
+
+**解释**：
+
+- `executing` 数组记录当前并发中的 Promise
+- 超过最大数量时，`await Promise.race(executing)` 等待最早完成的一个
+- **这样 JS 代码手动控制最大并发数**
+
+#### 利用工具函数超时处理（不常用）
+
+Promise 本身没有内置超时。需要结合 `Promise.race` 手动实现：
+
+```js
+function fetchWithTimeout(promise, ms) {
+    const timeout = new Promise((_, reject) => 
+        setTimeout(() => reject(new Error('Timeout')), ms)
+    );
+    return Promise.race([promise, timeout]);
+}
+
+// 用法
+try {
+    const data = await fetchWithTimeout(fetch('/api/data'), 1000);
+    console.log(data);
+} catch (err) {
+    console.error('请求超时或失败:', err);
+}
+```
+
+**原理**：
+
+- `Promise.race` 谁先完成用谁，fetch 超时就会抛错
+- 这是“手动实现”超时
 
 
 
