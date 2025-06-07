@@ -1,3 +1,15 @@
-div.mermaid .node rect {
+body.dark div.mermaid .node rect,
+body.dark div.mermaid .node polygon,
+body.dark div.mermaid .node ellipse,
+body.dark div.mermaid .node circle,
+body.dark div.mermaid .node .label-container > path {
   fill: #293042 !important;
+}
+
+body:not(.dark) div.mermaid .node rect,
+body:not(.dark) div.mermaid .node polygon,
+body:not(.dark) div.mermaid .node ellipse,
+body:not(.dark) div.mermaid .node circle,
+body:not(.dark) div.mermaid .node .label-container > path {
+  fill: #f3f6fa !important;
 }
