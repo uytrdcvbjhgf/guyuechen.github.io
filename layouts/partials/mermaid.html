@@ -1,24 +1,38 @@
 <!-- layouts/partials/mermaid.html -->
 <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.0/dist/mermaid.min.js"></script>
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    // 检测当前是否为 dark 模式（适配 Papermod/Site 的深色主题）
-    function getMermaidTheme() {
-      // 优先检测 html/body 上的 dark class
-      if (document.body.classList.contains('dark') || document.documentElement.classList.contains('dark')) {
-        return "dark";
-      }
-      // 检查系统 prefers-color-scheme
-      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        return "dark";
-      }
-      return "default"; // or "neutral"
-    }
+  // 自定义配色
+  const lightTheme = {
+    background: '#fff',
+    primaryColor: '#f3f6fa',
+    primaryTextColor: '#24292f',
+    primaryBorderColor: '#b2becd',
+    lineColor: '#90a4ae',
+    fontFamily: 'inherit',
+    edgeLabelBackground: '#f3f6fa'
+  };
 
-    mermaid.initialize({
-      startOnLoad: false,
-      theme: getMermaidTheme()
-    });
+  const darkTheme = {
+    background: '#22272e',
+    primaryColor: '#30363d',
+    primaryTextColor: '#d6e3ff',
+    primaryBorderColor: '#4a90e2',
+    lineColor: '#6bb8ff',
+    fontFamily: 'inherit',
+    edgeLabelBackground: '#30363d'
+  };
+
+  function getMermaidThemeConfig() {
+    // 判断主题
+    if (document.body.classList.contains('dark')) {
+      return { theme: "dark", themeVariables: darkTheme };
+    }
+    return { theme: "default", themeVariables: lightTheme };
+  }
+
+  document.addEventListener("DOMContentLoaded", function() {
+    const mermaidConfig = Object.assign({ startOnLoad: false }, getMermaidThemeConfig());
+    mermaid.initialize(mermaidConfig);
 
     document.querySelectorAll('code.language-mermaid').forEach(function(block) {
       const pre = block.parentElement;
@@ -29,4 +43,14 @@
     });
     mermaid.init();
   });
+
+  // Papermod 监听变化并动态切换 Mermaid 配色
+  const observer = new MutationObserver(() => {
+    const mermaidConfig = Object.assign({ startOnLoad: false }, getMermaidThemeConfig());
+    mermaid.initialize(mermaidConfig);
+    document.querySelectorAll('div.mermaid').forEach(function(div) {
+      mermaid.init(undefined, div);
+    });
+  });
+  observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
 </script>
