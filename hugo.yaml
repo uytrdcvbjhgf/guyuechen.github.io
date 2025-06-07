@@ -68,7 +68,11 @@ params:
     Title: "一只🐒的自我修养."
     # 首页的 profile 内容
     Content: >
-      Welcome to my blog.
+      💻 App Developer | Full-Stack Web Developer
+      <br>
+      📧 yuechen.gu@accenture.com
+      <br>
+      📍 Nagoya, Japan
       <br>
   # 社交帐号的按钮
   socialIcons:
