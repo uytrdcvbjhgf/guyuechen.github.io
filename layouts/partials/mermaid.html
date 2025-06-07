@@ -2,7 +2,24 @@
 <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.0/dist/mermaid.min.js"></script>
 <script>
   document.addEventListener("DOMContentLoaded", function() {
-    mermaid.initialize({ startOnLoad: false });
+    // 检测当前是否为 dark 模式（适配 Papermod/Site 的深色主题）
+    function getMermaidTheme() {
+      // 优先检测 html/body 上的 dark class
+      if (document.body.classList.contains('dark') || document.documentElement.classList.contains('dark')) {
+        return "dark";
+      }
+      // 检查系统 prefers-color-scheme
+      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        return "dark";
+      }
+      return "default"; // or "neutral"
+    }
+
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: getMermaidTheme()
+    });
+
     document.querySelectorAll('code.language-mermaid').forEach(function(block) {
       const pre = block.parentElement;
       const mermaidDiv = document.createElement('div');
