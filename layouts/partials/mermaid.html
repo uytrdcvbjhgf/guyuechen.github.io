@@ -13,7 +13,7 @@
   };
 
   const darkTheme = {
-    background: '#23272e',
+    background: '#2e2e33',
     primaryColor: '#313843',
     primaryTextColor: '#e9eef6',
     primaryBorderColor: '#9da5b4',
@@ -32,13 +32,30 @@
   }
 
   function renderAllMermaid() {
+    // 1. 查找所有 <div class="mermaid">，恢复成代码块
+    document.querySelectorAll('div.mermaid').forEach(function(div) {
+      // 防止重复还原
+      if (div.dataset.rawCode) {
+        const pre = document.createElement('pre');
+        const code = document.createElement('code');
+        code.className = 'language-mermaid';
+        code.textContent = div.dataset.rawCode;
+        pre.appendChild(code);
+        div.replaceWith(pre);
+      }
+    });
+
+    // 2. 查找所有 mermaid 代码块，替换为 <div class="mermaid"> 并存下原始代码
     document.querySelectorAll('code.language-mermaid').forEach(function(block) {
       const pre = block.parentElement;
       const mermaidDiv = document.createElement('div');
       mermaidDiv.className = 'mermaid';
       mermaidDiv.textContent = block.textContent;
+      mermaidDiv.dataset.rawCode = block.textContent; // 记录原始内容用于恢复
       pre.parentElement.replaceChild(mermaidDiv, pre);
     });
+
+    // 3. 重新渲染
     mermaid.init();
   }
 
@@ -48,12 +65,11 @@
     renderAllMermaid();
   });
 
+  // 监听主题变化，重建所有 Mermaid 图
   const observer = new MutationObserver(() => {
     const mermaidConfig = Object.assign({ startOnLoad: false }, getMermaidThemeConfig());
     mermaid.initialize(mermaidConfig);
-    document.querySelectorAll('div.mermaid').forEach(function(div) {
-      mermaid.init(undefined, div);
-    });
+    renderAllMermaid();
   });
   observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
 </script>
