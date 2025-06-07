@@ -36,7 +36,7 @@ classDiagram
         +obese: boolean
         +oldInfo: String
         +adultInfo: String
-        +PersonInfo(name: String, age: int, height: double, weight: double, commuteTime: int, childrenNum: int, adultNum: int, oldNum: int)
+        +PersonInfo(String, int, double, double, int, int, int, int)
         +printInfo(): String
         +calculateMonthlyPensionWage(): int
     }
@@ -44,7 +44,7 @@ classDiagram
         <<C>>
         +obese: boolean
         +reachSchoolAge: boolean
-        +Adult(name: String, age: int, height: double, weight: double, commuteTime: int, adultNum: int, oldNum: int)
+        +Adult(String, int, double, double, int, int, int, int)
         +printInfo(): String
         +calculateMonthlyPensionWage(): int
     }
@@ -52,7 +52,7 @@ classDiagram
         <<C>>
         +obese: boolean
         +reachSchoolAge: boolean
-        +Children(name: String, age: int, height: double, weight: double, childrenNum: int, adultNum: int, oldNum: int)
+        +Children(String, int, double, double, int, int, int, int)
         +calculateMonthlyPensionWage(): int
         +printInfo(): String
     }
@@ -60,7 +60,7 @@ classDiagram
         <<C>>
         +obese: boolean
         +reachSchoolAge: boolean
-        +Old(name: String, age: int, height: double, weight: double, oldNum: int, adultNum: int, childrenNum: int)
+        +Old(String, int, double, double, int, int, int, int)
         +calculateMonthlyPensionWage(): int
         +printInfo(): String
     }
