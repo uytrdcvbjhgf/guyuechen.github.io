@@ -9,7 +9,7 @@
 <head>
     {{- partial "head.html" . }}
     <script src="/js/bgm-player.js" defer></script>
-    <script src="/js/fastsearch.js" data-no-instant></script>
+    {{ $fastsearch := resources.Get "js/fastsearch.js" | js.Build (dict "target" "es2015") }}
 </head>
 
 <body class="
@@ -27,6 +27,7 @@
     {{ partialCached "footer.html" . .Layout .Kind (.Param "hideFooter") (.Param "ShowCodeCopyButtons") -}}
     {{ partial "mermaid.html" . }}
 
+    <script src="{{ $fastsearch.RelPermalink }}" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/instantclick@3.1.0/instantclick.min.js" data-no-instant></script>
     <script>
       function reinitializePageFeatures() {
