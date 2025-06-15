@@ -1,3 +1,4 @@
+<!-- ✅ Updated baseof.html -->
 {{- if lt hugo.Version "0.112.4" }}
 {{- errorf "=> hugo v0.112.4 or greater is required for hugo-PaperMod to build " }}
 {{- end -}}
@@ -25,12 +26,49 @@
     {{ partialCached "footer.html" . .Layout .Kind (.Param "hideFooter") (.Param "ShowCodeCopyButtons") -}}
     {{ partial "mermaid.html" . }}
 
-<!-- 📦 引入 InstantClick 脚本 -->
-<script src="https://cdn.jsdelivr.net/npm/instantclick@3.1.0/instantclick.min.js"></script>
+    <!-- ✅ InstantClick + reinit hook script -->
+    <script src="https://cdn.jsdelivr.net/npm/instantclick@3.1.0/instantclick.min.js" data-no-instant></script>
+    <script>
+      function reinitializePageFeatures() {
+        if (window.initMermaidWithTheme) {
+          initMermaidWithTheme();
+        }
 
-<script>
-  InstantClick.init();
-</script>
+        // Reload giscus if needed
+        const giscusWrapper = document.getElementById('tw-comment');
+        if (giscusWrapper) {
+          giscusWrapper.innerHTML = ''; // Clear existing
+          const giscusScript = document.createElement('script');
+          const attrs = {
+            "src": "https://giscus.app/client.js",
+            "data-repo": "{{ .Site.Params.giscus.repo }}",
+            "data-repo-id": "{{ .Site.Params.giscus.repoId }}",
+            "data-category": "{{ .Site.Params.giscus.category }}",
+            "data-category-id": "{{ .Site.Params.giscus.categoryId }}",
+            "data-mapping": "{{ .Site.Params.giscus.mapping }}",
+            "data-strict": "{{ .Site.Params.giscus.strict }}",
+            "data-reactions-enabled": "{{ .Site.Params.giscus.reactionsEnabled }}",
+            "data-emit-metadata": "{{ .Site.Params.giscus.emitMetadata }}",
+            "data-input-position": "{{ .Site.Params.giscus.inputPosition }}",
+            "data-theme": localStorage.getItem("pref-theme") === "light" ? "{{ .Site.Params.giscus.lightTheme }}" : "{{ .Site.Params.giscus.darkTheme }}",
+            "data-lang": "{{ .Site.Params.giscus.lang }}",
+            "data-loading": "lazy",
+            "crossorigin": "anonymous",
+            "async": "true"
+          };
+          Object.entries(attrs).forEach(([k, v]) => giscusScript.setAttribute(k, v));
+          giscusWrapper.appendChild(giscusScript);
+        }
+
+        // Reload PaperMod search (fuse.js + mark.js)
+        if (typeof loadSearch === 'function') {
+          loadSearch();
+        }
+      }
+
+      InstantClick.on('change', reinitializePageFeatures);
+      InstantClick.init();
+    </script>
 </body>
 
 </html>
