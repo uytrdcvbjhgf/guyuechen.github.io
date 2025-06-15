@@ -38,6 +38,14 @@
 
   <script>
     function reinitializePageFeatures() {
+      // 🔁 确保主题 class 是最新的
+      (function syncThemeClass() {
+        const prefTheme = localStorage.getItem("pref-theme");
+        const isDark = prefTheme === "dark";
+        document.documentElement.classList.toggle("dark", isDark);
+        document.body.classList.toggle("dark", isDark);
+      })();
+      
       // Mermaid
       if (typeof window.initMermaidWithTheme === 'function') {
         window.initMermaidWithTheme();
