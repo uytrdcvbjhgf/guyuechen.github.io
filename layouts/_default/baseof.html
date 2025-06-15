@@ -31,8 +31,8 @@
     <script src="https://cdn.jsdelivr.net/npm/instantclick@3.1.0/instantclick.min.js" data-no-instant></script>
     <script>
       function reinitializePageFeatures() {
-        if (window.initMermaidWithTheme) {
-          initMermaidWithTheme();
+        if (typeof window.initMermaidWithTheme === 'function') {
+          window.initMermaidWithTheme();
         }
 
         const giscusWrapper = document.getElementById('tw-comment');
@@ -63,6 +63,23 @@
         if (location.pathname.includes("/search") && typeof loadSearch === 'function') {
           setTimeout(() => loadSearch(), 30);
         }
+
+        // ✅ 重新绑定主题切换按钮
+        ["theme-toggle", "theme-toggle-float"].forEach(id => {
+          const btn = document.getElementById(id);
+          if (btn && !btn.dataset.bound) {
+            btn.addEventListener("click", () => {
+              if (document.body.classList.contains("dark")) {
+                document.body.classList.remove("dark");
+                localStorage.setItem("pref-theme", "light");
+              } else {
+                document.body.classList.add("dark");
+                localStorage.setItem("pref-theme", "dark");
+              }
+            });
+            btn.dataset.bound = "true";
+          }
+        });
       }
 
       InstantClick.on('change', reinitializePageFeatures);
