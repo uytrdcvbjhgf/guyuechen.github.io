@@ -1,3 +1,4 @@
+import Fuse from './fuse.basic.min.js';
 import * as params from '@params';
 
 let fuse;
