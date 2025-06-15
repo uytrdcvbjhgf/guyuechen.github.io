@@ -44,9 +44,8 @@
   }
 
   function renderAllMermaid() {
-    // 1. 查找所有 <div class="mermaid">，恢复成代码块
+    // 1. 清除已渲染的图，恢复为代码块
     document.querySelectorAll('div.mermaid').forEach(function(div) {
-      // 防止重复还原
       if (div.dataset.rawCode) {
         const pre = document.createElement('pre');
         const code = document.createElement('code');
@@ -57,31 +56,33 @@
       }
     });
 
-    // 2. 查找所有 mermaid 代码块，替换为 <div class="mermaid"> 并存下原始代码
+    // 2. 查找所有 mermaid 代码块并替换为渲染容器
     document.querySelectorAll('code.language-mermaid').forEach(function(block) {
       const pre = block.parentElement;
       const mermaidDiv = document.createElement('div');
       mermaidDiv.className = 'mermaid';
       mermaidDiv.textContent = block.textContent;
-      mermaidDiv.dataset.rawCode = block.textContent; // 记录原始内容用于恢复
+      mermaidDiv.dataset.rawCode = block.textContent;
       pre.parentElement.replaceChild(mermaidDiv, pre);
     });
 
-    // 3. 重新渲染
+    // 3. 渲染
     mermaid.init();
   }
 
-  document.addEventListener("DOMContentLoaded", function() {
-    const mermaidConfig = Object.assign({ startOnLoad: false }, getMermaidThemeConfig());
-    mermaid.initialize(mermaidConfig);
+  function initMermaidWithTheme() {
+    const config = Object.assign({ startOnLoad: false }, getMermaidThemeConfig());
+    mermaid.initialize(config);
     renderAllMermaid();
-  });
+  }
 
-  // 监听主题变化，重建所有 Mermaid 图
-  const observer = new MutationObserver(() => {
-    const mermaidConfig = Object.assign({ startOnLoad: false }, getMermaidThemeConfig());
-    mermaid.initialize(mermaidConfig);
-    renderAllMermaid();
-  });
+  // 初始加载
+  document.addEventListener("DOMContentLoaded", initMermaidWithTheme);
+
+  // 主题切换监听
+  const observer = new MutationObserver(initMermaidWithTheme);
   observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+
+  // 🔁 页面切换后重新渲染（兼容 InstantClick）
+  document.addEventListener('instantclick:change', initMermaidWithTheme);
 </script>
