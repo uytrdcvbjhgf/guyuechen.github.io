@@ -145,10 +145,16 @@
 
 <!-- 👇 背景音乐播放按钮 + 音频元素 + 控制脚本 -->
 <style>
+  @keyframes pulse {
+    0%   { transform: scale(1); }
+    50%  { transform: scale(1.15); }
+    100% { transform: scale(1); }
+  }
+
   #play-music {
     position: fixed;
-    top: 64px;            /* ✅ 右上角固定 */
-    right: 30px;          /* ✅ 与返回顶部按钮对齐 */
+    top: 64px;
+    right: 30px;
     width: 42px;
     height: 42px;
     border: none;
@@ -171,19 +177,20 @@
   }
 
   #play-music.playing {
-    color: #a179dc; /* 紫色：暂停状态 */
+    color: #a179dc;
+    animation: pulse 1.2s infinite ease-in-out;
   }
 
   #play-music:not(.playing) {
-    color: #3399ff; /* 蓝色：播放状态 */
+    color: #3399ff;
+    animation: none;
   }
 </style>
 
-<!-- 🎵 按钮与 audio 元素 -->
 <button id="play-music" title="背景音乐">🎸</button>
 
 <audio id="bgm" loop>
-  <source src="https://raw.githubusercontent.com/guyuechen/gallery/main/music/Dire%20Straits%20-%20Sultans%20Of%20Swing.mp3" type="audio/mpeg">
+  <source src="https://raw.githubusercontent.com/guyuechen/gallery/main/music/sos.mp3" type="audio/mpeg">
 </audio>
 
 <script>
