@@ -4,57 +4,46 @@
 
 <!DOCTYPE html>
 <html lang="{{ site.Language }}" dir="{{ .Language.LanguageDirection | default "auto" }}">
-
 <head>
-  <!-- ⏱ 防止闪烁：提前根据 localStorage 设置主题 class -->
+  {{- partial "head.html" . }}
+  <script src="/js/bgm-player.js" defer></script>
+
+  <!-- 防止主题闪烁：提前设置 <html> 和 <body> class -->
   <script>
     (function () {
       const theme = localStorage.getItem("pref-theme");
       if (theme === "dark") {
         document.documentElement.classList.add("dark");
-        document.body?.classList?.add("dark");
+        document.body.classList.add("dark");
       }
     })();
   </script>
 
-  {{- partial "head.html" . }}
-  <script src="/js/bgm-player.js" defer></script>
   {{ $fastsearch := resources.Get "js/fastsearch.js" | js.Build (dict "target" "es2015") }}
 </head>
 
 <body class="
-{{- if (or (ne .Kind `page` ) (eq .Layout `archives`) (eq .Layout `search`)) -}}list{{- end -}}
-{{- if eq site.Params.defaultTheme `dark` -}} dark{{- end -}}" id="top">
+{{- if (or (ne .Kind `page`) (eq .Layout `archives`) (eq .Layout `search`)) -}}list {{- end -}}
+" id="top">
 
   {{- partialCached "header.html" . .Page -}}
-
   <main class="main">
     {{- block "main" . }}{{ end }}
   </main>
-
   {{ partialCached "footer.html" . .Layout .Kind (.Param "hideFooter") (.Param "ShowCodeCopyButtons") -}}
   {{ partial "mermaid.html" . }}
 
-  <!-- ✅ 所有 script 放在底部提升性能 -->
   <script src="{{ $fastsearch.RelPermalink }}" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/instantclick@3.1.0/instantclick.min.js" data-no-instant></script>
 
   <script>
     function reinitializePageFeatures() {
-      // ✅ 强制根据 localStorage 同步主题（适用于 InstantClick 切换后）
-      const savedTheme = localStorage.getItem("pref-theme");
-      if (savedTheme === "dark") {
-        document.body.classList.add("dark");
-      } else {
-        document.body.classList.remove("dark");
-      }
-
-      // ✅ Mermaid 重新初始化
+      // Mermaid
       if (typeof window.initMermaidWithTheme === 'function') {
         window.initMermaidWithTheme();
       }
 
-      // ✅ Giscus 重新挂载
+      // Giscus 评论重载
       const giscusWrapper = document.getElementById('tw-comment');
       if (giscusWrapper) {
         giscusWrapper.innerHTML = '';
@@ -70,7 +59,9 @@
           "data-reactions-enabled": "{{ .Site.Params.giscus.reactionsEnabled }}",
           "data-emit-metadata": "{{ .Site.Params.giscus.emitMetadata }}",
           "data-input-position": "{{ .Site.Params.giscus.inputPosition }}",
-          "data-theme": savedTheme === "light" ? "{{ .Site.Params.giscus.lightTheme }}" : "{{ .Site.Params.giscus.darkTheme }}",
+          "data-theme": localStorage.getItem("pref-theme") === "light"
+                        ? "{{ .Site.Params.giscus.lightTheme }}"
+                        : "{{ .Site.Params.giscus.darkTheme }}",
           "data-lang": "{{ .Site.Params.giscus.lang }}",
           "data-loading": "lazy",
           "crossorigin": "anonymous",
@@ -80,7 +71,7 @@
         giscusWrapper.appendChild(script);
       }
 
-      // ✅ Menu 滚动位置记忆
+      // 滚动菜单位置记忆
       const menu = document.getElementById('menu');
       if (menu) {
         menu.scrollLeft = localStorage.getItem("menu-scroll-position");
@@ -89,12 +80,12 @@
         };
       }
 
-      // ✅ 内页 anchor 平滑滚动
+      // 页面内锚点平滑滚动
       document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener("click", function (e) {
           e.preventDefault();
-          const id = this.getAttribute("href").substr(1);
-          const el = document.querySelector(`[id='${decodeURIComponent(id)}']`);
+          const id = this.getAttribute("href").substring(1);
+          const el = document.getElementById(decodeURIComponent(id));
           if (!el) return;
           el.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
           if (id === "top") {
@@ -105,7 +96,7 @@
         });
       });
 
-      // ✅ 回到顶部按钮显示控制
+      // 返回顶部按钮显示控制
       const topLink = document.getElementById("top-link");
       if (topLink) {
         window.addEventListener("scroll", () => {
@@ -115,22 +106,27 @@
         });
       }
 
-      // ✅ 主题切换按钮绑定（首次 + PJAX）
+      // 主题切换按钮逻辑（<html> 和 <body> 同步）
       const themeToggle = document.getElementById("theme-toggle");
       if (themeToggle && !themeToggle.dataset.bound) {
         themeToggle.addEventListener("click", () => {
-          if (document.body.classList.contains("dark")) {
-            document.body.classList.remove("dark");
-            localStorage.setItem("pref-theme", 'light');
-          } else {
-            document.body.classList.add("dark");
-            localStorage.setItem("pref-theme", 'dark');
-          }
+          const html = document.documentElement;
+          const body = document.body;
+          const isDark = html.classList.contains("dark");
+
+          html.classList.toggle("dark", !isDark);
+          body.classList.toggle("dark", !isDark);
+          localStorage.setItem("pref-theme", isDark ? "light" : "dark");
         });
         themeToggle.dataset.bound = "true";
       }
 
-      // ✅ 代码块复制功能初始化
+      // 搜索重载
+      if (location.pathname.includes("/search") && typeof loadSearch === "function") {
+        setTimeout(() => loadSearch(), 30);
+      }
+
+      // 代码复制按钮
       document.querySelectorAll('pre > code').forEach((codeblock) => {
         const container = codeblock.parentNode.parentNode;
         const copybutton = document.createElement('button');
@@ -172,21 +168,14 @@
           codeblock.parentNode.appendChild(copybutton);
         }
       });
-
-      // ✅ 特殊页面处理（如搜索）
-      if (location.pathname.includes("/search") && typeof loadSearch === 'function') {
-        setTimeout(() => loadSearch(), 30);
-      }
     }
 
-    // 初次加载执行
     if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", () => reinitializePageFeatures());
+      document.addEventListener("DOMContentLoaded", reinitializePageFeatures);
     } else {
       reinitializePageFeatures();
     }
 
-    // PJAX 切换执行
     InstantClick.on('change', reinitializePageFeatures);
     InstantClick.init();
   </script>
