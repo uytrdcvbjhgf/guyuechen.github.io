@@ -143,7 +143,33 @@
 </script>
 {{- end }}
 
-<!-- 👇 追加自己的背景音乐逻辑 -->
-<audio autoplay loop preload="auto" style="display:none">
+<!-- 👇 背景音乐播放按钮 + 音频元素 + 控制脚本 -->
+<button id="play-music" style="position:fixed;bottom:20px;right:20px;z-index:1000;">🎵 播放音乐</button>
+
+<audio id="bgm" loop>
   <source src="https://raw.githubusercontent.com/guyuechen/gallery/main/music/Dire%20Straits%20-%20Sultans%20Of%20Swing.mp3" type="audio/mpeg">
 </audio>
+
+<script>
+  const btn = document.getElementById('play-music');
+  const bgm = document.getElementById('bgm');
+
+  btn.addEventListener('click', () => {
+    bgm.play().then(() => {
+      btn.textContent = '⏸️ 暂停音乐';
+    }).catch((e) => {
+      console.error("播放失败：", e);
+    });
+
+    // 第二次点击切换播放状态
+    btn.addEventListener('click', () => {
+      if (!bgm.paused) {
+        bgm.pause();
+        btn.textContent = '🎵 播放音乐';
+      } else {
+        bgm.play();
+        btn.textContent = '⏸️ 暂停音乐';
+      }
+    }, { once: true }); // 只绑定一次，避免重复绑定
+  });
+</script>
