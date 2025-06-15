@@ -68,10 +68,10 @@
 
   const updateButtonUI = () => {
     if (isPlaying) {
-      btn.textContent = '⏸️';
+      btn.textContent = '🙉';
       btn.classList.add('playing');
     } else {
-      btn.textContent = '▶️';
+      btn.textContent = '🎸';
       btn.classList.remove('playing');
     }
   };
