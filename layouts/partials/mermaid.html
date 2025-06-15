@@ -1,4 +1,7 @@
+<!-- ✅ Mermaid 库，只加载一次 -->
 <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.0/dist/mermaid.min.js" data-no-instant></script>
+
+<!-- ✅ 函数声明与配置定义 -->
 <script data-no-instant>
   const lightTheme = {
     background: '#fff',
@@ -37,13 +40,13 @@
   };
 
   window.getMermaidThemeConfig = function () {
-    if (document.body.classList.contains('dark')) {
-      return { theme: "dark", themeVariables: darkTheme };
-    }
-    return { theme: "default", themeVariables: lightTheme };
+    return document.body.classList.contains('dark')
+      ? { theme: "dark", themeVariables: darkTheme }
+      : { theme: "default", themeVariables: lightTheme };
   };
 
   window.renderAllMermaid = function () {
+    // 1. 还原渲染图为代码块（避免重复渲染）
     document.querySelectorAll('div.mermaid').forEach(function (div) {
       if (div.dataset.rawCode) {
         const pre = document.createElement('pre');
@@ -55,6 +58,7 @@
       }
     });
 
+    // 2. 替换为待渲染容器
     document.querySelectorAll('code.language-mermaid').forEach(function (block) {
       const pre = block.parentElement;
       const mermaidDiv = document.createElement('div');
@@ -64,43 +68,52 @@
       pre.parentElement.replaceChild(mermaidDiv, pre);
     });
 
-    mermaid.init();
+    // 3. 使用 requestAnimationFrame 等待 DOM 更新后再渲染
+    requestAnimationFrame(() => {
+      try {
+        mermaid.init();
+      } catch (e) {
+        console.warn("[Mermaid] render error:", e);
+      }
+    });
   };
 
   window.initMermaidWithTheme = function () {
-    const config = Object.assign({ startOnLoad: false }, getMermaidThemeConfig());
+    const config = Object.assign({ startOnLoad: false }, window.getMermaidThemeConfig());
     mermaid.initialize(config);
-    renderAllMermaid();
+    window.renderAllMermaid();
   };
 </script>
+
+<!-- ✅ 启动初始化 + 监听切换 -->
 <script>
-  // 初始渲染
+  // 初次 DOM 渲染
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", () => {
-      if (typeof window.initMermaidWithTheme === 'function') {
-        initMermaidWithTheme();
-      }
+      window.initMermaidWithTheme?.();
     });
   } else {
-    if (typeof window.initMermaidWithTheme === 'function') {
-      initMermaidWithTheme();
-    }
+    window.initMermaidWithTheme?.();
   }
 
-  // 监听主题变更
-  const mermaidThemeObserver = new MutationObserver(() => {
-    if (typeof window.initMermaidWithTheme === 'function') {
-      initMermaidWithTheme();
-    }
-  });
-  mermaidThemeObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+  // 主题变更（防止重复绑定）
+  if (!window._mermaidThemeObserverAttached) {
+    window._mermaidThemeObserverAttached = true;
 
-  // InstantClick 支持
+    window.mermaidThemeObserver = new MutationObserver(() => {
+      window.initMermaidWithTheme?.();
+    });
+
+    window.mermaidThemeObserver.observe(document.body, {
+      attributes: true,
+      attributeFilter: ['class']
+    });
+  }
+
+  // InstantClick PJAX 页面切换后
   if (window.InstantClick) {
     InstantClick.on('change', () => {
-      if (typeof window.initMermaidWithTheme === 'function') {
-        initMermaidWithTheme();
-      }
+      window.initMermaidWithTheme?.();
     });
   }
 </script>
