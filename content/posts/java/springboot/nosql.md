@@ -1,5 +1,5 @@
 +++
-title = 'SpringBoot度整合NoSQL'
+title = 'SpringBoot整合NoSQL'
 date = 2025-06-15T15:47:45+09:00
 categories = ["java"]
 tags = ["java", "spring", "springboot", "nosql", "redis", "mongodb"]
