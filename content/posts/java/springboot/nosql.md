@@ -5,9 +5,6 @@ categories = ["java"]
 tags = ["java", "spring", "springboot", "nosql", "redis", "mongodb"]
 +++
 
-
-本文将基于现有的 Spring Boot 与 MongoDB、Redis 的整合实践笔记，进一步扩展 NoSQL 的发展背景、使用动因、常见注意事项及真实业务中的最佳实践。
-
 ## 一、NoSQL 的兴起背景
 
 传统的关系型数据库（RDBMS）如 MySQL、PostgreSQL 一直是企业数据存储的主力，但随着互联网业务的发展，数据特征与系统需求也发生了变化：
@@ -29,7 +26,7 @@ NoSQL（Not Only SQL）应运而生，代表了一类支持非关系结构的数
 | 列族型   | Cassandra, HBase | 日志存储、大数据分析                 |
 | 图数据库 | Neo4j, ArangoDB  | 社交图谱、推荐系统、路径搜索         |
 
-本篇主要聚焦于 Spring Boot 项目中广泛使用的 Redis（键值型）与 MongoDB（文档型）。
+下文聚焦于 Spring Boot 项目中广泛使用的 Redis（键值型）与 MongoDB（文档型）。
 
 
 
@@ -157,13 +154,13 @@ docker pull mongo
 
 ==Linux==环境的命令：
 
-```powershell
+```sh
 docker run --name mongo -p 27017:27017 -v ~/docker-data/mongo:/data/db -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=admin -d mongo
 ```
 
 如果在==Windows==上，我们需要修改后再执行，主要是修改-v后面的映射目录。理论上我们改成下面这样即可执行（需提前在C盘dev创建两层文件夹docker-data和mongo）。
 
-```powershell
+```sh
 docker run --name mongo -p 27017:27017 -v c:/dev/docker-data/mongo:/data/db -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=admin -d mongo
 ```
 
@@ -438,7 +435,7 @@ public class SpringBucksApplication implements ApplicationRunner {
 }
 ```
 
-```
+```perl
 2023-07-23 22:08:08.616  INFO 11920 --- [           main] g.s.springbucks.SpringBucksApplication   : Started SpringBucksApplication in 1.768 seconds (JVM running for 2.221)
 2023-07-23 22:08:08.639  INFO 11920 --- [           main] o.h.h.i.QueryTranslatorFactoryInitiator  : HHH000397: Using ASTQueryTranslatorFactory
 Hibernate: 
@@ -569,7 +566,7 @@ public class SpringBucksApplication implements ApplicationRunner {
 }
 ```
 
-```
+```perl
 2023-07-23 22:17:36.528  INFO 12892 --- [           main] g.s.springbucks.SpringBucksApplication   : Started SpringBucksApplication in 1.827 seconds (JVM running for 2.276)
 2023-07-23 22:17:36.576  INFO 12892 --- [           main] io.lettuce.core.EpollProvider            : Starting without optional epoll library
 2023-07-23 22:17:36.576  INFO 12892 --- [           main] io.lettuce.core.KqueueProvider           : Starting without optional kqueue library
@@ -743,7 +740,7 @@ public class SpringBucksApplication implements ApplicationRunner {
 }
 ```
 
-```
+```perl
 2023-07-23 22:29:26.152  INFO 16088 --- [           main] g.s.springbucks.SpringBucksApplication   : Started SpringBucksApplication in 1.888 seconds (JVM running for 2.136)
 2023-07-23 22:29:26.203  INFO 16088 --- [           main] io.lettuce.core.EpollProvider            : Starting without optional epoll library
 2023-07-23 22:29:26.203  INFO 16088 --- [           main] io.lettuce.core.KqueueProvider           : Starting without optional kqueue library
@@ -775,7 +772,7 @@ Hibernate:
 
 > 运行期间查看 redis 进程
 
-![image-20250615160311918](https://raw.githubusercontent.com/guyuechen/gallery/main/img/202506151603989.png)
+![image-20250615160937028](https://raw.githubusercontent.com/guyuechen/gallery/main/img/202506151609114.png)
 
 ### Redis Repository
 
@@ -963,7 +960,7 @@ public class CoffeeService {
 
 运行效果
 
-```
+```perl
 2023-07-23 22:49:48.971  INFO 17676 --- [           main] g.s.springbucks.SpringBucksApplication   : Started SpringBucksApplication in 1.794 seconds (JVM running for 2.182)
 2023-07-23 22:49:49.028  INFO 17676 --- [           main] io.lettuce.core.EpollProvider            : Starting without optional epoll library
 2023-07-23 22:49:49.029  INFO 17676 --- [           main] io.lettuce.core.KqueueProvider           : Starting without optional kqueue library
