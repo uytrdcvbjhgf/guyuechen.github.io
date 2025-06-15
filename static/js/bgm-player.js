@@ -4,8 +4,10 @@
     return;
   }
 
-  // === 插入样式和 HTML ===
-  const playerHTML = `
+  // === 创建容器 ===
+  const container = document.createElement('div');
+  container.id = 'bgm-container';
+  container.innerHTML = `
     <style>
       #play-music {
         position: fixed;
@@ -20,7 +22,7 @@
         box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
         font-size: 18px;
         cursor: pointer;
-        z-index: 1000;
+        z-index: 10000;
         transition: all 0.2s ease;
         display: flex;
         align-items: center;
@@ -49,21 +51,19 @@
       }
     </style>
 
-    <div id="bgm-container">
-      <button id="play-music" title="背景音乐">🎸</button>
-      <audio id="bgm" loop preload="auto">
-        <source src="https://raw.githubusercontent.com/guyuechen/gallery/main/music/sos.mp3" type="audio/mpeg">
-      </audio>
-    </div>
+    <button id="play-music" title="背景音乐">🎸</button>
+    <audio id="bgm" loop preload="auto">
+      <source src="https://raw.githubusercontent.com/guyuechen/gallery/main/music/sos.mp3" type="audio/mpeg">
+    </audio>
   `;
 
-  document.body.insertAdjacentHTML("beforeend", playerHTML);
+  // === 插入到 <html> 内但 <body> 外（防止被替换） ===
+  document.documentElement.appendChild(container);
 
-  // === 初始化控制逻辑 ===
-  const btn = document.getElementById('play-music');
-  const bgm = document.getElementById('bgm');
+  const btn = container.querySelector('#play-music');
+  const bgm = container.querySelector('#bgm');
 
-  // 读取状态（可选）
+  // 状态恢复
   let isPlaying = localStorage.getItem("bgm-playing") === "true";
 
   const updateButtonUI = () => {
@@ -76,30 +76,33 @@
     }
   };
 
-  // 尝试恢复播放状态（首次加载）
+  // 初始化时尝试恢复播放
   window.addEventListener('load', () => {
     if (isPlaying) {
-      bgm.play().catch(() => {
+      bgm.play().then(() => {
+        updateButtonUI();
+      }).catch(() => {
         isPlaying = false;
         updateButtonUI();
       });
+    } else {
+      updateButtonUI();
     }
-    updateButtonUI();
   });
 
+  // 点击按钮播放/暂停
   btn.addEventListener('click', () => {
     if (isPlaying) {
       bgm.pause();
-      isPlaying = false;
     } else {
-      bgm.play().catch((e) => console.error("播放失败", e));
-      isPlaying = true;
+      bgm.play().catch(err => console.error("播放失败", err));
     }
+    isPlaying = !isPlaying;
     localStorage.setItem("bgm-playing", String(isPlaying));
     updateButtonUI();
   });
 
-  // 页面切换后保持 UI 状态
+  // 页面切换后刷新按钮状态
   document.addEventListener('instantclick:change', () => {
     updateButtonUI();
   });
