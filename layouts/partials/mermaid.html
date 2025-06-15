@@ -1,5 +1,5 @@
-<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.0/dist/mermaid.min.js"></script>
-<script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.0/dist/mermaid.min.js" data-no-instant></script>
+<script data-no-instant>
   const lightTheme = {
     background: '#fff',
     primaryColor: '#f3f6fa',
@@ -36,16 +36,15 @@
     lineColor: '#7bb7ff'
   };
 
-  function getMermaidThemeConfig() {
+  window.getMermaidThemeConfig = function () {
     if (document.body.classList.contains('dark')) {
       return { theme: "dark", themeVariables: darkTheme };
     }
     return { theme: "default", themeVariables: lightTheme };
-  }
+  };
 
-  function renderAllMermaid() {
-    // 1. 清除已渲染的图，恢复为代码块
-    document.querySelectorAll('div.mermaid').forEach(function(div) {
+  window.renderAllMermaid = function () {
+    document.querySelectorAll('div.mermaid').forEach(function (div) {
       if (div.dataset.rawCode) {
         const pre = document.createElement('pre');
         const code = document.createElement('code');
@@ -56,8 +55,7 @@
       }
     });
 
-    // 2. 查找所有 mermaid 代码块并替换为渲染容器
-    document.querySelectorAll('code.language-mermaid').forEach(function(block) {
+    document.querySelectorAll('code.language-mermaid').forEach(function (block) {
       const pre = block.parentElement;
       const mermaidDiv = document.createElement('div');
       mermaidDiv.className = 'mermaid';
@@ -66,23 +64,43 @@
       pre.parentElement.replaceChild(mermaidDiv, pre);
     });
 
-    // 3. 渲染
     mermaid.init();
-  }
+  };
 
-  function initMermaidWithTheme() {
+  window.initMermaidWithTheme = function () {
     const config = Object.assign({ startOnLoad: false }, getMermaidThemeConfig());
     mermaid.initialize(config);
     renderAllMermaid();
+  };
+</script>
+<script>
+  // 初始渲染
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", () => {
+      if (typeof window.initMermaidWithTheme === 'function') {
+        initMermaidWithTheme();
+      }
+    });
+  } else {
+    if (typeof window.initMermaidWithTheme === 'function') {
+      initMermaidWithTheme();
+    }
   }
 
-  // 初始加载
-  document.addEventListener("DOMContentLoaded", initMermaidWithTheme);
+  // 监听主题变更
+  const mermaidThemeObserver = new MutationObserver(() => {
+    if (typeof window.initMermaidWithTheme === 'function') {
+      initMermaidWithTheme();
+    }
+  });
+  mermaidThemeObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] });
 
-  // 主题切换监听
-  const observer = new MutationObserver(initMermaidWithTheme);
-  observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
-
-  // 🔁 页面切换后重新渲染（兼容 InstantClick）
-  document.addEventListener('instantclick:change', initMermaidWithTheme);
+  // InstantClick 支持
+  if (window.InstantClick) {
+    InstantClick.on('change', () => {
+      if (typeof window.initMermaidWithTheme === 'function') {
+        initMermaidWithTheme();
+      }
+    });
+  }
 </script>

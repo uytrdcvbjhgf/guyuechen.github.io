@@ -1,49 +1,73 @@
 <div id="tw-comment"></div>
-<script>
-    // 默认是暗色，根目录下的配置中的主题默认也是暗色
-    const getStoredTheme = () => localStorage.getItem("pref-theme") === "light" ? "{{ .Site.Params.giscus.lightTheme }}" : "{{ .Site.Params.giscus.darkTheme }}";
-    const setGiscusTheme = () => {
-        const sendMessage = (message) => {
-            const iframe = document.querySelector('iframe.giscus-frame');
-            if (iframe) {
-                iframe.contentWindow.postMessage({giscus: message}, 'https://giscus.app');
-            }
-        }
-        sendMessage({setConfig: {theme: getStoredTheme()}})
+
+<!-- ✅ 只声明函数，不会重复执行 -->
+<script data-no-instant>
+  window.getStoredTheme = function () {
+    return localStorage.getItem("pref-theme") === "light"
+      ? "{{ .Site.Params.giscus.lightTheme }}"
+      : "{{ .Site.Params.giscus.darkTheme }}";
+  };
+
+  window.setGiscusTheme = function () {
+    const iframe = document.querySelector('iframe.giscus-frame');
+    if (iframe) {
+      iframe.contentWindow.postMessage({
+        giscus: { setConfig: { theme: window.getStoredTheme() } }
+      }, 'https://giscus.app');
+    }
+  };
+
+  window.initGiscus = function () {
+    const giscusAttributes = {
+      "src": "https://giscus.app/client.js",
+      "data-repo": "{{ .Site.Params.giscus.repo }}",
+      "data-repo-id": "{{ .Site.Params.giscus.repoId }}",
+      "data-category": "{{ .Site.Params.giscus.category }}",
+      "data-category-id": "{{ .Site.Params.giscus.categoryId }}",
+      "data-mapping": "{{ .Site.Params.giscus.mapping }}",
+      "data-strict": "{{ .Site.Params.giscus.strict }}",
+      "data-reactions-enabled": "{{ .Site.Params.giscus.reactionsEnabled }}",
+      "data-emit-metadata": "{{ .Site.Params.giscus.emitMetadata }}",
+      "data-input-position": "{{ .Site.Params.giscus.inputPosition }}",
+      "data-theme": window.getStoredTheme(),
+      "data-lang": "{{ .Site.Params.giscus.lang }}",
+      "data-loading": "lazy",
+      "crossorigin": "anonymous",
+    };
+
+    const giscusScript = document.createElement("script");
+    Object.entries(giscusAttributes).forEach(([key, value]) => {
+      giscusScript.setAttribute(key, value);
+    });
+
+    const mountPoint = document.getElementById("tw-comment");
+    if (mountPoint) {
+      mountPoint.innerHTML = ""; // 清空旧的（防止多次挂载）
+      mountPoint.appendChild(giscusScript);
     }
 
+    const toggle = document.querySelector("#theme-toggle");
+    if (toggle) toggle.addEventListener("click", window.setGiscusTheme);
+
+    const toggleFloat = document.querySelector("#theme-toggle-float");
+    if (toggleFloat) toggleFloat.addEventListener("click", window.setGiscusTheme);
+  };
+</script>
+
+<!-- ✅ 实际触发挂载（首次和 PJAX 切换都要用） -->
+<script>
+  if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", () => {
-        const giscusAttributes = {
-            "src": "https://giscus.app/client.js",
-            "data-repo": "{{ .Site.Params.giscus.repo }}",
-            "data-repo-id": "{{ .Site.Params.giscus.repoId }}",
-            "data-category": "{{ .Site.Params.giscus.category }}",
-            "data-category-id": "{{ .Site.Params.giscus.categoryId }}",
-            "data-mapping": "{{ .Site.Params.giscus.mapping }}",
-            "data-strict": "{{ .Site.Params.giscus.strict }}",
-            "data-reactions-enabled": "{{ .Site.Params.giscus.reactionsEnabled }}",
-            "data-emit-metadata": "{{ .Site.Params.giscus.emitMetadata }}",
-            "data-input-position": "{{ .Site.Params.giscus.inputPosition }}",
-            "data-theme": getStoredTheme(),
-            "data-lang": "{{ .Site.Params.giscus.lang }}",
-            "data-loading": "lazy",
-            "crossorigin": "anonymous",
-        };
-
-        // 动态创建 giscus script
-        const giscusScript = document.createElement("script");
-        Object.entries(giscusAttributes).forEach(
-                ([key, value]) => giscusScript.setAttribute(key, value));
-        document.querySelector("#tw-comment").appendChild(giscusScript);
-
-        // 页面主题变更后，变更 giscus 主题
-        const themeSwitcher = document.querySelector("#theme-toggle");
-        if (themeSwitcher) {
-            themeSwitcher.addEventListener("click", setGiscusTheme);
-        }
-        const themeFloatSwitcher = document.querySelector("#theme-toggle-float");
-        if (themeFloatSwitcher) {
-            themeFloatSwitcher.addEventListener("click", setGiscusTheme);
-        }
+      if (typeof window.initGiscus === 'function') window.initGiscus();
     });
+  } else {
+    if (typeof window.initGiscus === 'function') window.initGiscus();
+  }
+
+  // ✅ PJAX 切换后重新初始化
+  if (window.InstantClick) {
+    InstantClick.on('change', () => {
+      if (typeof window.initGiscus === 'function') window.initGiscus();
+    });
+  }
 </script>
