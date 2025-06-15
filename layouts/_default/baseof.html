@@ -1,3 +1,4 @@
+<!-- ✅ baseof.html 最终版 -->
 {{- if lt hugo.Version "0.112.4" }}
 {{- errorf "=> hugo v0.112.4 or greater is required for hugo-PaperMod to build " }}
 {{- end -}}
@@ -32,34 +33,28 @@
   </main>
   {{ partialCached "footer.html" . .Layout .Kind (.Param "hideFooter") (.Param "ShowCodeCopyButtons") -}}
   {{ partial "mermaid.html" . }}
+  {{ partial "comments.html" . }}
 
   <script src="{{ $fastsearch.RelPermalink }}" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/instantclick@3.1.0/instantclick.min.js" data-no-instant></script>
 
   <script>
     function reinitializePageFeatures() {
-      // ✅ 同步 body 和 html 的主题 class
       const prefTheme = localStorage.getItem("pref-theme") || "{{ site.Params.defaultTheme }}";
       const isDark = prefTheme === "dark";
       document.documentElement.classList.toggle("dark", isDark);
       document.body.classList.toggle("dark", isDark);
 
-      // ✅ Mermaid 样式同步
       if (typeof window.initMermaidWithTheme === 'function') {
         setTimeout(() => window.initMermaidWithTheme(), 0);
       }
-
-      // ✅ Giscus 主题同步（不再手动创建）
       if (typeof window.setGiscusTheme === 'function') {
         setTimeout(() => window.setGiscusTheme(), 0);
       }
-
-      // ✅ Giscus 初始化（仅保留封装调用）
       if (typeof window.initGiscus === 'function') {
         setTimeout(() => window.initGiscus(), 0);
       }
 
-      // ✅ 滚动菜单记忆
       const menu = document.getElementById('menu');
       if (menu) {
         menu.scrollLeft = localStorage.getItem("menu-scroll-position");
@@ -68,7 +63,6 @@
         };
       }
 
-      // ✅ 锚点平滑滚动
       document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener("click", function (e) {
           e.preventDefault();
@@ -84,7 +78,6 @@
         });
       });
 
-      // ✅ 返回顶部按钮显示控制
       const topLink = document.getElementById("top-link");
       if (topLink) {
         window.addEventListener("scroll", () => {
@@ -94,22 +87,20 @@
         });
       }
 
-      // ✅ 主题切换按钮（html 和 body 同时同步）
       const themeToggle = document.getElementById("theme-toggle");
       if (themeToggle && !themeToggle.dataset.bound) {
         themeToggle.addEventListener("click", () => {
           const html = document.documentElement;
           const body = document.body;
           const isDark = html.classList.contains("dark");
-
           html.classList.toggle("dark", !isDark);
           body.classList.toggle("dark", !isDark);
           localStorage.setItem("pref-theme", isDark ? "light" : "dark");
+          window.setGiscusTheme?.();
         });
         themeToggle.dataset.bound = "true";
       }
 
-      // ✅ SPA 场景下延迟等待 fastsearch.js 加载完成
       if (location.pathname.includes("/search")) {
         const waitSearch = setInterval(() => {
           if (typeof loadSearch === "function") {
@@ -119,7 +110,6 @@
         }, 50);
       }
 
-      // ✅ 代码复制按钮
       document.querySelectorAll('pre > code').forEach((codeblock) => {
         const container = codeblock.parentNode.parentNode;
         const copybutton = document.createElement('button');
@@ -139,7 +129,6 @@
             copyingDone();
             return;
           }
-
           const range = document.createRange();
           range.selectNodeContents(codeblock);
           const selection = window.getSelection();
@@ -154,9 +143,6 @@
 
         if (container.classList.contains("highlight")) {
           container.appendChild(copybutton);
-        } else if (container.parentNode.firstChild === container) {
-        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode?.nodeName === "TABLE") {
-          codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
         } else {
           codeblock.parentNode.appendChild(copybutton);
         }

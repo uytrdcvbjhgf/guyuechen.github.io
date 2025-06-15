@@ -1,6 +1,5 @@
 <div id="tw-comment"></div>
 
-<!-- ✅ 工具函数区 -->
 <script data-no-instant>
   window.getStoredTheme = function () {
     return localStorage.getItem("pref-theme") === "light"
@@ -10,28 +9,14 @@
 
   window.setGiscusTheme = function () {
     const iframe = document.querySelector('iframe.giscus-frame');
-    if (!iframe) {
-      console.warn("[Giscus] iframe not found when trying to set theme");
-      return;
-    }
-
+    if (!iframe) return;
     const theme = window.getStoredTheme();
-    const message = {
-      giscus: { setConfig: { theme } }
-    };
-
-    if (iframe.contentWindow) {
-      iframe.contentWindow.postMessage(message, "https://giscus.app");
-    } else {
-      // Fallback retry
-      setTimeout(() => {
-        iframe.contentWindow?.postMessage(message, "https://giscus.app");
-      }, 100);
-    }
+    const message = { giscus: { setConfig: { theme } } };
+    iframe.contentWindow?.postMessage(message, "https://giscus.app");
   };
 
   window.initGiscus = function () {
-    const giscusAttributes = {
+    const attributes = {
       "src": "https://giscus.app/client.js",
       "data-repo": "{{ .Site.Params.giscus.repo }}",
       "data-repo-id": "{{ .Site.Params.giscus.repoId }}",
@@ -48,66 +33,42 @@
       "crossorigin": "anonymous"
     };
 
-    const giscusScript = document.createElement("script");
-    Object.entries(giscusAttributes).forEach(([key, value]) => {
-      giscusScript.setAttribute(key, value);
+    const script = document.createElement("script");
+    Object.entries(attributes).forEach(([key, value]) => {
+      script.setAttribute(key, value);
     });
 
     const mountPoint = document.getElementById("tw-comment");
     if (mountPoint) {
       mountPoint.innerHTML = "";
-      mountPoint.appendChild(giscusScript);
+      mountPoint.appendChild(script);
     }
 
-    // ✅ 仅绑定一次 toggle 切换事件
-    if (!window.__giscus_theme_toggle_bound__) {
-      const bindToggleEvents = () => {
-        const toggle = document.querySelector("#theme-toggle");
-        if (toggle) toggle.addEventListener("click", window.setGiscusTheme);
-
-        const toggleFloat = document.querySelector("#theme-toggle-float");
-        if (toggleFloat) toggleFloat.addEventListener("click", window.setGiscusTheme);
-      };
-      bindToggleEvents();
-      window.__giscus_theme_toggle_bound__ = true;
+    if (!window.__giscusThemeBind__) {
+      const toggle1 = document.querySelector("#theme-toggle");
+      const toggle2 = document.querySelector("#theme-toggle-float");
+      if (toggle1) toggle1.addEventListener("click", window.setGiscusTheme);
+      if (toggle2) toggle2.addEventListener("click", window.setGiscusTheme);
+      window.__giscusThemeBind__ = true;
     }
   };
 </script>
 
-<!-- ✅ 初始化逻辑（首次和 PJAX） -->
 <script>
-  const triggerGiscusInit = () => {
-    if (typeof window.initGiscus === 'function') {
-      window.initGiscus();
+  const triggerGiscus = () => {
+    if (typeof window.initGiscus === 'function') window.initGiscus();
+    if (typeof window.setGiscusTheme === 'function') {
+      setTimeout(() => window.setGiscusTheme(), 100);
     }
   };
 
-  const triggerGiscusThemeUpdate = () => {
-    const waitAndSetTheme = () => {
-      const iframe = document.querySelector('iframe.giscus-frame');
-      if (iframe?.contentWindow) {
-        window.setGiscusTheme();
-      } else {
-        setTimeout(waitAndSetTheme, 100); // Retry until iframe is ready
-      }
-    };
-    waitAndSetTheme();
-  };
-
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", () => {
-      triggerGiscusInit();
-      triggerGiscusThemeUpdate();
-    });
+    document.addEventListener("DOMContentLoaded", triggerGiscus);
   } else {
-    triggerGiscusInit();
-    triggerGiscusThemeUpdate();
+    triggerGiscus();
   }
 
   if (window.InstantClick) {
-    InstantClick.on('change', () => {
-      triggerGiscusInit();
-      triggerGiscusThemeUpdate();
-    });
+    InstantClick.on('change', triggerGiscus);
   }
 </script>

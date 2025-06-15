@@ -1,7 +1,6 @@
 <!-- ✅ Mermaid 库，只加载一次 -->
 <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.0/dist/mermaid.min.js" data-no-instant></script>
 
-<!-- ✅ 函数声明与配置定义 -->
 <script data-no-instant>
   const lightTheme = {
     background: '#fff',
@@ -46,8 +45,7 @@
   };
 
   window.renderAllMermaid = function () {
-    // 1. 还原渲染图为代码块（避免重复渲染）
-    document.querySelectorAll('div.mermaid').forEach(function (div) {
+    document.querySelectorAll('div.mermaid').forEach(div => {
       if (div.dataset.rawCode) {
         const pre = document.createElement('pre');
         const code = document.createElement('code');
@@ -58,17 +56,15 @@
       }
     });
 
-    // 2. 替换为待渲染容器
-    document.querySelectorAll('code.language-mermaid').forEach(function (block) {
-      const pre = block.parentElement;
-      const mermaidDiv = document.createElement('div');
-      mermaidDiv.className = 'mermaid';
-      mermaidDiv.textContent = block.textContent;
-      mermaidDiv.dataset.rawCode = block.textContent;
-      pre.parentElement.replaceChild(mermaidDiv, pre);
+    document.querySelectorAll('code.language-mermaid').forEach(code => {
+      const pre = code.parentElement;
+      const div = document.createElement('div');
+      div.className = 'mermaid';
+      div.textContent = code.textContent;
+      div.dataset.rawCode = code.textContent;
+      pre.replaceWith(div);
     });
 
-    // 3. 使用 requestAnimationFrame 等待 DOM 更新后再渲染
     requestAnimationFrame(() => {
       try {
         mermaid.init();
@@ -85,35 +81,22 @@
   };
 </script>
 
-<!-- ✅ 启动初始化 + 监听切换 -->
 <script>
-  // 初次 DOM 渲染
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", () => {
-      window.initMermaidWithTheme?.();
-    });
+    document.addEventListener("DOMContentLoaded", () => window.initMermaidWithTheme?.());
   } else {
     window.initMermaidWithTheme?.();
   }
 
-  // 主题变更监听（仅绑定一次）
   if (!window._mermaidThemeObserverAttached) {
     window._mermaidThemeObserverAttached = true;
-
-    window.mermaidThemeObserver = new MutationObserver(() => {
-      window.initMermaidWithTheme?.();
+    const observer = new MutationObserver(() => {
+      requestAnimationFrame(() => window.initMermaidWithTheme?.());
     });
-
-    window.mermaidThemeObserver.observe(document.body, {
-      attributes: true,
-      attributeFilter: ['class']
-    });
+    observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
   }
 
-  // InstantClick PJAX 页面切换后重载
   if (window.InstantClick) {
-    InstantClick.on('change', () => {
-      window.initMermaidWithTheme?.();
-    });
+    InstantClick.on('change', () => window.initMermaidWithTheme?.());
   }
 </script>
