@@ -1,4 +1,3 @@
-<!-- ✅ Final baseof.html -->
 {{- if lt hugo.Version "0.112.4" }}
 {{- errorf "=> hugo v0.112.4 or greater is required for hugo-PaperMod to build " }}
 {{- end -}}
@@ -7,164 +6,189 @@
 <html lang="{{ site.Language }}" dir="{{ .Language.LanguageDirection | default "auto" }}">
 
 <head>
-    {{- partial "head.html" . }}
-    <script src="/js/bgm-player.js" defer></script>
-    {{ $fastsearch := resources.Get "js/fastsearch.js" | js.Build (dict "target" "es2015") }}
+  <!-- ⏱ 防止闪烁：提前根据 localStorage 设置主题 class -->
+  <script>
+    (function () {
+      const theme = localStorage.getItem("pref-theme");
+      if (theme === "dark") {
+        document.documentElement.classList.add("dark");
+        document.body?.classList?.add("dark");
+      }
+    })();
+  </script>
+
+  {{- partial "head.html" . }}
+  <script src="/js/bgm-player.js" defer></script>
+  {{ $fastsearch := resources.Get "js/fastsearch.js" | js.Build (dict "target" "es2015") }}
 </head>
 
 <body class="
-{{- if (or (ne .Kind `page` ) (eq .Layout `archives`) (eq .Layout `search`)) -}}
-list
-{{- end -}}
-{{- if eq site.Params.defaultTheme `dark` -}}
-dark
-{{- end -}}" id="top">
-    {{- partialCached "header.html" . .Page -}}
-    <main class="main">
-        {{- block "main" . }}{{ end }}
-    </main>
-    {{ partialCached "footer.html" . .Layout .Kind (.Param "hideFooter") (.Param "ShowCodeCopyButtons") -}}
-    {{ partial "mermaid.html" . }}
+{{- if (or (ne .Kind `page` ) (eq .Layout `archives`) (eq .Layout `search`)) -}}list{{- end -}}
+{{- if eq site.Params.defaultTheme `dark` -}} dark{{- end -}}" id="top">
 
-    <script src="{{ $fastsearch.RelPermalink }}" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/instantclick@3.1.0/instantclick.min.js" data-no-instant></script>
+  {{- partialCached "header.html" . .Page -}}
 
-    <!-- ✅ 全站功能初始化方法 -->
-    <script>
-      function reinitializePageFeatures() {
-        // Mermaid
-        if (typeof window.initMermaidWithTheme === 'function') {
-          window.initMermaidWithTheme();
-        }
+  <main class="main">
+    {{- block "main" . }}{{ end }}
+  </main>
 
-        // Giscus
-        const giscusWrapper = document.getElementById('tw-comment');
-        if (giscusWrapper) {
-          giscusWrapper.innerHTML = '';
-          const script = document.createElement('script');
-          const attrs = {
-            "src": "https://giscus.app/client.js",
-            "data-repo": "{{ .Site.Params.giscus.repo }}",
-            "data-repo-id": "{{ .Site.Params.giscus.repoId }}",
-            "data-category": "{{ .Site.Params.giscus.category }}",
-            "data-category-id": "{{ .Site.Params.giscus.categoryId }}",
-            "data-mapping": "{{ .Site.Params.giscus.mapping }}",
-            "data-strict": "{{ .Site.Params.giscus.strict }}",
-            "data-reactions-enabled": "{{ .Site.Params.giscus.reactionsEnabled }}",
-            "data-emit-metadata": "{{ .Site.Params.giscus.emitMetadata }}",
-            "data-input-position": "{{ .Site.Params.giscus.inputPosition }}",
-            "data-theme": localStorage.getItem("pref-theme") === "light" ? "{{ .Site.Params.giscus.lightTheme }}" : "{{ .Site.Params.giscus.darkTheme }}",
-            "data-lang": "{{ .Site.Params.giscus.lang }}",
-            "data-loading": "lazy",
-            "crossorigin": "anonymous",
-            "async": "true"
-          };
-          Object.entries(attrs).forEach(([k, v]) => script.setAttribute(k, v));
-          giscusWrapper.appendChild(script);
-        }
+  {{ partialCached "footer.html" . .Layout .Kind (.Param "hideFooter") (.Param "ShowCodeCopyButtons") -}}
+  {{ partial "mermaid.html" . }}
 
-        // Scroll position memory
-        const menu = document.getElementById('menu');
-        if (menu) {
-          menu.scrollLeft = localStorage.getItem("menu-scroll-position");
-          menu.onscroll = () => {
-            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
-          };
-        }
+  <!-- ✅ 所有 script 放在底部提升性能 -->
+  <script src="{{ $fastsearch.RelPermalink }}" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/instantclick@3.1.0/instantclick.min.js" data-no-instant></script>
 
-        // Anchor smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-          anchor.addEventListener("click", function (e) {
-            e.preventDefault();
-            const id = this.getAttribute("href").substr(1);
-            const el = document.querySelector(`[id='${decodeURIComponent(id)}']`);
-            if (!el) return;
-            el.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
-            if (id === "top") {
-              history.replaceState(null, null, " ");
-            } else {
-              history.pushState(null, null, `#${id}`);
-            }
-          });
-        });
-
-        // Top scroll button
-        const topLink = document.getElementById("top-link");
-        if (topLink) {
-          window.addEventListener("scroll", () => {
-            const visible = document.body.scrollTop > 800 || document.documentElement.scrollTop > 800;
-            topLink.style.visibility = visible ? "visible" : "hidden";
-            topLink.style.opacity = visible ? "1" : "0";
-          });
-        }
-
-        // Theme toggle
-        const themeToggle = document.getElementById("theme-toggle");
-        if (themeToggle && !themeToggle.dataset.bound) {
-          themeToggle.addEventListener("click", () => {
-            if (document.body.classList.contains("dark")) {
-              document.body.classList.remove("dark");
-              localStorage.setItem("pref-theme", 'light');
-            } else {
-              document.body.classList.add("dark");
-              localStorage.setItem("pref-theme", 'dark');
-            }
-          });
-          themeToggle.dataset.bound = "true";
-        }
-
-        // Code copy
-        document.querySelectorAll('pre > code').forEach((codeblock) => {
-          const container = codeblock.parentNode.parentNode;
-          const copybutton = document.createElement('button');
-          copybutton.classList.add('copy-code');
-          copybutton.innerHTML = '{{- i18n "code_copy" | default "copy" }}';
-
-          function copyingDone() {
-            copybutton.innerHTML = '{{- i18n "code_copied" | default "copied!" }}';
-            setTimeout(() => {
-              copybutton.innerHTML = '{{- i18n "code_copy" | default "copy" }}';
-            }, 2000);
-          }
-
-          copybutton.addEventListener('click', () => {
-            if ('clipboard' in navigator) {
-              navigator.clipboard.writeText(codeblock.textContent);
-              copyingDone();
-              return;
-            }
-
-            const range = document.createRange();
-            range.selectNodeContents(codeblock);
-            const selection = window.getSelection();
-            selection.removeAllRanges();
-            selection.addRange(range);
-            try {
-              document.execCommand('copy');
-              copyingDone();
-            } catch (e) {}
-            selection.removeRange(range);
-          });
-
-          if (container.classList.contains("highlight")) {
-            container.appendChild(copybutton);
-          } else if (container.parentNode.firstChild === container) {
-          } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode?.nodeName === "TABLE") {
-            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
-          } else {
-            codeblock.parentNode.appendChild(copybutton);
-          }
-        });
-      }
-
-      if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", () => reinitializePageFeatures());
+  <script>
+    function reinitializePageFeatures() {
+      // ✅ 强制根据 localStorage 同步主题（适用于 InstantClick 切换后）
+      const savedTheme = localStorage.getItem("pref-theme");
+      if (savedTheme === "dark") {
+        document.body.classList.add("dark");
       } else {
-        reinitializePageFeatures();
+        document.body.classList.remove("dark");
       }
 
-      InstantClick.on('change', reinitializePageFeatures);
-      InstantClick.init();
-    </script>
+      // ✅ Mermaid 重新初始化
+      if (typeof window.initMermaidWithTheme === 'function') {
+        window.initMermaidWithTheme();
+      }
+
+      // ✅ Giscus 重新挂载
+      const giscusWrapper = document.getElementById('tw-comment');
+      if (giscusWrapper) {
+        giscusWrapper.innerHTML = '';
+        const script = document.createElement('script');
+        const attrs = {
+          "src": "https://giscus.app/client.js",
+          "data-repo": "{{ .Site.Params.giscus.repo }}",
+          "data-repo-id": "{{ .Site.Params.giscus.repoId }}",
+          "data-category": "{{ .Site.Params.giscus.category }}",
+          "data-category-id": "{{ .Site.Params.giscus.categoryId }}",
+          "data-mapping": "{{ .Site.Params.giscus.mapping }}",
+          "data-strict": "{{ .Site.Params.giscus.strict }}",
+          "data-reactions-enabled": "{{ .Site.Params.giscus.reactionsEnabled }}",
+          "data-emit-metadata": "{{ .Site.Params.giscus.emitMetadata }}",
+          "data-input-position": "{{ .Site.Params.giscus.inputPosition }}",
+          "data-theme": savedTheme === "light" ? "{{ .Site.Params.giscus.lightTheme }}" : "{{ .Site.Params.giscus.darkTheme }}",
+          "data-lang": "{{ .Site.Params.giscus.lang }}",
+          "data-loading": "lazy",
+          "crossorigin": "anonymous",
+          "async": "true"
+        };
+        Object.entries(attrs).forEach(([k, v]) => script.setAttribute(k, v));
+        giscusWrapper.appendChild(script);
+      }
+
+      // ✅ Menu 滚动位置记忆
+      const menu = document.getElementById('menu');
+      if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = () => {
+          localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        };
+      }
+
+      // ✅ 内页 anchor 平滑滚动
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const id = this.getAttribute("href").substr(1);
+          const el = document.querySelector(`[id='${decodeURIComponent(id)}']`);
+          if (!el) return;
+          el.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+          if (id === "top") {
+            history.replaceState(null, null, " ");
+          } else {
+            history.pushState(null, null, `#${id}`);
+          }
+        });
+      });
+
+      // ✅ 回到顶部按钮显示控制
+      const topLink = document.getElementById("top-link");
+      if (topLink) {
+        window.addEventListener("scroll", () => {
+          const visible = document.body.scrollTop > 800 || document.documentElement.scrollTop > 800;
+          topLink.style.visibility = visible ? "visible" : "hidden";
+          topLink.style.opacity = visible ? "1" : "0";
+        });
+      }
+
+      // ✅ 主题切换按钮绑定（首次 + PJAX）
+      const themeToggle = document.getElementById("theme-toggle");
+      if (themeToggle && !themeToggle.dataset.bound) {
+        themeToggle.addEventListener("click", () => {
+          if (document.body.classList.contains("dark")) {
+            document.body.classList.remove("dark");
+            localStorage.setItem("pref-theme", 'light');
+          } else {
+            document.body.classList.add("dark");
+            localStorage.setItem("pref-theme", 'dark');
+          }
+        });
+        themeToggle.dataset.bound = "true";
+      }
+
+      // ✅ 代码块复制功能初始化
+      document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = '{{- i18n "code_copy" | default "copy" }}';
+
+        function copyingDone() {
+          copybutton.innerHTML = '{{- i18n "code_copied" | default "copied!" }}';
+          setTimeout(() => {
+            copybutton.innerHTML = '{{- i18n "code_copy" | default "copy" }}';
+          }, 2000);
+        }
+
+        copybutton.addEventListener('click', () => {
+          if ('clipboard' in navigator) {
+            navigator.clipboard.writeText(codeblock.textContent);
+            copyingDone();
+            return;
+          }
+
+          const range = document.createRange();
+          range.selectNodeContents(codeblock);
+          const selection = window.getSelection();
+          selection.removeAllRanges();
+          selection.addRange(range);
+          try {
+            document.execCommand('copy');
+            copyingDone();
+          } catch (e) {}
+          selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+          container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild === container) {
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode?.nodeName === "TABLE") {
+          codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+          codeblock.parentNode.appendChild(copybutton);
+        }
+      });
+
+      // ✅ 特殊页面处理（如搜索）
+      if (location.pathname.includes("/search") && typeof loadSearch === 'function') {
+        setTimeout(() => loadSearch(), 30);
+      }
+    }
+
+    // 初次加载执行
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", () => reinitializePageFeatures());
+    } else {
+      reinitializePageFeatures();
+    }
+
+    // PJAX 切换执行
+    InstantClick.on('change', reinitializePageFeatures);
+    InstantClick.init();
+  </script>
 </body>
 </html>
