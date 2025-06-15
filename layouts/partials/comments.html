@@ -1,6 +1,6 @@
 <div id="tw-comment"></div>
 
-<!-- ✅ 只声明函数，不会重复执行 -->
+<!-- ✅ 工具函数区 -->
 <script data-no-instant>
   window.getStoredTheme = function () {
     return localStorage.getItem("pref-theme") === "light"
@@ -42,32 +42,55 @@
 
     const mountPoint = document.getElementById("tw-comment");
     if (mountPoint) {
-      mountPoint.innerHTML = ""; // 清空旧的（防止多次挂载）
+      mountPoint.innerHTML = "";
       mountPoint.appendChild(giscusScript);
     }
 
-    const toggle = document.querySelector("#theme-toggle");
-    if (toggle) toggle.addEventListener("click", window.setGiscusTheme);
+    // ✅ 仅绑定一次 toggle 切换事件
+    if (!window.__giscus_theme_toggle_bound__) {
+      const bindToggleEvents = () => {
+        const toggle = document.querySelector("#theme-toggle");
+        if (toggle) toggle.addEventListener("click", window.setGiscusTheme);
 
-    const toggleFloat = document.querySelector("#theme-toggle-float");
-    if (toggleFloat) toggleFloat.addEventListener("click", window.setGiscusTheme);
+        const toggleFloat = document.querySelector("#theme-toggle-float");
+        if (toggleFloat) toggleFloat.addEventListener("click", window.setGiscusTheme);
+      };
+      bindToggleEvents();
+      window.__giscus_theme_toggle_bound__ = true;
+    }
   };
 </script>
 
-<!-- ✅ 实际触发挂载（首次和 PJAX 切换都要用） -->
+<!-- ✅ 初始化逻辑（首次和 PJAX） -->
 <script>
+  const triggerGiscusInit = () => {
+    if (typeof window.initGiscus === 'function') {
+      window.initGiscus();
+    }
+  };
+
+  const triggerGiscusThemeUpdate = () => {
+    setTimeout(() => {
+      if (typeof window.setGiscusTheme === 'function') {
+        window.setGiscusTheme();
+      }
+    }, 500); // ⏳ iframe 渲染完成之后调用
+  };
+
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", () => {
-      if (typeof window.initGiscus === 'function') window.initGiscus();
+      triggerGiscusInit();
+      triggerGiscusThemeUpdate();
     });
   } else {
-    if (typeof window.initGiscus === 'function') window.initGiscus();
+    triggerGiscusInit();
+    triggerGiscusThemeUpdate();
   }
 
-  // ✅ PJAX 切换后重新初始化
   if (window.InstantClick) {
     InstantClick.on('change', () => {
-      if (typeof window.initGiscus === 'function') window.initGiscus();
+      triggerGiscusInit();
+      triggerGiscusThemeUpdate();
     });
   }
 </script>
