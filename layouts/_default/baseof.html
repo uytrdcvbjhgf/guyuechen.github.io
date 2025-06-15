@@ -8,10 +8,10 @@
   {{- partial "head.html" . }}
   <script src="/js/bgm-player.js" defer></script>
 
-  <!-- 防止主题闪烁：提前设置 <html> 和 <body> class -->
+  <!-- ✅ 防止初始加载时闪烁 -->
   <script>
     (function () {
-      const theme = localStorage.getItem("pref-theme");
+      const theme = localStorage.getItem("pref-theme") || "{{ site.Params.defaultTheme }}";
       if (theme === "dark") {
         document.documentElement.classList.add("dark");
         document.body.classList.add("dark");
@@ -38,48 +38,28 @@
 
   <script>
     function reinitializePageFeatures() {
-      // 🔁 确保主题 class 是最新的
-      (function syncThemeClass() {
-        const prefTheme = localStorage.getItem("pref-theme");
-        const isDark = prefTheme === "dark";
-        document.documentElement.classList.toggle("dark", isDark);
-        document.body.classList.toggle("dark", isDark);
-      })();
-      
-      // Mermaid
+      // ✅ 同步 body 和 html 的主题 class
+      const prefTheme = localStorage.getItem("pref-theme") || "{{ site.Params.defaultTheme }}";
+      const isDark = prefTheme === "dark";
+      document.documentElement.classList.toggle("dark", isDark);
+      document.body.classList.toggle("dark", isDark);
+
+      // ✅ Mermaid 样式同步
       if (typeof window.initMermaidWithTheme === 'function') {
-        window.initMermaidWithTheme();
+        setTimeout(() => window.initMermaidWithTheme(), 0);
       }
 
-      // Giscus 评论重载
-      const giscusWrapper = document.getElementById('tw-comment');
-      if (giscusWrapper) {
-        giscusWrapper.innerHTML = '';
-        const script = document.createElement('script');
-        const attrs = {
-          "src": "https://giscus.app/client.js",
-          "data-repo": "{{ .Site.Params.giscus.repo }}",
-          "data-repo-id": "{{ .Site.Params.giscus.repoId }}",
-          "data-category": "{{ .Site.Params.giscus.category }}",
-          "data-category-id": "{{ .Site.Params.giscus.categoryId }}",
-          "data-mapping": "{{ .Site.Params.giscus.mapping }}",
-          "data-strict": "{{ .Site.Params.giscus.strict }}",
-          "data-reactions-enabled": "{{ .Site.Params.giscus.reactionsEnabled }}",
-          "data-emit-metadata": "{{ .Site.Params.giscus.emitMetadata }}",
-          "data-input-position": "{{ .Site.Params.giscus.inputPosition }}",
-          "data-theme": localStorage.getItem("pref-theme") === "light"
-                        ? "{{ .Site.Params.giscus.lightTheme }}"
-                        : "{{ .Site.Params.giscus.darkTheme }}",
-          "data-lang": "{{ .Site.Params.giscus.lang }}",
-          "data-loading": "lazy",
-          "crossorigin": "anonymous",
-          "async": "true"
-        };
-        Object.entries(attrs).forEach(([k, v]) => script.setAttribute(k, v));
-        giscusWrapper.appendChild(script);
+      // ✅ Giscus 主题同步（不再手动创建）
+      if (typeof window.setGiscusTheme === 'function') {
+        setTimeout(() => window.setGiscusTheme(), 0);
       }
 
-      // 滚动菜单位置记忆
+      // ✅ Giscus 初始化（仅保留封装调用）
+      if (typeof window.initGiscus === 'function') {
+        setTimeout(() => window.initGiscus(), 0);
+      }
+
+      // ✅ 滚动菜单记忆
       const menu = document.getElementById('menu');
       if (menu) {
         menu.scrollLeft = localStorage.getItem("menu-scroll-position");
@@ -88,7 +68,7 @@
         };
       }
 
-      // 页面内锚点平滑滚动
+      // ✅ 锚点平滑滚动
       document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener("click", function (e) {
           e.preventDefault();
@@ -104,7 +84,7 @@
         });
       });
 
-      // 返回顶部按钮显示控制
+      // ✅ 返回顶部按钮显示控制
       const topLink = document.getElementById("top-link");
       if (topLink) {
         window.addEventListener("scroll", () => {
@@ -114,7 +94,7 @@
         });
       }
 
-      // 主题切换按钮逻辑（<html> 和 <body> 同步）
+      // ✅ 主题切换按钮（html 和 body 同时同步）
       const themeToggle = document.getElementById("theme-toggle");
       if (themeToggle && !themeToggle.dataset.bound) {
         themeToggle.addEventListener("click", () => {
@@ -129,12 +109,17 @@
         themeToggle.dataset.bound = "true";
       }
 
-      // 搜索重载
-      if (location.pathname.includes("/search") && typeof loadSearch === "function") {
-        setTimeout(() => loadSearch(), 30);
+      // ✅ SPA 场景下延迟等待 fastsearch.js 加载完成
+      if (location.pathname.includes("/search")) {
+        const waitSearch = setInterval(() => {
+          if (typeof loadSearch === "function") {
+            clearInterval(waitSearch);
+            loadSearch();
+          }
+        }, 50);
       }
 
-      // 代码复制按钮
+      // ✅ 代码复制按钮
       document.querySelectorAll('pre > code').forEach((codeblock) => {
         const container = codeblock.parentNode.parentNode;
         const copybutton = document.createElement('button');

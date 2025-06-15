@@ -10,10 +10,23 @@
 
   window.setGiscusTheme = function () {
     const iframe = document.querySelector('iframe.giscus-frame');
-    if (iframe) {
-      iframe.contentWindow.postMessage({
-        giscus: { setConfig: { theme: window.getStoredTheme() } }
-      }, 'https://giscus.app');
+    if (!iframe) {
+      console.warn("[Giscus] iframe not found when trying to set theme");
+      return;
+    }
+
+    const theme = window.getStoredTheme();
+    const message = {
+      giscus: { setConfig: { theme } }
+    };
+
+    if (iframe.contentWindow) {
+      iframe.contentWindow.postMessage(message, "https://giscus.app");
+    } else {
+      // Fallback retry
+      setTimeout(() => {
+        iframe.contentWindow?.postMessage(message, "https://giscus.app");
+      }, 100);
     }
   };
 
@@ -32,7 +45,7 @@
       "data-theme": window.getStoredTheme(),
       "data-lang": "{{ .Site.Params.giscus.lang }}",
       "data-loading": "lazy",
-      "crossorigin": "anonymous",
+      "crossorigin": "anonymous"
     };
 
     const giscusScript = document.createElement("script");
@@ -70,11 +83,15 @@
   };
 
   const triggerGiscusThemeUpdate = () => {
-    setTimeout(() => {
-      if (typeof window.setGiscusTheme === 'function') {
+    const waitAndSetTheme = () => {
+      const iframe = document.querySelector('iframe.giscus-frame');
+      if (iframe?.contentWindow) {
         window.setGiscusTheme();
+      } else {
+        setTimeout(waitAndSetTheme, 100); // Retry until iframe is ready
       }
-    }, 500); // ⏳ iframe 渲染完成之后调用
+    };
+    waitAndSetTheme();
   };
 
   if (document.readyState === "loading") {

@@ -96,7 +96,7 @@
     window.initMermaidWithTheme?.();
   }
 
-  // 主题变更（防止重复绑定）
+  // 主题变更监听（仅绑定一次）
   if (!window._mermaidThemeObserverAttached) {
     window._mermaidThemeObserverAttached = true;
 
@@ -110,7 +110,7 @@
     });
   }
 
-  // InstantClick PJAX 页面切换后
+  // InstantClick PJAX 页面切换后重载
   if (window.InstantClick) {
     InstantClick.on('change', () => {
       window.initMermaidWithTheme?.();
