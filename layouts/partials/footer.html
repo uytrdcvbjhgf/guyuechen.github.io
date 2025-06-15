@@ -144,13 +144,8 @@
 {{- end }}
 
 <!-- 👇 背景音乐播放按钮 + 音频元素 + 控制脚本 -->
+<!-- 🎵 背景音乐播放器 + 控制按钮 -->
 <style>
-  @keyframes pulse {
-    0%   { transform: scale(1); }
-    50%  { transform: scale(1.15); }
-    100% { transform: scale(1); }
-  }
-
   #play-music {
     position: fixed;
     top: 64px;
@@ -185,31 +180,55 @@
     color: #3399ff;
     animation: none;
   }
+
+  @keyframes pulse {
+    0%   { transform: scale(1); }
+    50%  { transform: scale(1.15); }
+    100% { transform: scale(1); }
+  }
 </style>
 
-<button id="play-music" title="背景音乐">🎸</button>
+<!-- 🎵 音乐按钮 + audio（保持全站唯一） -->
+<div id="bgm-container">
+  <button id="play-music" title="背景音乐">▶️</button>
 
-<audio id="bgm" loop>
-  <source src="https://raw.githubusercontent.com/guyuechen/gallery/main/music/sos.mp3" type="audio/mpeg">
-</audio>
+  <audio id="bgm" loop>
+    <source src="https://raw.githubusercontent.com/guyuechen/gallery/main/music/sos.mp3" type="audio/mpeg">
+  </audio>
+</div>
 
-<script>
+<!-- 📦 引入 InstantClick 脚本 -->
+<script src="https://cdn.jsdelivr.net/npm/instantclick@3.1.0/instantclick.min.js" data-no-instant></script>
+
+<script data-no-instant>
   const btn = document.getElementById('play-music');
   const bgm = document.getElementById('bgm');
   let isPlaying = false;
 
+  const updateButtonUI = () => {
+    if (isPlaying) {
+      btn.textContent = '⏸️';
+      btn.classList.add('playing');
+    } else {
+      btn.textContent = '▶️';
+      btn.classList.remove('playing');
+    }
+  };
+
   btn.addEventListener('click', () => {
     if (isPlaying) {
       bgm.pause();
-      btn.textContent = '▶️';
-      btn.classList.remove('playing');
     } else {
-      bgm.play().catch((e) => {
-        console.error("播放失败：", e);
-      });
-      btn.textContent = '⏸️';
-      btn.classList.add('playing');
+      bgm.play().catch((e) => console.error("播放失败", e));
     }
     isPlaying = !isPlaying;
+    updateButtonUI();
   });
+
+  // 页面切换后维持按钮 UI 状态
+  document.addEventListener('instantclick:change', () => {
+    updateButtonUI();
+  });
+
+  InstantClick.init();
 </script>
