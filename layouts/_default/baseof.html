@@ -1,4 +1,4 @@
-<!-- ✅ Updated baseof.html -->
+<!-- ✅ Final baseof.html with full InstantClick support -->
 {{- if lt hugo.Version "0.112.4" }}
 {{- errorf "=> hugo v0.112.4 or greater is required for hugo-PaperMod to build " }}
 {{- end -}}
@@ -9,6 +9,7 @@
 <head>
     {{- partial "head.html" . }}
     <script src="/js/bgm-player.js" defer></script>
+    <script src="/js/fastsearch.js" data-no-instant></script>
 </head>
 
 <body class="
@@ -26,7 +27,6 @@
     {{ partialCached "footer.html" . .Layout .Kind (.Param "hideFooter") (.Param "ShowCodeCopyButtons") -}}
     {{ partial "mermaid.html" . }}
 
-    <!-- ✅ InstantClick + reinit hook script -->
     <script src="https://cdn.jsdelivr.net/npm/instantclick@3.1.0/instantclick.min.js" data-no-instant></script>
     <script>
       function reinitializePageFeatures() {
@@ -34,11 +34,10 @@
           initMermaidWithTheme();
         }
 
-        // Reload giscus if needed
         const giscusWrapper = document.getElementById('tw-comment');
         if (giscusWrapper) {
-          giscusWrapper.innerHTML = ''; // Clear existing
-          const giscusScript = document.createElement('script');
+          giscusWrapper.innerHTML = '';
+          const script = document.createElement('script');
           const attrs = {
             "src": "https://giscus.app/client.js",
             "data-repo": "{{ .Site.Params.giscus.repo }}",
@@ -56,13 +55,12 @@
             "crossorigin": "anonymous",
             "async": "true"
           };
-          Object.entries(attrs).forEach(([k, v]) => giscusScript.setAttribute(k, v));
-          giscusWrapper.appendChild(giscusScript);
+          Object.entries(attrs).forEach(([k, v]) => script.setAttribute(k, v));
+          giscusWrapper.appendChild(script);
         }
 
-        // Reload PaperMod search (fuse.js + mark.js)
-        if (typeof loadSearch === 'function') {
-          loadSearch();
+        if (location.pathname.includes("/search") && typeof loadSearch === 'function') {
+          setTimeout(() => loadSearch(), 30);
         }
       }
 
@@ -70,5 +68,4 @@
       InstantClick.init();
     </script>
 </body>
-
 </html>

@@ -4,12 +4,7 @@ let fuse;
 let first, last, current_elem = null;
 let resultsAvailable = false;
 
-function loadSearch() {
-  const resList = document.getElementById('searchResults');
-  const sInput = document.getElementById('searchInput');
-
-  if (!resList || !sInput) return; // 若 DOM 不存在，不执行后续逻辑
-
+function attachSearch(sInput, resList) {
   const xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function () {
     if (xhr.readyState === 4 && xhr.status === 200) {
@@ -120,6 +115,20 @@ function loadSearch() {
       ae?.click();
     }
   };
+}
+
+function loadSearch() {
+  // DOM可能还没插入，等待直到找到 input 和 result DOM
+  const retry = () => {
+    const sInput = document.getElementById('searchInput');
+    const resList = document.getElementById('searchResults');
+    if (sInput && resList) {
+      attachSearch(sInput, resList);
+    } else {
+      setTimeout(retry, 30); // 每隔30ms重试一次直到找到
+    }
+  };
+  retry();
 }
 
 if (typeof window !== 'undefined') {
