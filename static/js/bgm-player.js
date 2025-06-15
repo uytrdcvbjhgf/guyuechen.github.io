@@ -51,7 +51,7 @@
       }
     </style>
 
-    <button id="play-music" title="背景音乐">🎸</button>
+    <button id="play-music" title="Sleepy? Music time!">🎸</button>
     <audio id="bgm" loop preload="auto">
       <source src="https://raw.githubusercontent.com/guyuechen/gallery/main/music/sos.mp3" type="audio/mpeg">
     </audio>
