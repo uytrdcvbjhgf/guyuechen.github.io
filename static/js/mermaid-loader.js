@@ -23,10 +23,8 @@ const mermaidThemes = {
 let mermaidAlreadyInitialized = false;
 function configureMermaid() {
   if (mermaidAlreadyInitialized) return;
-  mermaid.initialize({
-    startOnLoad: false,
-    ...universalMermaidTheme
-  });
+  const config = Object.assign({ startOnLoad: false }, mermaidThemes.unified);
+  mermaid.initialize(config);
   mermaidAlreadyInitialized = true;
 }
 
