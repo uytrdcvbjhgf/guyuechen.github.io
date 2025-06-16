@@ -1,15 +1,16 @@
-body.dark div.mermaid .node rect,
-body.dark div.mermaid .node polygon,
-body.dark div.mermaid .node ellipse,
-body.dark div.mermaid .node circle,
-body.dark div.mermaid .node .label-container > path {
-  fill: #293042 !important;
+div.mermaid .node rect,
+div.mermaid .node polygon,
+div.mermaid .node ellipse,
+div.mermaid .node circle,
+div.mermaid .node .label-container > path {
+  fill: #1e1e2f !important; /* 中灰偏蓝，兼容浅/深背景 */
+  stroke: #7aa2f7 !important;
+  stroke-width: 1px !important;
 }
 
-body:not(.dark) div.mermaid .node rect,
-body:not(.dark) div.mermaid .node polygon,
-body:not(.dark) div.mermaid .node ellipse,
-body:not(.dark) div.mermaid .node circle,
-body:not(.dark) div.mermaid .node .label-container > path {
-  fill: #f3f6fa !important;
+div.mermaid .label text,
+div.mermaid span,
+div.mermaid p {
+  fill: #dddddd !important;  /* 明亮灰白色字体，在黑白背景都好看 */
+  color: #dddddd !important;
 }
