@@ -1,38 +1,37 @@
-/* 节点本体（矩形、圆、菱形等）的填充和描边 */
+/* 🌙 节点背景 + 边框 */
 div.mermaid .node rect,
 div.mermaid .node polygon,
 div.mermaid .node ellipse,
 div.mermaid .node circle,
 div.mermaid .node .label-container > path {
-  fill: #3a3a54 !important; /* 中灰蓝调：在浅色或深色背景上都清晰 */
-  stroke: #a0c4ff !important; /* 比 #7aa2f7 更浅的蓝色，提升箭头可读性 */
-  stroke-width: 1.2px !important;
+  fill: #2e3440 !important;        /* 暗蓝灰，兼容浅/深色主题 */
+  stroke: #81a1c1 !important;      /* 柔和蓝色边框 */
+  stroke-width: 1px !important;
 }
 
-/* 节点文字（标题、label）颜色 */
+/* ✍️ 节点内部文字（兼容亮暗） */
 div.mermaid .label text,
 div.mermaid span,
 div.mermaid p {
-  fill: #dddddd !important;  /* 明亮灰白，适合各种背景 */
-  color: #dddddd !important;
+  fill: #d8dee9 !important;        /* 明亮灰白字体 */
+  color: #d8dee9 !important;
 }
 
-/* 连线上的箭头标签文字 */
+/* 🏷️ 边上 label 背景 + 文字 */
+div.mermaid .edgeLabel {
+  background-color: #2e3440 !important; /* 同节点背景，暗色 label 背景 */
+  border-radius: 4px;
+  padding: 2px 4px;
+}
 div.mermaid .edgeLabel tspan {
-  fill: #cccccc !important;  /* 字体颜色：偏亮灰 */
+  fill: #eceff4 !important;        /* 明亮字体 */
   font-size: 14px !important;
   font-weight: 500 !important;
 }
 
-/* 连线箭头路径颜色（例如直线、曲线） */
-div.mermaid .edgePath path {
-  stroke: #a0c4ff !important; /* 提升对比度的浅蓝箭头线 */
-  stroke-width: 1.2px !important;
+/* ➤ 连线颜色（箭头 + 线） */
+div.mermaid .flowchart-link {
+  stroke: #bfc9db !important;      /* 更亮的浅灰蓝色箭头 */
+  stroke-width: 2px;
   fill: none !important;
-}
-
-/* 移除连线标签背景色（默认是白色） */
-div.mermaid .edgeLabel rect {
-  fill: transparent !important;
-  stroke: none !important;
 }
