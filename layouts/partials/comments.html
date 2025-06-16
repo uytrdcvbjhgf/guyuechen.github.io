@@ -1,5 +1,4 @@
-<div id="tw-comment"></div>
-
+<!-- ✅ Giscus 纯逻辑挂载，不再插入 DOM 容器 -->
 <script data-no-instant>
   window.getStoredTheme = function () {
     return localStorage.getItem("pref-theme") === "light"
@@ -10,14 +9,18 @@
   window.setGiscusTheme = function () {
     const iframe = document.querySelector('iframe.giscus-frame');
     if (!iframe) return;
-    const theme = window.getStoredTheme();
-    const message = { giscus: { setConfig: { theme } } };
-    iframe.contentWindow?.postMessage(message, "https://giscus.app");
+    iframe.contentWindow?.postMessage({
+      giscus: { setConfig: { theme: window.getStoredTheme() } }
+    }, "https://giscus.app");
   };
 
   window.initGiscus = function () {
-    const attributes = {
-      "src": "https://giscus.app/client.js",
+    const mount = document.getElementById("tw-comment");
+    if (!mount || mount.dataset.giscusEnable !== "true") return;
+
+    const script = document.createElement("script");
+    const attrs = {
+      src: "https://giscus.app/client.js",
       "data-repo": "{{ .Site.Params.giscus.repo }}",
       "data-repo-id": "{{ .Site.Params.giscus.repoId }}",
       "data-category": "{{ .Site.Params.giscus.category }}",
@@ -30,45 +33,19 @@
       "data-theme": window.getStoredTheme(),
       "data-lang": "{{ .Site.Params.giscus.lang }}",
       "data-loading": "lazy",
-      "crossorigin": "anonymous"
+      crossorigin: "anonymous",
+      async: "true"
     };
 
-    const script = document.createElement("script");
-    Object.entries(attributes).forEach(([key, value]) => {
-      script.setAttribute(key, value);
-    });
+    Object.entries(attrs).forEach(([k, v]) => script.setAttribute(k, v));
+    mount.innerHTML = "";
+    mount.appendChild(script);
 
-    const mountPoint = document.getElementById("tw-comment");
-    if (mountPoint) {
-      mountPoint.innerHTML = "";
-      mountPoint.appendChild(script);
-    }
-
-    if (!window.__giscusThemeBind__) {
-      const toggle1 = document.querySelector("#theme-toggle");
-      const toggle2 = document.querySelector("#theme-toggle-float");
-      if (toggle1) toggle1.addEventListener("click", window.setGiscusTheme);
-      if (toggle2) toggle2.addEventListener("click", window.setGiscusTheme);
-      window.__giscusThemeBind__ = true;
+    if (!window.__giscusThemeBound__) {
+      const bind = (el) => el && el.addEventListener("click", window.setGiscusTheme);
+      bind(document.getElementById("theme-toggle"));
+      bind(document.getElementById("theme-toggle-float"));
+      window.__giscusThemeBound__ = true;
     }
   };
-</script>
-
-<script>
-  const triggerGiscus = () => {
-    if (typeof window.initGiscus === 'function') window.initGiscus();
-    if (typeof window.setGiscusTheme === 'function') {
-      setTimeout(() => window.setGiscusTheme(), 100);
-    }
-  };
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", triggerGiscus);
-  } else {
-    triggerGiscus();
-  }
-
-  if (window.InstantClick) {
-    InstantClick.on('change', triggerGiscus);
-  }
 </script>

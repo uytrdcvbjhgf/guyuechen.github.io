@@ -1,4 +1,3 @@
-<!-- ✅ baseof.html 最终版 -->
 {{- if lt hugo.Version "0.112.4" }}
 {{- errorf "=> hugo v0.112.4 or greater is required for hugo-PaperMod to build " }}
 {{- end -}}
@@ -23,19 +22,20 @@
   {{ $fastsearch := resources.Get "js/fastsearch.js" | js.Build (dict "target" "es2015") }}
 </head>
 
-<body class="
-{{- if (or (ne .Kind `page`) (eq .Layout `archives`) (eq .Layout `search`)) -}}list {{- end -}}
-" id="top">
+<body class="{{- if (or (ne .Kind `page`) (eq .Layout `archives`) (eq .Layout `search`)) -}}list {{- end -}}" id="top">
 
   {{- partialCached "header.html" . .Page -}}
+
   <main class="main">
     {{- block "main" . }}{{ end }}
   </main>
+
   {{ partialCached "footer.html" . .Layout .Kind (.Param "hideFooter") (.Param "ShowCodeCopyButtons") -}}
   {{ partial "mermaid.html" . }}
   {{ if and (eq .Kind "page") (not .Params.comments_disabled) }}
-    {{ partial "comments.html" . }}
+    <div id="tw-comment" data-giscus-enable="true"></div>
   {{ end }}
+  {{ partial "comments.html" . }}
 
   <script src="{{ $fastsearch.RelPermalink }}" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/instantclick@3.1.0/instantclick.min.js" data-no-instant></script>
@@ -50,11 +50,11 @@
       if (typeof window.initMermaidWithTheme === 'function') {
         setTimeout(() => window.initMermaidWithTheme(), 0);
       }
-      if (typeof window.setGiscusTheme === 'function') {
-        setTimeout(() => window.setGiscusTheme(), 0);
-      }
-      if (typeof window.initGiscus === 'function') {
-        setTimeout(() => window.initGiscus(), 0);
+
+      const giscus = document.getElementById("tw-comment");
+      if (giscus?.dataset.giscusEnable === "true") {
+        setTimeout(() => window.initGiscus?.(), 0);
+        setTimeout(() => window.setGiscusTheme?.(), 100);
       }
 
       const menu = document.getElementById('menu');
@@ -92,11 +92,9 @@
       const themeToggle = document.getElementById("theme-toggle");
       if (themeToggle && !themeToggle.dataset.bound) {
         themeToggle.addEventListener("click", () => {
-          const html = document.documentElement;
-          const body = document.body;
-          const isDark = html.classList.contains("dark");
-          html.classList.toggle("dark", !isDark);
-          body.classList.toggle("dark", !isDark);
+          const isDark = document.documentElement.classList.contains("dark");
+          document.documentElement.classList.toggle("dark", !isDark);
+          document.body.classList.toggle("dark", !isDark);
           localStorage.setItem("pref-theme", isDark ? "light" : "dark");
           window.setGiscusTheme?.();
         });
