@@ -36,37 +36,38 @@ function getMermaidTheme() {
   return theme === "dark" ? mermaidThemes.dark : mermaidThemes.light;
 }
 
-// ✅ 初始化 Mermaid 配置（只调用一次）
+// ✅ 初始化 Mermaid，只执行一次 mermaid.initialize
+let mermaidAlreadyInitialized = false;
 function configureMermaid() {
+  if (mermaidAlreadyInitialized) return;
   const config = Object.assign({ startOnLoad: false }, getMermaidTheme());
   mermaid.initialize(config);
+  mermaidAlreadyInitialized = true;
 }
 
-// ✅ 重新挂载 Mermaid 图表
+// ✅ 清除并重新渲染所有 Mermaid 图
 function renderAllMermaid() {
-  // Step 1: 回退渲染过的 SVG 图为 code block
+  // 回退已渲染的 SVG 为 code block
   document.querySelectorAll('div.mermaid').forEach(div => {
-    const rawCode = div.getAttribute('data-processed') === 'true' ? div.dataset.rawCode : div.textContent;
+    const raw = div.dataset.rawCode || div.textContent;
     const pre = document.createElement('pre');
     const code = document.createElement('code');
     code.className = 'language-mermaid';
-    code.textContent = rawCode;
+    code.textContent = raw;
     pre.appendChild(code);
     div.replaceWith(pre);
   });
 
-  // Step 2: 将 code block 转换为 Mermaid div
+  // 替换 code block 为 div.mermaid
   document.querySelectorAll('code.language-mermaid').forEach(code => {
     const pre = code.parentElement;
     const div = document.createElement('div');
     div.className = 'mermaid';
     div.textContent = code.textContent;
     div.dataset.rawCode = code.textContent;
-    div.dataset.processed = 'true';
     pre.replaceWith(div);
   });
 
-  // Step 3: 真正渲染
   requestAnimationFrame(() => {
     try {
       mermaid.init();
@@ -76,14 +77,14 @@ function renderAllMermaid() {
   });
 }
 
-// ✅ 主初始化函数
+// ✅ 总初始化逻辑（一次性设置）
 function initMermaid() {
   configureMermaid();
   renderAllMermaid();
 }
 
-// ✅ 生命周期管理器
-function setupMermaidLifecycle() {
+// ✅ 自动挂载（支持 SPA + 主题切换）
+(function setupMermaidLifecycle() {
   // 页面初次加载
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", initMermaid);
@@ -91,21 +92,17 @@ function setupMermaidLifecycle() {
     initMermaid();
   }
 
-  // 支持 InstantClick 的 SPA 页面切换
+  // SPA 页面切换（支持 InstantClick）
   if (window.InstantClick) {
-    InstantClick.on('change', () => {
-      initMermaid();
-    });
+    InstantClick.on('change', initMermaid);
   }
 
-  // DOM class 变化触发（用于 dark/light 切换）
+  // 主题切换自动监听（body.class 变化）
   if (!window._mermaidThemeObserverAttached) {
     window._mermaidThemeObserverAttached = true;
     const observer = new MutationObserver(() => {
-      initMermaid();
+      renderAllMermaid(); // ⚠️ 仅重新渲染，不再重新 initialize
     });
     observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
   }
-}
-
-setupMermaidLifecycle();
+})();
