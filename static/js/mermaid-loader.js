@@ -38,9 +38,20 @@ function getMermaidTheme() {
 
 // ✅ 初始化并渲染 Mermaid
 function initMermaid() {
+  // 💡 先清除已有 mermaid SVG（回退为 <pre><code>）
+  renderAllMermaid(); // 先回退为 <pre><code>
+  
   const config = Object.assign({ startOnLoad: false }, getMermaidTheme());
   mermaid.initialize(config);
-  renderAllMermaid();
+
+  // ✅ 重新挂载
+  requestAnimationFrame(() => {
+    try {
+      mermaid.init();
+    } catch (e) {
+      console.warn("[Mermaid] render error:", e);
+    }
+  });
 }
 
 // ✅ 将 code block 渲染为 div.mermaid
