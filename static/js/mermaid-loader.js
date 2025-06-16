@@ -1,20 +1,17 @@
 // ✅ 通用 Mermaid 配色（兼容浅色与深色背景）
-const universalMermaidTheme = {
-  theme: "default",
-  themeVariables: {
-    background: 'transparent',
-    primaryColor: '#dfe6ec',
-    nodeBkg: '#f0f4f8',
-    clusterBkg: '#f0f4f8',
-    actorBkg: '#e6f1ff',
-    noteBkgColor: '#f8f9fa',
-    edgeLabelBackground: '#ffffffaa',
-    primaryTextColor: '#2e2e33',
-    fontFamily: 'Segoe UI, PingFang SC, Hiragino Sans GB, Microsoft YaHei, sans-serif',
-    fontSize: '16px',
-    nodePadding: '12',
-    primaryBorderColor: '#b0bec5',
-    lineColor: '#90a4ae'
+const mermaidThemes = {
+  neutral: {
+    theme: "base",
+    themeVariables: {
+      background: "transparent", // 保持与站点背景一致
+      primaryColor: "#ffffff",   // 节点背景（高亮）
+      nodeBkg: "#ffffff",        // 同上
+      primaryTextColor: "#111111", // 黑色文字，在亮暗背景都清晰
+      primaryBorderColor: "#7aa2f7", // 柔和蓝边框
+      lineColor: "#7aa2f7",         // 同上
+      fontSize: "16px",
+      fontFamily: "Segoe UI, PingFang SC, Hiragino Sans GB, Microsoft YaHei, sans-serif",
+    }
   }
 };
 
