@@ -1,16 +1,20 @@
 // ✅ 通用 Mermaid 配色（兼容浅色与深色背景）
 const mermaidThemes = {
-  neutral: {
-    theme: "base",
+  unified: {
+    theme: "default",
     themeVariables: {
-      background: "transparent", // 保持与站点背景一致
-      primaryColor: "#ffffff",   // 节点背景（高亮）
-      nodeBkg: "#ffffff",        // 同上
-      primaryTextColor: "#111111", // 黑色文字，在亮暗背景都清晰
-      primaryBorderColor: "#7aa2f7", // 柔和蓝边框
-      lineColor: "#7aa2f7",         // 同上
+      background: "transparent",          // 与页面背景融合
+      primaryColor: "#ffffff",            // 节点填充白底
+      primaryTextColor: "#111111",        // 黑色文字（暗色亮色皆清晰）
+      primaryBorderColor: "#4e88ff",      // 高亮蓝色边框
+      nodeBkg: "#ffffff",                 // 节点背景
+      noteBkgColor: "#fdfdfd",            // 注释背景
+      clusterBkg: "#ffffff",              // 子图背景
+      edgeLabelBackground: "#ffffff",     // 边标签背景
+      lineColor: "#4e88ff",               // 边线蓝
       fontSize: "16px",
       fontFamily: "Segoe UI, PingFang SC, Hiragino Sans GB, Microsoft YaHei, sans-serif",
+      nodePadding: "12",
     }
   }
 };
