@@ -1,23 +1,38 @@
+/* 节点本体（矩形、圆、菱形等）的填充和描边 */
 div.mermaid .node rect,
 div.mermaid .node polygon,
 div.mermaid .node ellipse,
 div.mermaid .node circle,
 div.mermaid .node .label-container > path {
-  fill: #3a3a54 !important; /* 中灰偏蓝，兼容浅/深背景 */
-  stroke: #7aa2f7 !important;
-  stroke-width: 1px !important;
+  fill: #3a3a54 !important; /* 中灰蓝调：在浅色或深色背景上都清晰 */
+  stroke: #a0c4ff !important; /* 比 #7aa2f7 更浅的蓝色，提升箭头可读性 */
+  stroke-width: 1.2px !important;
 }
 
+/* 节点文字（标题、label）颜色 */
 div.mermaid .label text,
 div.mermaid span,
 div.mermaid p {
-  fill: #dddddd !important;  /* 明亮灰白色字体，在黑白背景都好看 */
+  fill: #dddddd !important;  /* 明亮灰白，适合各种背景 */
   color: #dddddd !important;
 }
 
-/* Mermaid 图中连线上的文字 label 样式修复 */
+/* 连线上的箭头标签文字 */
 div.mermaid .edgeLabel tspan {
-  fill: #cccccc !important; /* 浅灰色，在黑白背景均可清晰阅读 */
+  fill: #cccccc !important;  /* 字体颜色：偏亮灰 */
   font-size: 14px !important;
   font-weight: 500 !important;
+}
+
+/* 连线箭头路径颜色（例如直线、曲线） */
+div.mermaid .edgePath path {
+  stroke: #a0c4ff !important; /* 提升对比度的浅蓝箭头线 */
+  stroke-width: 1.2px !important;
+  fill: none !important;
+}
+
+/* 移除连线标签背景色（默认是白色） */
+div.mermaid .edgeLabel rect {
+  fill: transparent !important;
+  stroke: none !important;
 }
