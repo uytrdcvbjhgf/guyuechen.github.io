@@ -38,8 +38,13 @@ div.mermaid marker path {
   fill: #bfc9db !important;
 }
 
-/* 🧼 隐藏左上角 marker 定义块 */
-div.mermaid defs,
-div.mermaid defs > marker {
+/* ✅ 隐藏掉错误渲染到左上角的边缘 label */
+div.mermaid span.edgeLabel {
   display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
 }
