@@ -1,62 +1,22 @@
-<!-- layouts/partials/comments.html -->
+<!-- comments.html -->
 <div class="comments-container">
-  <div id="tw-comment"></div>
+  <div id="giscus-container"></div>
 </div>
 
-<script data-no-instant>
-  window.getStoredTheme = function () {
-    return localStorage.getItem("pref-theme") === "light"
-      ? "{{ .Site.Params.giscus.lightTheme }}"
-      : "{{ .Site.Params.giscus.darkTheme }}";
+<script>
+  // 全局注入 Hugo 参数，用于 giscus-loader.js
+  window.GIT_PARAMS = {
+    giscus_repo: '{{ .Site.Params.giscus.repo }}',
+    giscus_repoId: '{{ .Site.Params.giscus.repoId }}',
+    giscus_category: '{{ .Site.Params.giscus.category }}',
+    giscus_categoryId: '{{ .Site.Params.giscus.categoryId }}',
+    giscus_mapping: '{{ .Site.Params.giscus.mapping }}',
+    giscus_strict: '{{ .Site.Params.giscus.strict }}',
+    giscus_reactionsEnabled: '{{ .Site.Params.giscus.reactionsEnabled }}',
+    giscus_emitMetadata: '{{ .Site.Params.giscus.emitMetadata }}',
+    giscus_inputPosition: '{{ .Site.Params.giscus.inputPosition }}',
+    giscus_lightTheme: '{{ .Site.Params.giscus.lightTheme }}',
+    giscus_darkTheme: '{{ .Site.Params.giscus.darkTheme }}',
+    giscus_lang: '{{ .Site.Params.giscus.lang }}'
   };
-
-  window.setGiscusTheme = function () {
-    const iframe = document.querySelector('iframe.giscus-frame');
-    if (!iframe) return;
-    const message = { giscus: { setConfig: { theme: window.getStoredTheme() } } };
-    iframe.contentWindow?.postMessage(message, "https://giscus.app");
-  };
-
-  window.injectGiscus = function () {
-    const el = document.getElementById("tw-comment");
-    if (!el || el.dataset.giscusLoaded === "true") return;
-
-    el.innerHTML = ""; // 防止重复注入
-    const script = document.createElement("script");
-    script.setAttribute("src", "https://giscus.app/client.js");
-    script.setAttribute("data-repo", "{{ .Site.Params.giscus.repo }}");
-    script.setAttribute("data-repo-id", "{{ .Site.Params.giscus.repoId }}");
-    script.setAttribute("data-category", "{{ .Site.Params.giscus.category }}");
-    script.setAttribute("data-category-id", "{{ .Site.Params.giscus.categoryId }}");
-    script.setAttribute("data-mapping", "{{ .Site.Params.giscus.mapping }}");
-    script.setAttribute("data-strict", "{{ .Site.Params.giscus.strict }}");
-    script.setAttribute("data-reactions-enabled", "{{ .Site.Params.giscus.reactionsEnabled }}");
-    script.setAttribute("data-emit-metadata", "{{ .Site.Params.giscus.emitMetadata }}");
-    script.setAttribute("data-input-position", "{{ .Site.Params.giscus.inputPosition }}");
-    script.setAttribute("data-theme", window.getStoredTheme());
-    script.setAttribute("data-lang", "{{ .Site.Params.giscus.lang }}");
-    script.setAttribute("crossorigin", "anonymous");
-    script.setAttribute("data-loading", "lazy");
-    script.async = true;
-
-    el.appendChild(script);
-    el.dataset.giscusLoaded = "true";
-  };
-
-  if (document.readyState === "complete") {
-    window.injectGiscus();
-  } else {
-    window.addEventListener("DOMContentLoaded", window.injectGiscus);
-  }
-
-  if (window.InstantClick) {
-    InstantClick.on("change", () => {
-      const el = document.getElementById("tw-comment");
-      if (el) {
-        el.removeAttribute("data-giscus-loaded");
-        el.innerHTML = "";
-      }
-      window.injectGiscus();
-    });
-  }
 </script>

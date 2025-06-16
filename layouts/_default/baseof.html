@@ -7,6 +7,7 @@
 <head>
   {{- partial "head.html" . }}
   <script src="/js/bgm-player.js" defer></script>
+  <script src="/js/giscus-loader.js" defer></script>
 
   <!-- 防止初始加载时闪烁 -->
   <script>
@@ -159,6 +160,13 @@
 
     InstantClick.on('change', reinitializePageFeatures);
     InstantClick.init();
+
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.GiscusLoader) {
+        window.GiscusLoader.initSPA();
+        window.GiscusLoader.bindThemeToggle();
+      }
+    });
   </script>
 </body>
 </html>
