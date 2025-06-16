@@ -33,7 +33,9 @@
   </main>
   {{ partialCached "footer.html" . .Layout .Kind (.Param "hideFooter") (.Param "ShowCodeCopyButtons") -}}
   {{ partial "mermaid.html" . }}
-  {{ partial "comments.html" . }}
+  {{ if eq .Kind "page" }}
+    {{ partial "comments.html" . }}
+  {{ end }}
 
   <script src="{{ $fastsearch.RelPermalink }}" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/instantclick@3.1.0/instantclick.min.js" data-no-instant></script>
