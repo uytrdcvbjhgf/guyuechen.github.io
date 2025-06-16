@@ -4,34 +4,42 @@ div.mermaid .node polygon,
 div.mermaid .node ellipse,
 div.mermaid .node circle,
 div.mermaid .node .label-container > path {
-  fill: #2e3440 !important;        /* 暗蓝灰，兼容浅/深色主题 */
-  stroke: #81a1c1 !important;      /* 柔和蓝色边框 */
+  fill: #485266 !important;
+  stroke: #81a1c1 !important;
   stroke-width: 1px !important;
 }
 
-/* ✍️ 节点内部文字（兼容亮暗） */
+/* ✍️ 节点文字 */
 div.mermaid .label text,
 div.mermaid span,
 div.mermaid p {
-  fill: #d8dee9 !important;        /* 明亮灰白字体 */
+  fill: #d8dee9 !important;
   color: #d8dee9 !important;
 }
 
-/* 🏷️ 边上 label 背景 + 文字 */
+/* 🏷️ 边 label */
 div.mermaid .edgeLabel {
-  background-color: #2e3440 !important; /* 同节点背景，暗色 label 背景 */
+  background-color: #2e3440 !important;
   border-radius: 4px;
   padding: 2px 4px;
 }
 div.mermaid .edgeLabel tspan {
-  fill: #eceff4 !important;        /* 明亮字体 */
+  fill: #eceff4 !important;
   font-size: 14px !important;
   font-weight: 500 !important;
 }
 
-/* ➤ 连线颜色（箭头 + 线） */
+/* ➤ 连线和箭头颜色 */
 div.mermaid .flowchart-link {
-  stroke: #bfc9db !important;      /* 更亮的浅灰蓝色箭头 */
+  stroke: #bfc9db !important;
   stroke-width: 2px;
-  fill: none !important;
+}
+div.mermaid marker path {
+  fill: #bfc9db !important;
+  display: inline !important;
+}
+
+/* 🧼 清除左上角色块 */
+div.mermaid marker path {
+  display: none !important; /* 去除冗余辅助 marker 图形 */
 }
