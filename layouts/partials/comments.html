@@ -1,3 +1,4 @@
+<!-- layouts/partials/comments.html -->
 <div class="comments-container">
   <div id="tw-comment"></div>
 </div>
@@ -76,6 +77,12 @@
   }
 
   if (window.InstantClick) {
-    InstantClick.on('change', triggerGiscusWithRetry);
+    InstantClick.on('change', () => {
+      const mountPoint = document.getElementById("tw-comment");
+      if (mountPoint) {
+        mountPoint.innerHTML = ""; // 清空旧容器，防止多次注入
+      }
+      triggerGiscusWithRetry();
+    });
   }
 </script>
