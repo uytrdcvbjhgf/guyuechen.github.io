@@ -1,53 +1,37 @@
-// ✅ Mermaid 主题配置
-const mermaidThemes = {
-  light: {
-    theme: "default",
-    themeVariables: {
-      background: '#fff',
-      primaryColor: '#f3f6fa',
-      primaryTextColor: '#24292f',
-      primaryBorderColor: '#b2becd',
-      lineColor: '#90a4ae',
-      nodeBkg: '#f3f6fa',
-      fontFamily: 'Segoe UI, PingFang SC, Hiragino Sans GB, Microsoft YaHei, sans-serif',
-      fontSize: '16px',
-      nodePadding: '12',
-    }
-  },
-  dark: {
-    theme: "dark",
-    themeVariables: {
-      background: '#23272e',
-      primaryColor: '#293042',
-      primaryTextColor: '#e9eef6',
-      primaryBorderColor: '#70b3ff',
-      lineColor: '#7bb7ff',
-      nodeBkg: '#293042',
-      fontFamily: 'Segoe UI, PingFang SC, Hiragino Sans GB, Microsoft YaHei, sans-serif',
-      fontSize: '16px',
-      nodePadding: '12',
-    }
+// ✅ 通用 Mermaid 配色（兼容浅色与深色背景）
+const universalMermaidTheme = {
+  theme: "default",
+  themeVariables: {
+    background: 'transparent',
+    primaryColor: '#dfe6ec',
+    nodeBkg: '#f0f4f8',
+    clusterBkg: '#f0f4f8',
+    actorBkg: '#e6f1ff',
+    noteBkgColor: '#f8f9fa',
+    edgeLabelBackground: '#ffffffaa',
+    primaryTextColor: '#2e2e33',
+    fontFamily: 'Segoe UI, PingFang SC, Hiragino Sans GB, Microsoft YaHei, sans-serif',
+    fontSize: '16px',
+    nodePadding: '12',
+    primaryBorderColor: '#b0bec5',
+    lineColor: '#90a4ae'
   }
 };
 
-// ✅ 获取当前主题配置
-function getMermaidTheme() {
-  const theme = localStorage.getItem("pref-theme") || "light";
-  return theme === "dark" ? mermaidThemes.dark : mermaidThemes.light;
-}
-
-// ✅ 初始化 Mermaid，只执行一次 mermaid.initialize
+// ✅ Mermaid 初始化（仅执行一次）
 let mermaidAlreadyInitialized = false;
 function configureMermaid() {
   if (mermaidAlreadyInitialized) return;
-  const config = Object.assign({ startOnLoad: false }, getMermaidTheme());
-  mermaid.initialize(config);
+  mermaid.initialize({
+    startOnLoad: false,
+    ...universalMermaidTheme
+  });
   mermaidAlreadyInitialized = true;
 }
 
-// ✅ 清除并重新渲染所有 Mermaid 图
+// ✅ 清除并重新渲染 Mermaid 图表
 function renderAllMermaid() {
-  // 回退已渲染的 SVG 为 code block
+  // 1. 回退 SVG 为 code block
   document.querySelectorAll('div.mermaid').forEach(div => {
     const raw = div.dataset.rawCode || div.textContent;
     const pre = document.createElement('pre');
@@ -58,7 +42,7 @@ function renderAllMermaid() {
     div.replaceWith(pre);
   });
 
-  // 替换 code block 为 div.mermaid
+  // 2. 替换 code block 为 div.mermaid
   document.querySelectorAll('code.language-mermaid').forEach(code => {
     const pre = code.parentElement;
     const div = document.createElement('div');
@@ -68,6 +52,7 @@ function renderAllMermaid() {
     pre.replaceWith(div);
   });
 
+  // 3. Mermaid 渲染
   requestAnimationFrame(() => {
     try {
       mermaid.init();
@@ -77,32 +62,27 @@ function renderAllMermaid() {
   });
 }
 
-// ✅ 总初始化逻辑（一次性设置）
+// ✅ 启动逻辑
 function initMermaid() {
   configureMermaid();
   renderAllMermaid();
 }
 
-// ✅ 自动挂载（支持 SPA + 主题切换）
+// ✅ 生命周期管理器
 (function setupMermaidLifecycle() {
-  // 页面初次加载
+  // 首次加载
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", initMermaid);
   } else {
     initMermaid();
   }
 
-  // SPA 页面切换（支持 InstantClick）
+  // 支持 InstantClick 页面切换
   if (window.InstantClick) {
-    InstantClick.on('change', initMermaid);
+    InstantClick.on('change', () => {
+      initMermaid();
+    });
   }
 
-  // 主题切换自动监听（body.class 变化）
-  if (!window._mermaidThemeObserverAttached) {
-    window._mermaidThemeObserverAttached = true;
-    const observer = new MutationObserver(() => {
-      renderAllMermaid(); // ⚠️ 仅重新渲染，不再重新 initialize
-    });
-    observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
-  }
+  // ❌ 不再监听主题变化，主题为固定风格
 })();
