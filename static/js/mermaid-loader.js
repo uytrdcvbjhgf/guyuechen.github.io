@@ -1,17 +1,17 @@
 // ✅ 通用 Mermaid 配色（兼容浅色与深色背景）
 const mermaidThemes = {
-  unified: {
+  universal: {
     theme: "default",
     themeVariables: {
-      background: "transparent",          // 与页面背景融合
-      primaryColor: "#ffffff",            // 节点填充白底
-      primaryTextColor: "#111111",        // 黑色文字（暗色亮色皆清晰）
-      primaryBorderColor: "#4e88ff",      // 高亮蓝色边框
-      nodeBkg: "#ffffff",                 // 节点背景
-      noteBkgColor: "#fdfdfd",            // 注释背景
-      clusterBkg: "#ffffff",              // 子图背景
-      edgeLabelBackground: "#ffffff",     // 边标签背景
-      lineColor: "#4e88ff",               // 边线蓝
+      background: "transparent",
+      primaryColor: "#f8f9fa",          // 浅灰白节点背景
+      nodeBkg: "#f8f9fa",
+      primaryTextColor: "#222222",      // 深灰文字（在亮/暗背景都清晰）
+      primaryBorderColor: "#6cace4",    // 清爽蓝边
+      lineColor: "#6cace4",             // 连线颜色
+      noteBkgColor: "#fdfdfd",
+      clusterBkg: "#f8f9fa",
+      edgeLabelBackground: "#ffffff",
       fontSize: "16px",
       fontFamily: "Segoe UI, PingFang SC, Hiragino Sans GB, Microsoft YaHei, sans-serif",
       nodePadding: "12",
