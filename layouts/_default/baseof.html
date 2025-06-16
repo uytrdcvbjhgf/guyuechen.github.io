@@ -8,6 +8,15 @@
   {{- partial "head.html" . }}
   <script src="/js/bgm-player.js" defer></script>
   <script src="/js/giscus-loader.js" defer></script>
+  <script>
+    window.giscusRepo = "{{ .Site.Params.giscus.repo }}";
+    window.giscusRepoId = "{{ .Site.Params.giscus.repoId }}";
+    window.giscusCategory = "{{ .Site.Params.giscus.category }}";
+    window.giscusCategoryId = "{{ .Site.Params.giscus.categoryId }}";
+    window.giscusMapping = "{{ .Site.Params.giscus.mapping }}";
+    window.giscusLightTheme = "{{ .Site.Params.giscus.lightTheme }}";
+    window.giscusDarkTheme = "{{ .Site.Params.giscus.darkTheme }}";
+  </script>
 
   <!-- 防止初始加载时闪烁 -->
   <script>

@@ -1,64 +1,77 @@
-// giscus-loader.js
-window.GiscusLoader = (() => {
-  const containerId = 'giscus-container';
-  const mountedClass = 'giscus-mounted';
+window.GiscusLoader = (function () {
+  const containerId = "giscus-container";
+  const themeAttr = () =>
+    localStorage.getItem("pref-theme") === "light"
+      ? window.giscusLightTheme || "light"
+      : window.giscusDarkTheme || "dark";
 
-  function getTheme() {
-    return localStorage.getItem('pref-theme') === 'light'
-      ? window.GIT_PARAMS.giscus_lightTheme
-      : window.GIT_PARAMS.giscus_darkTheme;
-  }
-
-  function render() {
+  function injectGiscus() {
     const container = document.getElementById(containerId);
     if (!container) return;
+    container.innerHTML = ""; // 清除旧内容
 
-    container.innerHTML = '';
-    const script = document.createElement('script');
-    script.src = 'https://giscus.app/client.js';
-    script.async = true;
-    script.setAttribute('data-repo', window.GIT_PARAMS.giscus_repo);
-    script.setAttribute('data-repo-id', window.GIT_PARAMS.giscus_repoId);
-    script.setAttribute('data-category', window.GIT_PARAMS.giscus_category);
-    script.setAttribute('data-category-id', window.GIT_PARAMS.giscus_categoryId);
-    script.setAttribute('data-mapping', window.GIT_PARAMS.giscus_mapping);
-    script.setAttribute('data-strict', window.GIT_PARAMS.giscus_strict);
-    script.setAttribute('data-reactions-enabled', window.GIT_PARAMS.giscus_reactionsEnabled);
-    script.setAttribute('data-emit-metadata', window.GIT_PARAMS.giscus_emitMetadata);
-    script.setAttribute('data-input-position', window.GIT_PARAMS.giscus_inputPosition);
-    script.setAttribute('data-theme', getTheme());
-    script.setAttribute('data-lang', window.GIT_PARAMS.giscus_lang);
-    script.setAttribute('data-loading', 'lazy');
-    script.crossOrigin = 'anonymous';
+    const script = document.createElement("script");
+    script.src = "https://giscus.app/client.js";
+    script.setAttribute("data-repo", window.giscusRepo);
+    script.setAttribute("data-repo-id", window.giscusRepoId);
+    script.setAttribute("data-category", window.giscusCategory);
+    script.setAttribute("data-category-id", window.giscusCategoryId);
+    script.setAttribute("data-mapping", window.giscusMapping || "pathname");
+    script.setAttribute("data-strict", "0");
+    script.setAttribute("data-reactions-enabled", "1");
+    script.setAttribute("data-emit-metadata", "0");
+    script.setAttribute("data-input-position", "bottom");
+    script.setAttribute("data-theme", themeAttr());
+    script.setAttribute("data-lang", "zh-CN");
+    script.setAttribute("crossorigin", "anonymous");
+    script.setAttribute("data-loading", "lazy");
 
     container.appendChild(script);
-    container.classList.add(mountedClass);
   }
 
   function setTheme() {
-    const iframe = document.querySelector('iframe.giscus-frame');
+    const iframe = document.querySelector("iframe.giscus-frame");
     if (!iframe) return;
-    iframe.contentWindow.postMessage({
-      giscus: { setConfig: { theme: getTheme() } }
-    }, 'https://giscus.app');
-  }
-
-  function initSPA() {
-    render();
-    if (window.InstantClick) {
-      InstantClick.on('change', () => setTimeout(render, 50));
-    }
+    const message = {
+      giscus: {
+        setConfig: {
+          theme: themeAttr(),
+        },
+      },
+    };
+    iframe.contentWindow.postMessage(message, "https://giscus.app");
   }
 
   function bindThemeToggle() {
-    const btns = [
-      document.getElementById('theme-toggle'),
-      document.getElementById('theme-toggle-float')
-    ];
-    btns.forEach(b => {
-      if (b) b.addEventListener('click', () => setTheme());
+    const toggles = document.querySelectorAll("#theme-toggle, #theme-toggle-float");
+    toggles.forEach((toggle) => {
+      if (!toggle.dataset.giscusBound) {
+        toggle.addEventListener("click", () => {
+          setTimeout(setTheme, 100); // 确保 iframe 已渲染
+        });
+        toggle.dataset.giscusBound = "true";
+      }
     });
   }
 
-  return { initSPA, bindThemeToggle };
+  function initSPA() {
+    // 页面加载或 InstantClick 切换时触发
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", injectGiscus);
+    } else {
+      injectGiscus();
+    }
+
+    if (window.InstantClick) {
+      InstantClick.on("change", () => {
+        injectGiscus();
+        bindThemeToggle();
+      });
+    }
+  }
+
+  return {
+    initSPA,
+    bindThemeToggle,
+  };
 })();
