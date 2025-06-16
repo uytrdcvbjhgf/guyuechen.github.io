@@ -13,76 +13,50 @@
   window.setGiscusTheme = function () {
     const iframe = document.querySelector('iframe.giscus-frame');
     if (!iframe) return;
-    const theme = window.getStoredTheme();
-    const message = { giscus: { setConfig: { theme } } };
+    const message = { giscus: { setConfig: { theme: window.getStoredTheme() } } };
     iframe.contentWindow?.postMessage(message, "https://giscus.app");
   };
 
-  window.initGiscus = function () {
-    const attributes = {
-      "src": "https://giscus.app/client.js",
-      "data-repo": "{{ .Site.Params.giscus.repo }}",
-      "data-repo-id": "{{ .Site.Params.giscus.repoId }}",
-      "data-category": "{{ .Site.Params.giscus.category }}",
-      "data-category-id": "{{ .Site.Params.giscus.categoryId }}",
-      "data-mapping": "{{ .Site.Params.giscus.mapping }}",
-      "data-strict": "{{ .Site.Params.giscus.strict }}",
-      "data-reactions-enabled": "{{ .Site.Params.giscus.reactionsEnabled }}",
-      "data-emit-metadata": "{{ .Site.Params.giscus.emitMetadata }}",
-      "data-input-position": "{{ .Site.Params.giscus.inputPosition }}",
-      "data-theme": window.getStoredTheme(),
-      "data-lang": "{{ .Site.Params.giscus.lang }}",
-      "data-loading": "lazy",
-      "crossorigin": "anonymous"
-    };
+  window.injectGiscus = function () {
+    const el = document.getElementById("tw-comment");
+    if (!el || el.dataset.giscusLoaded === "true") return;
 
+    el.innerHTML = ""; // 防止重复注入
     const script = document.createElement("script");
-    Object.entries(attributes).forEach(([key, value]) => {
-      script.setAttribute(key, value);
-    });
+    script.setAttribute("src", "https://giscus.app/client.js");
+    script.setAttribute("data-repo", "{{ .Site.Params.giscus.repo }}");
+    script.setAttribute("data-repo-id", "{{ .Site.Params.giscus.repoId }}");
+    script.setAttribute("data-category", "{{ .Site.Params.giscus.category }}");
+    script.setAttribute("data-category-id", "{{ .Site.Params.giscus.categoryId }}");
+    script.setAttribute("data-mapping", "{{ .Site.Params.giscus.mapping }}");
+    script.setAttribute("data-strict", "{{ .Site.Params.giscus.strict }}");
+    script.setAttribute("data-reactions-enabled", "{{ .Site.Params.giscus.reactionsEnabled }}");
+    script.setAttribute("data-emit-metadata", "{{ .Site.Params.giscus.emitMetadata }}");
+    script.setAttribute("data-input-position", "{{ .Site.Params.giscus.inputPosition }}");
+    script.setAttribute("data-theme", window.getStoredTheme());
+    script.setAttribute("data-lang", "{{ .Site.Params.giscus.lang }}");
+    script.setAttribute("crossorigin", "anonymous");
+    script.setAttribute("data-loading", "lazy");
+    script.async = true;
 
-    const mountPoint = document.getElementById("tw-comment");
-    if (mountPoint) {
-      mountPoint.innerHTML = "";
-      mountPoint.appendChild(script);
-    }
-
-    if (!window.__giscusThemeBind__) {
-      const toggle1 = document.querySelector("#theme-toggle");
-      const toggle2 = document.querySelector("#theme-toggle-float");
-      if (toggle1) toggle1.addEventListener("click", window.setGiscusTheme);
-      if (toggle2) toggle2.addEventListener("click", window.setGiscusTheme);
-      window.__giscusThemeBind__ = true;
-    }
+    el.appendChild(script);
+    el.dataset.giscusLoaded = "true";
   };
 
-  function triggerGiscusWithRetry(attempt = 1) {
-    const mountPoint = document.getElementById("tw-comment");
-    if (!mountPoint) return;
-
-    if (typeof window.initGiscus === "function") {
-      window.initGiscus();
-      if (typeof window.setGiscusTheme === "function") {
-        setTimeout(() => window.setGiscusTheme(), 100);
-      }
-    } else if (attempt <= 5) {
-      setTimeout(() => triggerGiscusWithRetry(attempt + 1), 300);
-    }
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", () => triggerGiscusWithRetry());
+  if (document.readyState === "complete") {
+    window.injectGiscus();
   } else {
-    triggerGiscusWithRetry();
+    window.addEventListener("DOMContentLoaded", window.injectGiscus);
   }
 
   if (window.InstantClick) {
-    InstantClick.on('change', () => {
-      const mountPoint = document.getElementById("tw-comment");
-      if (mountPoint) {
-        mountPoint.innerHTML = ""; // 清空旧容器，防止多次注入
+    InstantClick.on("change", () => {
+      const el = document.getElementById("tw-comment");
+      if (el) {
+        el.removeAttribute("data-giscus-loaded");
+        el.innerHTML = "";
       }
-      triggerGiscusWithRetry();
+      window.injectGiscus();
     });
   }
 </script>
