@@ -1,15 +1,15 @@
-/* 🌙 节点背景 + 边框 */
+/* 🎯 节点背景 + 边框 */
 div.mermaid .node rect,
 div.mermaid .node polygon,
 div.mermaid .node ellipse,
 div.mermaid .node circle,
 div.mermaid .node .label-container > path {
-  fill: #485266 !important;
+  fill: #384358 !important;
   stroke: #81a1c1 !important;
   stroke-width: 1px !important;
 }
 
-/* ✍️ 节点文字 */
+/* ✍️ 节点文字颜色 */
 div.mermaid .label text,
 div.mermaid span,
 div.mermaid p {
@@ -17,7 +17,7 @@ div.mermaid p {
   color: #d8dee9 !important;
 }
 
-/* 🏷️ 边 label */
+/* 🏷️ 连线文字说明（edgeLabel） */
 div.mermaid .edgeLabel {
   background-color: #2e3440 !important;
   border-radius: 4px;
@@ -29,17 +29,17 @@ div.mermaid .edgeLabel tspan {
   font-weight: 500 !important;
 }
 
-/* ➤ 连线和箭头颜色 */
+/* ➤ 连线 + 箭头颜色 */
 div.mermaid .flowchart-link {
   stroke: #bfc9db !important;
   stroke-width: 2px;
 }
 div.mermaid marker path {
   fill: #bfc9db !important;
-  display: inline !important;
 }
 
-/* 🧼 清除左上角色块 */
-div.mermaid marker path {
-  display: none !important; /* 去除冗余辅助 marker 图形 */
+/* 🧼 隐藏左上角 marker 定义块 */
+div.mermaid defs,
+div.mermaid defs > marker {
+  display: none !important;
 }
