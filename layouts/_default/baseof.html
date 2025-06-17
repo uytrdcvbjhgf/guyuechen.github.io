@@ -45,9 +45,11 @@
   </main>
 
   {{- partialCached "footer.html" . .Layout .Kind (.Param "hideFooter") (.Param "ShowCodeCopyButtons") -}}
-
+  
   {{ partial "mermaid.html" . }}
-  {{ if and (eq .Kind "page") (not .Params.comments_disabled) }}
+
+  {{ $excludedLayouts := slice "search" "archives" "about" }}
+  {{ if and .IsPage (not (in $excludedLayouts .Layout)) (not .Params.comments_disabled) }}
     {{ partial "comments.html" . }}
   {{ end }}
 
