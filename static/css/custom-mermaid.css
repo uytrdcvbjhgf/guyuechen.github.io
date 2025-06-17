@@ -48,3 +48,15 @@ div.mermaid span.edgeLabel {
   height: 0 !important;
   overflow: hidden !important;
 }
+
+/* 通用连线样式（流程图、类图） */
+div.mermaid .flowchart-link,
+div.mermaid .relation {
+  stroke: #a0a7b4 !important;
+  stroke-width: 1.5px !important;
+}
+
+/* 箭头头部颜色 */
+div.mermaid marker path {
+  fill: #a0a7b4 !important;
+}
