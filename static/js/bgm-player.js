@@ -1,19 +1,13 @@
 (() => {
-  if (document.getElementById('bgm-container')) {
-    console.log('🎵 Player already exists. Skipping injection.');
-    return;
-  }
+  if (document.getElementById('bgm-container')) return;
 
-  // === 歌单列表 ===
   const playlist = [
     'https://raw.githubusercontent.com/guyuechen/gallery/main/music/sos.mp3',
     'https://raw.githubusercontent.com/guyuechen/gallery/main/music/sos_Live_At_Hammersmith_Odeon.mp3',
-    // 可继续添加更多歌曲...
+    // 更多歌曲可继续添加...
   ];
-
   let currentTrackIndex = 0;
 
-  // === 创建容器 ===
   const container = document.createElement('div');
   container.id = 'bgm-container';
   container.innerHTML = `
@@ -63,13 +57,11 @@
     <button id="play-music" title="Sleepy? Music!">🎸</button>
     <audio id="bgm" preload="auto"></audio>
   `;
-
   document.documentElement.appendChild(container);
 
   const btn = container.querySelector('#play-music');
   const bgm = container.querySelector('#bgm');
 
-  // === 播放状态管理 ===
   let isPlaying = localStorage.getItem("bgm-playing") === "true";
 
   const updateButtonUI = () => {
@@ -79,45 +71,33 @@
 
   const loadCurrentTrack = () => {
     bgm.src = playlist[currentTrackIndex];
-    bgm.load(); // 强制刷新资源
-  };
-
-  const preloadNextTrack = () => {
-    const nextIndex = (currentTrackIndex + 1) % playlist.length;
-    const link = document.createElement("link");
-    link.rel = "preload";
-    link.as = "audio";
-    link.href = playlist[nextIndex];
-    document.head.appendChild(link);
+    bgm.load();
   };
 
   const playCurrent = () => {
     loadCurrentTrack();
-    bgm.play().catch(err => {
+    bgm.play().catch((err) => {
       console.warn("🎧 播放失败:", err);
       isPlaying = false;
       updateButtonUI();
     });
   };
 
-  // === 初始化恢复播放状态 ===
-  window.addEventListener('load', () => {
-    if (isPlaying) {
-      playCurrent();
-    }
-    updateButtonUI();
-  });
+  const preloadNextTrack = () => {
+    const nextIndex = (currentTrackIndex + 1) % playlist.length;
+    const next = new Audio();
+    next.src = playlist[nextIndex];
+    next.preload = "auto";
+    // 不播放，只是触发浏览器缓存
+  };
 
-  // === 播放结束，切换下一首 ===
   bgm.addEventListener("ended", () => {
     currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
     playCurrent();
   });
 
-  // === 每次播放时预加载下一首 ===
   bgm.addEventListener("playing", preloadNextTrack);
 
-  // === 点击切换播放状态 ===
   btn.addEventListener("click", () => {
     if (isPlaying) {
       bgm.pause();
@@ -129,6 +109,14 @@
     updateButtonUI();
   });
 
-  // === SPA 页面切换时刷新按钮状态 ===
   document.addEventListener('instantclick:change', updateButtonUI);
+
+  window.addEventListener("load", () => {
+    if (isPlaying) {
+      // 需用户点击后触发才可播放，故这里不调用 playCurrent()
+      updateButtonUI(); // 保留按钮状态
+    } else {
+      updateButtonUI();
+    }
+  });
 })();
