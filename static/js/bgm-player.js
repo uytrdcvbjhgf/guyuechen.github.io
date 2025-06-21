@@ -4,14 +4,12 @@
     return;
   }
 
-  // ✅ 歌单定义（顺序播放）
   const playlist = [
     "https://raw.githubusercontent.com/guyuechen/gallery/main/music/sos.mp3",
     "https://raw.githubusercontent.com/guyuechen/gallery/main/music/sos_Live_At_Hammersmith_Odeon.mp3"
   ];
   let currentTrackIndex = 0;
 
-  // ✅ 创建 HTML 结构
   const container = document.createElement('div');
   container.id = 'bgm-container';
   container.innerHTML = `
@@ -55,34 +53,15 @@
     </style>
 
     <button id="play-music" title="Sleepy? Music!">🎸</button>
-    <audio id="bgm" preload="auto" loop></audio>
+    <audio id="bgm" preload="auto"></audio>
   `;
   document.documentElement.appendChild(container);
 
   const btn = container.querySelector('#play-music');
   const bgm = container.querySelector('#bgm');
 
-  // ✅ 当前状态标记
   let isPlaying = localStorage.getItem("bgm-playing") === "true";
 
-  // ✅ 仅当 src 未设置或变化时才重新加载
-  const loadCurrentTrack = () => {
-    const expected = playlist[currentTrackIndex];
-    if (!bgm.src.includes(expected)) {
-      bgm.src = expected;
-      bgm.load();
-    }
-  };
-
-  // ✅ 播放当前曲目（不强制 reload）
-  const playCurrent = () => {
-    loadCurrentTrack();
-    bgm.play().catch((err) => {
-      console.warn("⛔ 播放失败:", err);
-    });
-  };
-
-  // ✅ UI 状态更新
   const updateButtonUI = () => {
     if (isPlaying) {
       btn.textContent = '🙉';
@@ -93,14 +72,27 @@
     }
   };
 
-  // ✅ 自动切换下一曲
+  const loadCurrentTrack = () => {
+    const expected = playlist[currentTrackIndex];
+    if (!bgm.src.includes(expected)) {
+      bgm.src = expected;
+      bgm.load();
+    }
+  };
+
+  const playCurrent = () => {
+    loadCurrentTrack();
+    bgm.play().catch(err => {
+      console.warn("播放失败", err);
+    });
+  };
+
+  // ⏭ 自动切换下一首
   bgm.addEventListener('ended', () => {
     currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
-    loadCurrentTrack();
-    bgm.play();
+    playCurrent();
   });
 
-  // ✅ 初始尝试恢复播放
   window.addEventListener('load', () => {
     if (isPlaying) {
       playCurrent();
@@ -108,7 +100,6 @@
     updateButtonUI();
   });
 
-  // ✅ 按钮点击事件（切换播放/暂停）
   btn.addEventListener('click', () => {
     if (isPlaying) {
       bgm.pause();
@@ -120,7 +111,6 @@
     updateButtonUI();
   });
 
-  // ✅ 页面切换后刷新按钮状态（支持 SPA）
   document.addEventListener('instantclick:change', () => {
     updateButtonUI();
   });
