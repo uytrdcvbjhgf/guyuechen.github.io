@@ -4,6 +4,15 @@
     return;
   }
 
+  const playlist = [
+    "https://raw.githubusercontent.com/guyuechen/gallery/main/music/sos_Live_At_Hammersmith_Odeon.mp3",
+    "https://raw.githubusercontent.com/guyuechen/gallery/main/music/sos.mp3",
+    // 🔽 可以继续添加更多曲目
+  ];
+
+  let currentTrackIndex = 0;
+  let isPlaying = localStorage.getItem("bgm-playing") === "true";
+
   // === 创建容器 ===
   const container = document.createElement('div');
   container.id = 'bgm-container';
@@ -28,43 +37,37 @@
         align-items: center;
         justify-content: center;
       }
-
       #play-music:hover {
         background-color: rgba(255, 255, 255, 0.2);
         transform: scale(1.1);
       }
-
       #play-music.playing {
         color: #a179dc;
         animation: pulse 1.2s infinite ease-in-out;
       }
-
       #play-music:not(.playing) {
         color: #3399ff;
         animation: none;
       }
-
       @keyframes pulse {
         0%   { transform: scale(1); }
         50%  { transform: scale(1.15); }
         100% { transform: scale(1); }
       }
     </style>
-
     <button id="play-music" title="Sleepy? Music!">🎸</button>
-    <audio id="bgm" loop preload="auto">
-      <source src="https://raw.githubusercontent.com/guyuechen/gallery/main/music/sos.mp3" type="audio/mpeg">
-    </audio>
+    <audio id="bgm" preload="auto"></audio>
   `;
 
-  // === 插入到 <html> 内但 <body> 外（防止被替换） ===
   document.documentElement.appendChild(container);
 
   const btn = container.querySelector('#play-music');
   const bgm = container.querySelector('#bgm');
 
-  // 状态恢复
-  let isPlaying = localStorage.getItem("bgm-playing") === "true";
+  const loadCurrentTrack = () => {
+    bgm.src = playlist[currentTrackIndex];
+    bgm.load();
+  };
 
   const updateButtonUI = () => {
     if (isPlaying) {
@@ -76,12 +79,24 @@
     }
   };
 
-  // 初始化时尝试恢复播放
+  // 自动下一首
+  bgm.addEventListener('ended', () => {
+    currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
+    loadCurrentTrack();
+    if (isPlaying) {
+      bgm.play().catch(() => {
+        isPlaying = false;
+        updateButtonUI();
+      });
+    }
+  });
+
+  // 初始化加载音轨
+  loadCurrentTrack();
+
   window.addEventListener('load', () => {
     if (isPlaying) {
-      bgm.play().then(() => {
-        updateButtonUI();
-      }).catch(() => {
+      bgm.play().then(updateButtonUI).catch(() => {
         isPlaying = false;
         updateButtonUI();
       });
@@ -90,7 +105,6 @@
     }
   });
 
-  // 点击按钮播放/暂停
   btn.addEventListener('click', () => {
     if (isPlaying) {
       bgm.pause();
@@ -102,7 +116,6 @@
     updateButtonUI();
   });
 
-  // 页面切换后刷新按钮状态
   document.addEventListener('instantclick:change', () => {
     updateButtonUI();
   });
