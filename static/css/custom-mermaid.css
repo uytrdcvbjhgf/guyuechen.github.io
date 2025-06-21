@@ -17,7 +17,7 @@ div.mermaid p {
   color: #d8dee9 !important;
 }
 
-/* 🏷️ 连线文字说明（edgeLabel） */
+/* 🏷️ 连线说明文本样式 */
 div.mermaid .edgeLabel {
   background-color: #2e3440 !important;
   border-radius: 4px;
@@ -29,16 +29,19 @@ div.mermaid .edgeLabel tspan {
   font-weight: 500 !important;
 }
 
-/* ➤ 连线 + 箭头颜色 */
-div.mermaid .flowchart-link {
-  stroke: #bfc9db !important;
-  stroke-width: 2px;
-}
-div.mermaid marker path {
-  fill: #bfc9db !important;
+/* ➤ 连线（流程图 + 类图）统一样式 */
+div.mermaid .flowchart-link,
+div.mermaid .relation {
+  stroke: #a0a7b4 !important;
+  stroke-width: 1.5px !important;
 }
 
-/* ✅ 隐藏掉错误渲染到左上角的边缘 label */
+/* ➤ 箭头颜色 */
+div.mermaid marker path {
+  fill: #a0a7b4 !important;
+}
+
+/* 🧼 修复左上角 phantom edgeLabel */
 div.mermaid span.edgeLabel {
   display: none !important;
   opacity: 0 !important;
@@ -47,16 +50,4 @@ div.mermaid span.edgeLabel {
   width: 0 !important;
   height: 0 !important;
   overflow: hidden !important;
-}
-
-/* 通用连线样式（流程图、类图） */
-div.mermaid .flowchart-link,
-div.mermaid .relation {
-  stroke: #a0a7b4 !important;
-  stroke-width: 1.5px !important;
-}
-
-/* 箭头头部颜色 */
-div.mermaid marker path {
-  fill: #a0a7b4 !important;
 }
