@@ -5,8 +5,8 @@
   }
 
   const playlist = [
+    "https://raw.githubusercontent.com/guyuechen/gallery/main/music/LadyWriter.mp3",
     "https://raw.githubusercontent.com/guyuechen/gallery/main/music/sos.mp3",
-    "https://raw.githubusercontent.com/guyuechen/gallery/main/music/LadyWriter.mp3"
   ];
   let currentTrackIndex = 0;
 
