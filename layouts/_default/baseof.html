@@ -162,7 +162,12 @@
       reinitializePageFeatures();
     }
 
-    InstantClick.on('change', reinitializePageFeatures);
+    InstantClick.on('change', () => {
+      reinitializePageFeatures();     // ✅ 刷新主题、按钮等
+      if (location.pathname.includes("/search")) {
+        window.loadSearch?.();        // ✅ 重新初始化 fastsearch
+      }
+    });
     InstantClick.init();
 
     document.addEventListener("DOMContentLoaded", () => {

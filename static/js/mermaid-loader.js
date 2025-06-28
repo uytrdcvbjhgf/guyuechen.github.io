@@ -1,5 +1,5 @@
 // ✅ 通用 Mermaid 配色（兼容浅色与深色背景）
-const mermaidThemes = {
+window.mermaidThemes = window.mermaidThemes || {
   universal: {
     theme: "default",
     themeVariables: {
