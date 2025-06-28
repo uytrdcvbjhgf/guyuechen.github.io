@@ -97,7 +97,7 @@ params:
     disableHLJS: true
 
   giscus:
-    repo: "guyuechen/guyuechen.github.io"
+    repo: "uytrdcvbjhgf/guyuechen.github.io"
     repoId: "R_kgDOMobTKA"
     category: "Announcements"
     categoryId: "DIC_kwDOMobTKM4Ch7-q"
