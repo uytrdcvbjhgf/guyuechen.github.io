@@ -125,6 +125,7 @@ function loadSearch() {
     const resList = document.getElementById('searchResults');
     if (sInput && resList) {
       attachSearch(sInput, resList);
+      console.log('🔍 fastsearch loaded');
     } else {
       setTimeout(retry, 30); // 每隔30ms重试一次直到找到
     }
@@ -136,3 +137,14 @@ if (typeof window !== 'undefined') {
   window.loadSearch = loadSearch;
   window.addEventListener('DOMContentLoaded', loadSearch);
 }
+
+// 🧩 支持 InstantClick 页面切换后重新初始化
+document.addEventListener('instantclick:change', () => {
+  // 只有在路径包含 search 或 #searchInput 存在时再尝试绑定
+  if (
+    location.pathname.includes('/search') ||
+    document.getElementById('searchInput')
+  ) {
+    loadSearch();
+  }
+});
