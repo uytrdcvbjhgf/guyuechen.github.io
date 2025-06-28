@@ -6,7 +6,7 @@
 
   const playlist = [
     "https://raw.githubusercontent.com/guyuechen/gallery/main/music/sos.mp3",
-    "https://raw.githubusercontent.com/guyuechen/gallery/main/music/sos_Live_At_Hammersmith_Odeon.mp3"
+    "https://raw.githubusercontent.com/guyuechen/gallery/main/music/LadyWriter.mp3"
   ];
   let currentTrackIndex = 0;
 
@@ -60,7 +60,7 @@
   const btn = container.querySelector('#play-music');
   const bgm = container.querySelector('#bgm');
 
-  let isPlaying = localStorage.getItem("bgm-playing") === "true";
+  let isPlaying = sessionStorage.getItem("bgm-playing") === "true";
 
   const updateButtonUI = () => {
     if (isPlaying) {
@@ -87,7 +87,6 @@
     });
   };
 
-  // ⏭ 自动切换下一首
   bgm.addEventListener('ended', () => {
     currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
     playCurrent();
@@ -107,7 +106,7 @@
       playCurrent();
     }
     isPlaying = !isPlaying;
-    localStorage.setItem("bgm-playing", String(isPlaying));
+    sessionStorage.setItem("bgm-playing", String(isPlaying));
     updateButtonUI();
   });
 
