@@ -45,7 +45,7 @@ git rebase master
 
 假设我们有如下分支：
 
-```
+```perl
   D---E feature
  /
 A---B---C master
@@ -64,7 +64,7 @@ A---B---C master
 
 提交历史如下：
 
-```
+```perl
 * 6fa5484 (HEAD -> master, feature) commit F
 *   875906b Merge branch 'master' into feature
 |\  
@@ -92,7 +92,7 @@ A---B---C master
 
 提交历史如下：
 
-```
+```perl
 * 74199ce (HEAD -> master, feature) commit F
 * e7c7111 commit E
 * d9623b0 commit D
@@ -183,7 +183,7 @@ fixup # 使用该commit，丢弃commit信息
 
 假设我们在 `feature` 分支有如下提交：
 
-```
+```perl
 74199cebdd34d107bb67b6da5533a2e405f4c330 (HEAD -> feature) commit F
 e7c7111d807c1d5209b97a9c75b09da5cd2810d4 commit E
 d9623b0ef9d722b4a83d58a334e1ce85545ea524 commit D
@@ -293,7 +293,7 @@ pick 74199ce commit F
 
 大功告成！最后让我们确认一下 `rebase` 之后的提交历史：
 
-```
+```perl
 64710dc88ef4fbe8fe7aac206ec2e3ef12e7bca9 (HEAD -> feature) commit H
 8ab4506a672dac5c1a55db34779a185f045d7dd3 commit G
 1e186f890710291aab5b508a4999134044f6f846 commit C
@@ -339,7 +339,7 @@ reflogs 是 Git 用来记录本地仓库分支顶端的更新的一种机制，�
 
 从上一个例子继续，假设我们想恢复 `feature` 分支在 `rebase` 之前的 A→B→C→D→E→F 提交历史，但这时候的 `git log` 中已经没有后面 5 个提交，所以需要从 reflogs 中寻找，运行 `git reflog` 结果如下：
 
-```
+```perl
 64710dc (HEAD -> feature) HEAD@{0}: rebase (continue) (finish): returning to refs/heads/feature
 64710dc (HEAD -> feature) HEAD@{1}: rebase (continue): commit H
 8ab4506 HEAD@{2}: rebase (continue): commit G
@@ -367,7 +367,7 @@ HEAD 现在位于 74199ce commit F
 
 再运行 `git log` 会发现一切又回到了从前：
 
-```
+```perl
 74199cebdd34d107bb67b6da5533a2e405f4c330 (HEAD -> feature) commit F
 e7c7111d807c1d5209b97a9c75b09da5cd2810d4 commit E
 d9623b0ef9d722b4a83d58a334e1ce85545ea524 commit D
@@ -483,7 +483,7 @@ git checkout master
 git merge feature
 ```
 
-```
+```perl
 Updating f42c576..3a0874c
 Fast-forward
  main.py | 2 ++
@@ -508,7 +508,7 @@ Git 命令文档对 `git cherry-pick` 描述是： Apply the changes introduced 
 
 假设我们有如下提交：
 
-```
+```perl
 a - b - c - d   master
          \
            e - f - g   feature
@@ -528,7 +528,7 @@ git cherry-pick f g
 
 执行后的提交历史如下：
 
-```
+```perl
 a - b - c - d - f' - g'   master
          \
            e - f - g   feature
@@ -594,7 +594,7 @@ git add main.py && git commit -m "add main file"
 git log --pretty=oneline
 ```
 
-```
+```perl
 ea4c48a (HEAD -> master) add main file
 b15cc74 add ignore file
 e137e9b first commit
@@ -681,7 +681,7 @@ git checkout b15cc74 README.md
 git checkout master && cat .git/refs/heads/master
 ```
 
-```
+```perl
 已经位于 'master'
 ea4c48a
 ```
@@ -691,7 +691,7 @@ git reset --soft b15cc74
 git status
 ```
 
-```
+```perl
 位于分支 master
 要提交的变更：
   （使用 "git restore --staged <文件>..." 以取消暂存）
@@ -744,7 +744,7 @@ git reset --mixed b15cc74
 git status
 ```
 
-```
+```perl
 位于分支 master
 未跟踪的文件:
   （使用 "git add <文件>..." 以包含要提交的内容）
@@ -771,7 +771,7 @@ git status
 git checkout master && cat .git/refs/heads/master
 ```
 
-```
+```perl
 已经位于 'master'
 ea4c48a
 ```
@@ -780,7 +780,7 @@ ea4c48a
 git reset --hard b15cc74
 ```
 
-```
+```perl
 HEAD 现在位于 b15cc74 add gitignore file
 ```
 
@@ -788,7 +788,7 @@ HEAD 现在位于 b15cc74 add gitignore file
 git status
 ```
 
-```
+```perl
 位于分支 master
 无文件要提交，干净的工作区
 ```
@@ -811,7 +811,7 @@ git status
 git reflog
 ```
 
-```
+```perl
 b15cc74 (HEAD -> master) HEAD@{0}: reset: moving to b15cc74
 ea4c48a HEAD@{1}: checkout: moving from master to master
 ......
@@ -836,7 +836,7 @@ git reset world.py
 git status
 ```
 
-```
+```perl
 位于分支 master
 您的分支与上游分支 'origin/master' 一致。
 
@@ -900,7 +900,7 @@ git revert b15cc74
 
 在终端执行该命令后将直接跳转到一个编辑器界面，可以修改新提交的提交信息：
 
-```
+```perl
 Revert "add gitignore file"
 
 This reverts commit b15cc74d6d85435660fcacce1305a54273880479.
@@ -912,7 +912,7 @@ This reverts commit b15cc74d6d85435660fcacce1305a54273880479.
 
 保存后 `revert` 命令执行结束，并输出以下结果：
 
-```
+```perl
 删除 .gitignore
 [master 6bb25da] Revert "add gitignore file"
  1 file changed, 1 deletion(-)
@@ -927,7 +927,7 @@ This reverts commit b15cc74d6d85435660fcacce1305a54273880479.
 git revert b15cc74
 ```
 
-```
+```perl
 error: 您的本地修改将被还原覆盖。
 提示：提交您的修改或贮藏后再继续。
 fatal: 还原失败
@@ -1175,7 +1175,7 @@ Pull Request 和 Merge Request 是一个东西。
 git cat-file -p 44ba027
 ```
 
-```
+```perl
 tree 5a1692ba62ef346b59e65e4aa441c731bebc51ff
 parent 75bf5c59c2e7e493c98e026a415f16b8f0445e4a
 parent bbbe6a4c02aa709299ac891779448daf8203df53
@@ -1483,7 +1483,7 @@ $ ssh-keygen -t rsa –C zhangsan@hw.com
 git ls-files --stage
 ```
 
-```
+```perl
 100644 30d74d258442c7c65512eafab474568dd706c430 0       README.md
 100644 9c1cab9a57432098de869e202ed73161af33d182 0       main.py
 ```
@@ -1530,7 +1530,7 @@ This is a README file.
 git log
 ```
 
-```
+```perl
 commit ea4c48a0984880bda4031f0713229229c12793e4 (HEAD -> master)
 Author: gyc <gyc822@notmyemail.com>
 Date:   Wed Jan 6 21:05:44 2021 +0800
@@ -1562,7 +1562,7 @@ Git 通过「提交对象」来储存每一次提交。这个 ID 是以对象内
 git cat-file -p ea4c48a0984880bda4031f0713229229c12793e4
 ```
 
-```
+```perl
 tree 9e761342b98484aac2d8734f45fc2d0fde3e29db
 parent b15cc74d6d85435660fcacce1305a54273880479
 author gyc <gyc822@notmyemail.com> 1609938344 +0800
@@ -1583,7 +1583,7 @@ add main application file
 git ls-tree 9e761342b98484aac2d8734f45fc2d0fde3e29db
 ```
 
-```
+```perl
 100644 blob 723ef36f4e4f32c4560383aa5987c575a30c6535    .gitignore
 100644 blob 30d74d258442c7c65512eafab474568dd706c430    README.md
 100644 blob 9c1cab9a57432098de869e202ed73161af33d182    main.py
@@ -1604,7 +1604,7 @@ git ls-tree 9e761342b98484aac2d8734f45fc2d0fde3e29db
 cat .git/refs/heads/master
 ```
 
-```
+```perl
 ea4c48a0984880bda4031f0713229229c12793e4
 ```
 
@@ -1616,7 +1616,7 @@ ea4c48a0984880bda4031f0713229229c12793e4
 cat .git/HEAD
 ```
 
-```
+```perl
 ref: refs/heads/master
 ```
 
@@ -1627,7 +1627,7 @@ git checkout ea4c48a0984880bda4031f0713229229c12793e4
 cat .git/HEAD
 ```
 
-```
+```perl
 ea4c48a0984880bda4031f0713229229c12793e4
 ```
 
