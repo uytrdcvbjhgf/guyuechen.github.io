@@ -60,7 +60,7 @@
   const btn = container.querySelector('#play-music');
   const bgm = container.querySelector('#bgm');
 
-  let isPlaying = sessionStorage.getItem("bgm-playing") === "true";
+  let isPlaying = localStorage.getItem("bgm-playing") === "true";
 
   const updateButtonUI = () => {
     if (isPlaying) {
@@ -106,7 +106,7 @@
       playCurrent();
     }
     isPlaying = !isPlaying;
-    sessionStorage.setItem("bgm-playing", String(isPlaying));
+    localStorage.setItem("bgm-playing", String(isPlaying));
     updateButtonUI();
   });
 
