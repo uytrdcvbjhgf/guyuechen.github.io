@@ -6,6 +6,11 @@ let first, last, current_elem = null;
 let resultsAvailable = false;
 
 function attachSearch(sInput, resList) {
+  // ✅ 防止重复绑定（已绑定过就跳过）
+  if (sInput.dataset.attached === 'true') return;
+  sInput.dataset.attached = 'true';
+
+  // ✅ 初始化 Fuse 数据
   const xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function () {
     if (xhr.readyState === 4 && xhr.status === 200) {
@@ -39,6 +44,7 @@ function attachSearch(sInput, resList) {
   xhr.open('GET', "../index.json");
   xhr.send();
 
+  // ✅ 键盘控制和渲染逻辑
   function activeToggle(ae) {
     document.querySelectorAll('.focus').forEach(el => el.classList.remove("focus"));
     if (ae) {
@@ -116,35 +122,34 @@ function attachSearch(sInput, resList) {
       ae?.click();
     }
   };
+
+  console.log('🔍 fastsearch attached');
 }
 
-function loadSearch() {
-  // DOM可能还没插入，等待直到找到 input 和 result DOM
-  const retry = () => {
+// ✅ 安全加载 DOM 并绑定（防止未渲染提前执行）
+function waitForSearchDOMAndAttach() {
+  const tryAttach = () => {
     const sInput = document.getElementById('searchInput');
     const resList = document.getElementById('searchResults');
-    if (sInput && resList) {
+    if (sInput && resList && sInput.dataset.attached !== 'true') {
       attachSearch(sInput, resList);
-      console.log('🔍 fastsearch loaded');
-    } else {
-      setTimeout(retry, 30); // 每隔30ms重试一次直到找到
+    } else if (!sInput || !resList) {
+      setTimeout(tryAttach, 30); // 等待 DOM 渲染完成再绑定
     }
   };
-  retry();
+  tryAttach();
 }
 
+// ✅ DOMContentLoaded 时绑定一次
 if (typeof window !== 'undefined') {
-  window.loadSearch = loadSearch;
-  window.addEventListener('DOMContentLoaded', loadSearch);
+  window.loadSearch = waitForSearchDOMAndAttach;
+  window.addEventListener('DOMContentLoaded', waitForSearchDOMAndAttach);
 }
 
-// 🧩 支持 InstantClick 页面切换后重新初始化
+// ✅ SPA 场景（InstantClick）页面切换后重新绑定
 document.addEventListener('instantclick:change', () => {
-  // 只有在路径包含 search 或 #searchInput 存在时再尝试绑定
-  if (
-    location.pathname.includes('/search') ||
-    document.getElementById('searchInput')
-  ) {
-    loadSearch();
+  const sInput = document.getElementById('searchInput');
+  if (!sInput || sInput.dataset.attached !== 'true') {
+    waitForSearchDOMAndAttach();
   }
 });
