@@ -107,10 +107,21 @@
   });
 
   window.addEventListener('load', () => {
+    // 实际 audio 状态优先于 sessionStorage
     if (isPlaying) {
       playCurrent();
+      // 等待一点时间后确认 audio 是否真的在播放
+      setTimeout(() => {
+        if (bgm.paused) {
+          isPlaying = false;
+          sessionStorage.setItem("bgm-playing", "false");
+          updateButtonUI();
+          console.log("🎵 音频播放失败或被阻止，重置状态");
+        }
+      }, 500);
+    } else {
+      updateButtonUI();
     }
-    updateButtonUI();
   });
 
   btn.addEventListener('click', () => {
