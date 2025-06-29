@@ -29,16 +29,44 @@ div.mermaid .edgeLabel tspan {
   font-weight: 500 !important;
 }
 
-/* ➤ 连线（流程图 + 类图）统一样式 */
+/* ➤ flowchart / classDiagram 连线样式 */
 div.mermaid .flowchart-link,
 div.mermaid .relation {
   stroke: #a0a7b4 !important;
   stroke-width: 1.5px !important;
 }
 
-/* ➤ 箭头颜色 */
+/* ➤ 通用箭头颜色 */
 div.mermaid marker path {
   fill: #a0a7b4 !important;
+}
+
+/* ➤ sequenceDiagram 线条与箭头样式 */
+div.mermaid .messageLine0,
+div.mermaid .messageLine1,
+div.mermaid .actor-line,
+div.mermaid .loopLine,
+div.mermaid .activation,
+div.mermaid .note,
+div.mermaid .note rect,
+div.mermaid .messageLine0 path,
+div.mermaid .messageLine1 path {
+  stroke: #a0a7b4 !important;
+  fill: none !important;
+  stroke-width: 1.5px !important;
+}
+
+div.mermaid .messageLine0 marker path,
+div.mermaid .messageLine1 marker path {
+  fill: #a0a7b4 !important;
+}
+
+/* ➤ sequenceDiagram 文字颜色 */
+div.mermaid .actor > text,
+div.mermaid .messageText,
+div.mermaid .noteText {
+  fill: #d8dee9 !important;
+  font-size: 14px;
 }
 
 /* 🧼 修复左上角 phantom edgeLabel */
