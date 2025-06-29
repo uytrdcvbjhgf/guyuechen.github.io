@@ -1,55 +1,61 @@
-/* 🎯 节点背景 + 边框 */
+/* 🌗 节点背景 + 边框（统一视觉风格） */
 div.mermaid .node rect,
 div.mermaid .node polygon,
 div.mermaid .node ellipse,
 div.mermaid .node circle,
 div.mermaid .node .label-container > path {
-  fill: #dfe3e8 !important;
+  fill: #e8ecf1 !important;
   stroke: #6cace4 !important;
   stroke-width: 1px !important;
 }
 
-/* ✍️ 节点文字通用颜色（兼容 flowchart / sequenceDiagram） */
+/* ✍️ 通用文字颜色（所有图形，包括 classDiagram, flowchart, sequenceDiagram） */
 div.mermaid .label text,
 div.mermaid span,
 div.mermaid p,
 div.mermaid text {
-  fill: #4a4a4a !important;
-  color: #4a4a4a !important;
+  fill: #3a3a3a !important;
+  color: #3a3a3a !important;
 }
 
-/* 🏷️ edgeLabel 样式（用于 flowchart 连线说明） */
+/* 🏷️ 连线说明标签（用于 flowchart） */
 div.mermaid .edgeLabel {
   background-color: #ffffff !important;
   border-radius: 4px;
   padding: 2px 4px;
 }
 div.mermaid .edgeLabel tspan {
-  fill: #4a4a4a !important;
+  fill: #3a3a3a !important;
   font-size: 14px !important;
   font-weight: 500 !important;
 }
 
-/* 💬 sequenceDiagram 中箭头说明文字 */
+/* 💬 sequenceDiagram 中上方说明箭头文字 */
 div.mermaid .messageText {
-  fill: #4a4a4a !important;
-  font-size: 14px !important;
+  fill: #c9ced5 !important;
+  font-size: 13px !important;
   font-weight: 500 !important;
 }
 
-/* ➤ 连线统一样式（flowchart + classDiagram） */
+/* ➤ sequenceDiagram 中连接线（虚线）加强对比 */
+div.mermaid .messageLine0,
+div.mermaid .messageLine1 {
+  stroke: #8fa4c6 !important;
+  stroke-width: 1.2px !important;
+  stroke-dasharray: 3, 3 !important;
+}
+
+/* ➤ flowchart & classDiagram 中线和箭头 */
 div.mermaid .flowchart-link,
 div.mermaid .relation {
   stroke: #6cace4 !important;
   stroke-width: 1.5px !important;
 }
-
-/* ➤ 箭头颜色 */
 div.mermaid marker path {
   fill: #6cace4 !important;
 }
 
-/* 🧼 修复 ghost edgeLabel */
+/* 🧼 修复 Phantom edgeLabel */
 div.mermaid span.edgeLabel {
   display: none !important;
   opacity: 0 !important;
