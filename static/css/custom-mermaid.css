@@ -1,18 +1,15 @@
-/* 🌈 通用节点背景色（classDiagram、flowchart） */
+/* 📦 节点背景与边框统一为深色风格 */
 div.mermaid .node rect,
 div.mermaid .node polygon,
 div.mermaid .node ellipse,
 div.mermaid .node circle,
-div.mermaid .node .label-container > path,
-div.mermaid .cluster rect,
-div.mermaid .actor rect {
-  fill: #384358 !important;
+div.mermaid .node .label-container > path {
+  fill: #2e3440 !important;
   stroke: #81a1c1 !important;
   stroke-width: 1px !important;
 }
 
-/* ✍️ 通用文字颜色 */
-div.mermaid text,
+/* 📝 所有文字统一为亮色 */
 div.mermaid .label text,
 div.mermaid span,
 div.mermaid p {
@@ -20,37 +17,43 @@ div.mermaid p {
   color: #d8dee9 !important;
 }
 
-/* 🏷️ 连线标签文字 */
-div.mermaid .edgeLabel,
-div.mermaid .messageText {
-  background-color: #2e3440 !important;
+/* 🏷️ 连线说明文本 */
+div.mermaid .edgeLabel {
+  background-color: #3b4252 !important;
   border-radius: 4px;
-  padding: 2px 4px;
+  padding: 2px 6px;
 }
-div.mermaid .edgeLabel tspan,
-div.mermaid .messageText tspan {
+div.mermaid .edgeLabel tspan {
   fill: #eceff4 !important;
   font-size: 14px !important;
   font-weight: 500 !important;
 }
 
-/* ➤ 连线颜色统一（flowchart / sequence） */
+/* ➤ 连线（flowchart + classDiagram） */
 div.mermaid .flowchart-link,
 div.mermaid .relation,
-div.mermaid .messageLine0 line,
-div.mermaid .messageLine1 line,
-div.mermaid .messageLine2 line,
-div.mermaid .messageLine3 line {
-  stroke: #a0a7b4 !important;
+div.mermaid .messageLine0,
+div.mermaid .messageLine1 {
+  stroke: #81a1c1 !important;
   stroke-width: 1.5px !important;
 }
 
-/* ➤ 箭头统一（flowchart + sequence） */
+/* ➤ 箭头颜色统一 */
 div.mermaid marker path {
-  fill: #a0a7b4 !important;
+  fill: #81a1c1 !important;
 }
 
-/* 🧼 修复 phantom edgeLabel */
+/* 🔧 修复 sequenceDiagram 中 participant 标签文字颜色 */
+div.mermaid .actor > rect,
+div.mermaid .actor > polygon {
+  fill: #2e3440 !important;
+  stroke: #81a1c1 !important;
+}
+div.mermaid .actor > text {
+  fill: #d8dee9 !important;
+}
+
+/* 👻 避免残留 ghost edgeLabel */
 div.mermaid span.edgeLabel {
   display: none !important;
   opacity: 0 !important;
