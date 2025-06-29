@@ -116,7 +116,7 @@
           isPlaying = false;
           sessionStorage.setItem("bgm-playing", "false");
           updateButtonUI();
-          console.log("🎵 音频播放失败或被阻止，重置状态");
+          console.log("🎵 Reset the status of Audio playback");
         }
       }, 500);
     } else {
