@@ -60,7 +60,21 @@
   const btn = container.querySelector('#play-music');
   const bgm = container.querySelector('#bgm');
 
-  let isPlaying = localStorage.getItem("bgm-playing") === "true";
+  // 是否是新 session（标签页）
+  const isNewSession = sessionStorage.getItem("bgm-session") !== "1";
+  sessionStorage.setItem("bgm-session", "1");
+
+  // localStorage 表示用户偏好（曾经点击播放）
+  let userPreferred = localStorage.getItem("bgm-playing") === "true";
+
+  // sessionStorage 表示当前 session 中是否正在播放
+  let isPlaying = sessionStorage.getItem("bgm-playing") === "true";
+
+  // 如果是新 session 且之前播放状态是 true，重置为 false
+  if (isNewSession && isPlaying) {
+    isPlaying = false;
+    sessionStorage.setItem("bgm-playing", "false");
+  }
 
   const updateButtonUI = () => {
     if (isPlaying) {
@@ -102,14 +116,18 @@
   btn.addEventListener('click', () => {
     if (isPlaying) {
       bgm.pause();
+      isPlaying = false;
     } else {
       playCurrent();
+      isPlaying = true;
+      // 设置偏好（表示用户曾经点击播放）
+      localStorage.setItem("bgm-playing", "true");
     }
-    isPlaying = !isPlaying;
-    localStorage.setItem("bgm-playing", String(isPlaying));
+    sessionStorage.setItem("bgm-playing", String(isPlaying));
     updateButtonUI();
   });
 
+  // SPA 页面切换后按钮状态保持
   document.addEventListener('instantclick:change', () => {
     updateButtonUI();
   });
