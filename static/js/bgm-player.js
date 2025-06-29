@@ -60,20 +60,20 @@
   const btn = container.querySelector('#play-music');
   const bgm = container.querySelector('#bgm');
 
-  // 是否是新 session（标签页）
+  // 🔁 新 session 检查
   const isNewSession = sessionStorage.getItem("bgm-session") !== "1";
   sessionStorage.setItem("bgm-session", "1");
 
-  // localStorage 表示用户偏好（曾经点击播放）
-  let userPreferred = localStorage.getItem("bgm-playing") === "true";
+  // 🎵 用户播放偏好（localStorage）
+  let userPreferred = localStorage.getItem("bgm-autoplay-enabled") === "true";
 
-  // sessionStorage 表示当前 session 中是否正在播放
-  let isPlaying = sessionStorage.getItem("bgm-playing") === "true";
+  // ▶️ 当前 session 播放状态
+  let isPlaying = sessionStorage.getItem("bgm-is-playing") === "true";
 
-  // 如果是新 session 且之前播放状态是 true，重置为 false
+  // 🧹 如果是新 session 且状态异常，强制重置
   if (isNewSession && isPlaying) {
     isPlaying = false;
-    sessionStorage.setItem("bgm-playing", "false");
+    sessionStorage.setItem("bgm-is-playing", "false");
   }
 
   const updateButtonUI = () => {
@@ -101,29 +101,30 @@
     });
   };
 
+  // ⏭ 自动切换下一首
   bgm.addEventListener('ended', () => {
     currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
     playCurrent();
   });
 
+  // 🚀 页面加载后检查是否需要自动播放
   window.addEventListener('load', () => {
-    // 实际 audio 状态优先于 sessionStorage
     if (isPlaying) {
       playCurrent();
-      // 等待一点时间后确认 audio 是否真的在播放
+      // 确认播放状态是否真实成功
       setTimeout(() => {
         if (bgm.paused) {
           isPlaying = false;
-          sessionStorage.setItem("bgm-playing", "false");
+          sessionStorage.setItem("bgm-is-playing", "false");
           updateButtonUI();
           console.log("🎵 Reset the status of Audio playback");
         }
       }, 500);
-    } else {
-      updateButtonUI();
     }
+    updateButtonUI();
   });
 
+  // 🖱️ 用户点击按钮播放/暂停
   btn.addEventListener('click', () => {
     if (isPlaying) {
       bgm.pause();
@@ -131,14 +132,13 @@
     } else {
       playCurrent();
       isPlaying = true;
-      // 设置偏好（表示用户曾经点击播放）
-      localStorage.setItem("bgm-playing", "true");
+      localStorage.setItem("bgm-autoplay-enabled", "true"); // 标记用户已主动播放
     }
-    sessionStorage.setItem("bgm-playing", String(isPlaying));
+    sessionStorage.setItem("bgm-is-playing", String(isPlaying));
     updateButtonUI();
   });
 
-  // SPA 页面切换后按钮状态保持
+  // SPA 页面切换时同步状态
   document.addEventListener('instantclick:change', () => {
     updateButtonUI();
   });
