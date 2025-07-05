@@ -2,7 +2,7 @@
 title = '前端异步编程指南'
 date = 2024-09-01T10:20:13+08:00
 categories = ["front"]
-tags = ["front", "javascript", "Promise", "async"]
+tags = ["front", "javascript", "async"]
 +++
 
 ## 背景：为什么需要异步？
