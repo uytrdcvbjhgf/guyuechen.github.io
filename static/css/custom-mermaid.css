@@ -74,9 +74,14 @@ div.mermaid span.edgeLabel {
   ry: 6px;
 }
 
-/* 🌟 subgraph 标题字体颜色更浅 */
-.mermaid g.cluster text {
-  fill: #e0e0e0 !important;
+/* ✅ 更可靠地选中 subgraph cluster 标题文字 */
+.mermaid g.cluster > text {
+  fill: #d0d0d0 !important;       /* 更浅的灰色字体 */
   font-weight: bold;
   font-size: 14px;
+}
+
+/* ✅ 选中 label 下的 tspan（某些版本用 tspan 承载文字） */
+.mermaid g.cluster > text > tspan {
+  fill: #d0d0d0 !important;
 }

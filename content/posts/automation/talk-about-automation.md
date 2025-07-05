@@ -184,7 +184,7 @@ sequenceDiagram
     participant DB
     Runner->>SuiteSetup: 全局初始化
     SuiteSetup->>Hook: Suite级setup
-    loop 每个用例
+    loop
         Runner->>TestCase: 执行用例
         TestCase->>Hook: 用例setup
         TestCase->>DB: 造数/写入
