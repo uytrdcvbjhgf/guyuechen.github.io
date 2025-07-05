@@ -50,10 +50,10 @@ flowchart TD
   subgraph SUITE_DIR["用例目录级"]
     direction TB
 
-    SuiteSetup1["suite_setup"]
+    SuiteSetup1["global_setup"]
 
     %% --- 中间层：用例文件级 ---
-    subgraph SUITE_FILE["用例文件"]
+    subgraph SUITE_FILE["用例文件级"]
       direction TB
 
       SuiteSetup2["suite_setup"]
@@ -77,7 +77,7 @@ flowchart TD
       SuiteTD2["suite_teardown"]
     end
 
-    SuiteTD1["suite_teardown"]
+    SuiteTD1["global_teardown"]
   end
 
   %% --- 顺序连接 ---
