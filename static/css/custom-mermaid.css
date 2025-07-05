@@ -65,3 +65,11 @@ div.mermaid span.edgeLabel {
   height: 0 !important;
   overflow: hidden !important;
 }
+
+/* 🌘 Mermaid subgraph 背景透明化样式 */
+.mermaid .cluster rect {
+  fill: rgba(34, 34, 34, 0.4) !important;
+  stroke: #cccccc !important;
+  rx: 6px;
+  ry: 6px;
+}
