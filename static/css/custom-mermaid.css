@@ -75,8 +75,8 @@ div.mermaid span.edgeLabel {
 }
 
 /* 🌟 subgraph 标题字体颜色更浅 */
-.mermaid .cluster-label text {
-  fill: #e0e0e0 !important;  /* 可换成 #ffffff 纯白、或更浅灰 */
-  font-weight: 600;
+.mermaid g.cluster text {
+  fill: #e0e0e0 !important;
+  font-weight: bold;
   font-size: 14px;
 }

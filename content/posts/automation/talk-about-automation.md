@@ -45,19 +45,48 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-  SuiteSetup1[目录级 suite_setup]
-  SuiteSetup2[文件级 suite_setup]
-  TC1[用例A setup]
-  Steps1[用例A steps]
-  TD1[用例A teardown]
-  TC2[用例B setup]
-  Steps2[用例B steps]
-  TD2[用例B teardown]
-  SuiteTD2[文件级 suite_teardown]
-  SuiteTD1[目录级 suite_teardown]
-  SuiteSetup1 --> SuiteSetup2 --> TC1
-  TC1 --> Steps1 --> TD1 --> TC2
-  TC2 --> Steps2 --> TD2 --> SuiteTD2 --> SuiteTD1
+
+  %% --- 最外层：用例目录级 ---
+  subgraph SUITE_DIR["用例目录级"]
+    direction TB
+
+    SuiteSetup1["suite_setup"]
+
+    %% --- 中间层：用例文件级 ---
+    subgraph SUITE_FILE["用例文件"]
+      direction TB
+
+      SuiteSetup2["suite_setup"]
+
+      %% --- 用例A ---
+      subgraph TC_A["用例A"]
+        direction TB
+        A1["setup"]
+        A2["test steps"]
+        A3["teardown"]
+      end
+
+      %% --- 用例B ---
+      subgraph TC_B["用例B"]
+        direction TB
+        B1["setup"]
+        B2["test steps"]
+        B3["teardown"]
+      end
+
+      SuiteTD2["suite_teardown"]
+    end
+
+    SuiteTD1["suite_teardown"]
+  end
+
+  %% --- 顺序连接 ---
+  SuiteSetup1 --> SuiteSetup2
+  SuiteSetup2 --> A1
+  A3 --> B1
+  B3 --> SuiteTD2
+  SuiteTD2 --> SuiteTD1
+
 ```
 
 - **外层 Setup/Teardown 适合准备/清理共用资源**（如账号池、全局配置）
@@ -195,7 +224,7 @@ after_suite:
 ### 5.2 Mermaid 展示：API 测试数据流（通用框架）
 
 ```mermaid
-graph TD
+graph LR
     Prep[初始化/准备数据]
     Req[调用API]
     Resp[断言响应]
