@@ -1,16 +1,14 @@
 +++
-title = 'Spring Security详解与核心类分析'
+title = 'SpringSecurity详解与核心类分析'
 date = 2025-07-22T19:00:00+08:00
 categories = ['java', 'framework']
 tags = ['Spring', 'Security', 'Java']
 +++
 
 
-# Spring Security详解与核心类分析
-
 ## 简介
 
-Spring Security 是 Spring 生态中用于认证与授权的安全框架，广泛应用于企业级 Java Web 项目。它通过一系列过滤器和核心组件，实现了灵活且强大的安全控制。
+Security 是 Spring 生态中用于认证与授权的安全框架，广泛应用于企业级 Java Web 项目。它通过一系列过滤器和核心组件，实现了灵活且强大的安全控制。
 
 在现代应用中，安全不仅仅是登录和权限校验，更包括会话管理、攻击防护（如 CSRF/XSS）、细粒度授权、第三方登录集成等。Spring Security 提供了高度可扩展的架构，支持自定义认证流程、权限模型和安全策略。
 
@@ -25,7 +23,6 @@ Spring Security 是 Spring 生态中用于认证与授权的安全框架，广�
 - 细粒度方法级安全（@PreAuthorize/@Secured）
 - 资源访问控制（URL、方法、对象级）
 - 安全事件监听与审计
-
 
 ## 认证与授权流程图
 
@@ -44,8 +41,7 @@ flowchart TD
 
 ## 关键类详解
 
-
-### 1. SecurityFilterChain
+### 1. `SecurityFilterChain`
 
 `SecurityFilterChain` 是 Spring Security 的过滤器链接口，负责定义安全过滤器的顺序和逻辑。每个 HTTP 请求都会经过该链中的多个过滤器，如 `UsernamePasswordAuthenticationFilter`、`BasicAuthenticationFilter`、`ExceptionTranslationFilter`、`FilterSecurityInterceptor` 等。
 
@@ -66,8 +62,7 @@ public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 }
 ```
 
-
-### 2. AuthenticationManager
+### 2. `AuthenticationManager`
 
 `AuthenticationManager` 是认证的核心接口，负责处理用户的认证请求。常见实现为 `ProviderManager`，它会委托多个 `AuthenticationProvider` 进行认证。
 
@@ -84,8 +79,7 @@ public void authenticateUser(String username, String password) {
 }
 ```
 
-
-### 3. UserDetails & UserDetailsService
+### 3. `UserDetails` & `UserDetailsService`
 
 `UserDetails` 是用户信息的抽象接口，包含用户名、密码、权限、账号状态等。`UserDetailsService` 用于加载用户数据，通常从数据库或远程服务获取。
 
@@ -109,8 +103,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 }
 ```
 
-
-### 4. AuthenticationProvider
+### 4. `AuthenticationProvider`
 
 `AuthenticationProvider` 用于具体的认证逻辑，如校验用户名密码、短信验证码、第三方令牌等。可自定义实现以支持多种认证方式。
 
@@ -133,8 +126,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 }
 ```
 
-
-### 5. GrantedAuthority
+### 5. `GrantedAuthority`
 
 `GrantedAuthority` 表示用户的权限，通常为角色（如 `ROLE_ADMIN`）或操作标识（如 `READ_PRIVILEGE`）。`UserDetails` 中的 `getAuthorities()` 方法返回该集合。
 
@@ -147,7 +139,6 @@ public Collection<? extends GrantedAuthority> getAuthorities() {
     return Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
 }
 ```
-
 
 ## 认证与授权流程示意图
 
@@ -191,7 +182,6 @@ public class SecurityConfig {
     }
 }
 ```
-
 
 ## 实战建议与最佳实践
 
