@@ -1,6 +1,6 @@
 +++
 title = '5人小组团队运行SOP'
-date = 2025-09-23T19:00:00+08:00
+date = 2025-09-23T10:00:00+08:00
 categories = ['others']
 tags = ['management']
 +++
