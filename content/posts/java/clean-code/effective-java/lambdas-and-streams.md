@@ -1,5 +1,5 @@
 +++
-title = '"Effective Java"精读之Lambda和Streams'
+title = '"Effective Java"精读之流式编程'
 date = 2025-01-12T22:56:54+08:00
 categories = ['java']
 tags = ['java','effective-java']
