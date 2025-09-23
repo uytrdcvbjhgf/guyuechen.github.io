@@ -1,5 +1,5 @@
 +++
-title = '5人小组团队 SOP'
+title = '小组团队 SOP'
 date = 2025-09-23T10:00:00+08:00
 categories = ['others']
 tags = ['management']
