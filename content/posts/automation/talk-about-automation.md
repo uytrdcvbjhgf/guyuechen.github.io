@@ -1,5 +1,5 @@
 +++
-title = '当我们谈论自动化时我们在谈论什么'
+title = '浅谈自动化'
 date = 2025-07-05T09:30:20+09:00
 categories = ["diary"]
 tags = ["diary", "automation"]

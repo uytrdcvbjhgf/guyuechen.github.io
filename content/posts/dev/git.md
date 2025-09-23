@@ -1,5 +1,5 @@
 +++
-title = 'Git手册'
+title = 'Git 手册'
 date = 2024-08-30T21:50:21+08:00
 categories = ["git"]
 tags = ["git"]

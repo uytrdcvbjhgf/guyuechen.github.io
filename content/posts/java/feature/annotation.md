@@ -1,5 +1,5 @@
 +++
-title = 'Java中的注解 (Annotation)'
+title = 'Java 中的注解 (Annotation)'
 date = 2024-12-01T20:42:19+08:00
 categories = ['java']
 tags = ['java']
@@ -37,11 +37,11 @@ public String toString() {
 #### 2.1 常用注解
 
 1. **`@Override`**
-   检查方法是否重写了父类或接口中的方法。
+    检查方法是否重写了父类或接口中的方法。
 2. **`@Deprecated`**
-   标记方法或类已废弃，使用时会产生警告。
+    标记方法或类已废弃，使用时会产生警告。
 3. **`@SuppressWarnings`**
-   抑制编译器警告。
+    抑制编译器警告。
 
 **示例：**
 
@@ -62,16 +62,16 @@ public void suppressWarningMethod() {
 元注解是注解的注解，用于定义其他注解的行为。
 
 1. **`@Target`**
-   指定注解可以应用的范围，如类、方法、字段等。
+    指定注解可以应用的范围，如类、方法、字段等。
 2. **`@Retention`**
-   指定注解的生命周期：
-   - `SOURCE`：源码级别，编译时丢弃。
-   - `CLASS`：字节码级别，运行时丢弃。
-   - `RUNTIME`：运行时保留，可通过反射访问。
+    指定注解的生命周期：
+    - `SOURCE`：源码级别，编译时丢弃。
+    - `CLASS`：字节码级别，运行时丢弃。
+    - `RUNTIME`：运行时保留，可通过反射访问。
 3. **`@Documented`**
-   表示注解将包含在 Javadoc 中。
+    表示注解将包含在 Javadoc 中。
 4. **`@Inherited`**
-   表示注解可被子类继承。
+    表示注解可被子类继承。
 
 **示例：**
 
@@ -137,11 +137,11 @@ Spring 是一个高度依赖注解的框架，注解的使用贯穿其核心功�
 #### 4.1 IOC（控制反转）中的注解
 
 1. **`@Component`**
-   将类标记为 Spring 管理的组件。
+    将类标记为 Spring 管理的组件。
 2. **`@Autowired`**
-   自动注入依赖。
+    自动注入依赖。
 3. **`@Qualifier`**
-   指定注入的具体实现。
+    指定注入的具体实现。
 
 **示例：**
 
@@ -167,11 +167,11 @@ public class App {
 #### 4.2 AOP（面向切面编程）中的注解
 
 1. **`@Aspect`**
-   定义切面。
+    定义切面。
 2. **`@Before`**
-   方法执行前运行。
+    方法执行前运行。
 3. **`@After`**
-   方法执行后运行。
+    方法执行后运行。
 
 **示例：**
 
@@ -189,11 +189,11 @@ public class LoggingAspect {
 #### 4.3 Spring MVC 中的注解
 
 1. **`@Controller`**
-   标记类为控制器。
+    标记类为控制器。
 2. **`@RequestMapping`**
-   映射 HTTP 请求路径。
+    映射 HTTP 请求路径。
 3. **`@ResponseBody`**
-   返回 JSON 格式数据。
+    返回 JSON 格式数据。
 
 **示例：**
 

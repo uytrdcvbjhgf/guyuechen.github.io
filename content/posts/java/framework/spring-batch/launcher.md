@@ -1,5 +1,5 @@
 +++
-title = 'SpringBatch中的作业调度'
+title = 'SpringBatch 中的作业调度'
 date = 2025-02-25T20:07:44+08:00
 categories = ['java']
 tags = ['java', "spring", "springboot", "springbatch"]
@@ -7,11 +7,13 @@ tags = ['java', "spring", "springboot", "springbatch"]
 
 ## 6. 作业调度
 
-### 6.1 `JobLauncher`的使用
+
+### 6.1 `JobLauncher` 的使用
 
 > 控制任务什么时候启动
 
-pom.xml引入web依赖
+
+pom.xml 引入 web 依赖
 
 ```xml
 <!-- 引入web依赖 -->
@@ -20,6 +22,7 @@ pom.xml引入web依赖
 	<artifactId>spring-boot-starter-web</artifactId>
 </dependency>
 ```
+
 
 application.properties（spring.batch.job.enabled=false）
 
@@ -74,6 +77,7 @@ index.html
 </html>
 ```
 
+
 JobLauncherController.java
 
 ```java
@@ -114,7 +118,8 @@ public class JobLauncherController {
 }
 ```
 
-JobLauncherDemo.java（此job仅把接收到的参数打印到控制台）
+
+JobLauncherDemo.java（此 job 仅把接收到的参数打印到控制台）
 
 ```java
 import org.springframework.batch.core.*;
@@ -196,9 +201,10 @@ fuck you!!!
 
 
 
-### 6.2 `JobOperator`的使用
 
-> 本质上是对`JobLauncher`的封装，功能更强大的同时使用起来也更复杂
+### 6.2 `JobOperator` 的使用
+
+> 本质上是对 `JobLauncher` 的封装，功能更强大的同时使用起来也更复杂
 
 index.html
 
@@ -253,6 +259,7 @@ index.html
 </html>
 ```
 
+
 JobOperatorController.java
 
 ```java
@@ -281,6 +288,7 @@ public class JobOperatorController {
     }
 }
 ```
+
 
 JobOperatorDemo
 

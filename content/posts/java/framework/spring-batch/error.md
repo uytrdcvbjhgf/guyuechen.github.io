@@ -1,5 +1,5 @@
 +++
-title = 'SpringBatch中的错误处理'
+title = 'SpringBatch 中的错误处理'
 date = 2025-02-25T20:06:02+08:00
 categories = ['java']
 tags = ['java', "spring", "springboot", "springbatch"]
@@ -9,9 +9,9 @@ tags = ['java', "spring", "springboot", "springbatch"]
 
 ### 5.1 错误处理概述
 
-> 默认情况下，当任务出现异常时，SpringBatch会结束任务。
+> 默认情况下，当任务出现异常时，SpringBatch 会结束任务。
 
-> 当使用相同的参数重启任务时，SpringBatch会执行未被执行的剩余任务。
+> 当使用相同的参数重启任务时，SpringBatch 会执行未被执行的剩余任务。
 
 ErrorDemo.java（模拟上述情况，留意 ! 的部分）
 
@@ -88,7 +88,7 @@ public class ErrorDemo {
 }
 ```
 
-控制台结果（第1次执行）
+控制台结果（第 1 次执行）
 
 ```perl
 2023-04-06 16:55:20.554  INFO 1068 --- [           main] o.s.b.c.l.support.SimpleJobLauncher      : Job: [SimpleJob: [name=errorDemoJob]] launched with the following parameters: [{}]
@@ -106,7 +106,7 @@ java.lang.RuntimeException: Oops! Error!
 2023-04-06 16:55:20.623  INFO 1068 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
 ```
 
-控制台结果（第2次执行）
+控制台结果（第 2 次执行）
 
 ```perl
 2023-04-06 16:56:25.923  INFO 10748 --- [           main] o.s.b.c.l.support.SimpleJobLauncher      : Job: [SimpleJob: [name=errorDemoJob]] launched with the following parameters: [{}]
@@ -127,7 +127,7 @@ java.lang.RuntimeException: Oops! Error!
 2023-04-06 16:56:26.007  INFO 10748 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
 ```
 
-控制台结果（第3次执行）
+控制台结果（第 3 次执行）
 
 ```perl
 2023-04-06 16:57:33.584  INFO 13492 --- [           main] o.s.b.c.l.support.SimpleJobLauncher      : Job: [SimpleJob: [name=errorDemoJob]] launched with the following parameters: [{}]
@@ -140,21 +140,24 @@ The next run will succeed
 2023-04-06 16:57:33.644  INFO 13492 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
 ```
 
+
 稍微解释一下：
 
-1. 第1次执行的时候
-   在errorStep1执行的过程中抛出了异常（但在抛异常之前会把上下文的键值对设置正确）
-2. 第2次执行的时候
-   因为errorStep1的上下文的键值对是正确的，所以errorStep1的“next run”会被成功执行
-   但是errorStep2的“first run”依然会失败，原因还是一样：上下文的键值对没有设置（但在抛异常之前会把上下文的键值对设置正确）
-3. 第3次执行的时候
-   因为errorStep2的上下文的键值对是正确的，所以errorStep2的“next run”会被成功执行
+1. 第 1 次执行的时候
+    在 errorStep1 执行的过程中抛出了异常（但在抛异常之前会把上下文的键值对设置正确）
+2. 第 2 次执行的时候
+    因为 errorStep1 的上下文的键值对是正确的，所以 errorStep1 的 “next run” 会被成功执行
+    但是 errorStep2 的 “first run” 依然会失败，原因还是一样：上下文的键值对没有设置（但在抛异常之前会把上下文的键值对设置正确）
+3. 第 3 次执行的时候
+    因为 errorStep2 的上下文的键值对是正确的，所以 errorStep2 的 “next run” 会被成功执行
+
 
 
 
 ### 5.2 错误重试（Retry）
 
-> 如果不想Job在被执行过程中像上述例子中一样停止，我们可以使用retry
+> 如果不想 Job 在被执行过程中像上述例子中一样停止，我们可以使用 retry
+
 
 RetryItemWriter.java
 
@@ -183,7 +186,8 @@ public class CustomRetryException extends Exception {
 }
 ```
 
-RetryItemProcessor.java（到ITEM_13的时候会抛异常）
+
+RetryItemProcessor.java（到 ITEM_13 的时候会抛异常）
 
 ```java
 import org.springframework.batch.item.ItemProcessor;
@@ -195,8 +199,8 @@ public class RetryItemProcessor implements ItemProcessor<String, String> {
 
     @Override
     public String process(String item) throws Exception {
-        System.out.println("processing item: " + item);
-        if ("ITEM_13".equals(item)) {
+    System.out.println("processing item: " + item);
+    if ("ITEM_13".equals(item)) {
             attemptCount++;
             if (attemptCount >= 3) {
                 System.out.println("Retried " + attemptCount + " times and finally succeeded.");
@@ -389,7 +393,8 @@ public class SkipItemWriter implements ItemWriter<String> {
 }
 ```
 
-SkipItemProcessor.java（到ITEM_13的时候会抛异常）
+
+SkipItemProcessor.java（到 ITEM_13 的时候会抛异常）
 
 ```java
 import com.sb.error.retry.CustomRetryException;
@@ -402,8 +407,8 @@ public class SkipItemProcessor implements ItemProcessor<String, String> {
 
     @Override
     public String process(String item) throws Exception {
-        System.out.println("processing item: " + item);
-        if ("ITEM_13".equals(item)) {
+    System.out.println("processing item: " + item);
+    if ("ITEM_13".equals(item)) {
             attemptCount++;
             if (attemptCount >= 3) {
                 System.out.println("Retried " + attemptCount + " times and finally succeeded.");

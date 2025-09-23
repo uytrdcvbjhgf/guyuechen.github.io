@@ -1,5 +1,5 @@
 +++
-title = '如何在Java中操作json'
+title = '如何在 Java 中操作 json'
 date = 2024-09-02T11:26:49+08:00
 categories = ["java"]
 tags = ["java", "json"]
@@ -7,15 +7,15 @@ tags = ["java", "json"]
 
 ## 1 简介
 
-> **json** : JavaScript Object Notation，JS对象简谱。
+> **json** : JavaScript Object Notation，JS 对象简谱。
 
-官网： https://www.json.org/json-zh.html
+官网：https://www.json.org/json-zh.html
 
 ## 2 使用场景
 
 * 网络传输
 
-  描述同样的信息，json相比xml占用更少的空间，如:
+  描述同样的信息，json 相比 xml 占用更少的空间，如：
 
   ```xml
   <?xml version="1.0" encoding="UTF-8"?>
@@ -26,7 +26,7 @@ tags = ["java", "json"]
   </person>
   ```
 
-  json表示:
+  json 表示：
 
   ```json
   {
@@ -38,13 +38,13 @@ tags = ["java", "json"]
 
 * 序列化存储
 
-## 3 java里面操作json有哪些技术?
+## 3 java 里面操作 json 有哪些技术?
 
 * 所谓的操作指的是什么？
 
-  把java里面的bean、map、collection等转为json字符串（序列化）或反向操作（反序列化）。
+  把 java 里面的 bean、map、collection 等转为 json 字符串（序列化）或反向操作（反序列化）。
 
-* java里操作json的技术一览
+* java 里操作 json 的技术一览
 
   ![image-20210816004456117](https://raw.githubusercontent.com/guyuechen/gallery/main/img/image-20210816004456117.png)
 

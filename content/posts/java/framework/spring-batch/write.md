@@ -1,5 +1,5 @@
 +++
-title = 'SpringBatch中的I/O（数据输出）'
+title = 'SpringBatch 中的 I/O（数据输出）'
 date = 2025-02-25T20:03:01+08:00
 categories = ['java']
 tags = ['java', "spring", "springboot", "springbatch"]
@@ -13,7 +13,7 @@ tags = ['java', "spring", "springboot", "springbatch"]
 - `ItemReader`是一个数据一个数据的读
 - `ItemWriter`是一批一批的输出
 
-写个MyWriter：MyWriter.java（实现了ItemWriter接口）
+写个 MyWriter：MyWriter.java（实现了 ItemWriter 接口）
 
 ```java
 import org.springframework.batch.item.ItemWriter;
@@ -25,7 +25,7 @@ import java.util.List;
 public class MyWriter implements ItemWriter<String> {
     @Override
     public void write(List<? extends String> list) throws Exception {
-        // 输出一批的数量, 即chunk的size参数
+    // 输出一批的数量, 即 chunk 的 size 参数
         System.out.println("chunk size: " + list.size());
         list.forEach(System.out::println);
     }
@@ -137,13 +137,13 @@ ITEM_29
 
 ### 4.2 数据输出到数据库
 
-针对不同的db用如下不同的类：
+针对不同的 db 用如下不同的类：
 
 `Neo4jltemWriter`、`MongoltemWriter`、`RepositoryltemWriter`、`HibernateltemWriter`、`JdbcBatchltemWriter`、`JpaltemWriter`、`GemfireltemWriter`...
 
-对于mysql，这里使用`JdbcBatchltemWriter`
+对于 mysql，这里使用 `JdbcBatchltemWriter`
 
-先在数据库中建个customer表
+先在数据库中建个 customer 表
 
 ```sql
 CREATE TABLE customer (
@@ -168,7 +168,7 @@ public class Customer {
 }
 ```
 
-FileItemReaderConfig.java（配置reader）
+FileItemReaderConfig.java（配置 reader）
 
 ```java
 import org.springframework.batch.item.file.FlatFileItemReader;
@@ -210,7 +210,7 @@ public class FileItemReaderConfig {
 }
 ```
 
-ItemWriterDbConfig.java（配置writer）
+ItemWriterDbConfig.java（配置 writer）
 
 ```java
 import org.springframework.batch.item.database.BeanPropertyItemSqlParameterSourceProvider;
@@ -310,7 +310,7 @@ console
 
 ### 4.3 数据输出到普通文件
 
-> 用`FlatFileltemWriter`类
+> 用 `FlatFileltemWriter` 类
 
 Customer.java（提取出的实体类）
 
@@ -326,7 +326,7 @@ public class Customer {
 }
 ```
 
-DbJdbcReaderConfig.java（配置reader）
+DbJdbcReaderConfig.java（配置 reader）
 
 ```java
 import org.springframework.batch.item.database.JdbcPagingItemReader;
@@ -381,7 +381,7 @@ public class DbJdbcReaderConfig {
 }
 ```
 
-FileItemWriterConfig.java（配置writer）
+FileItemWriterConfig.java（配置 writer）
 
 ```java
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -501,9 +501,9 @@ console
 
 
 
-### 4.4 数据输出到`.xml`文件
+### 4.4 数据输出到 `.xml` 文件
 
-> 使用`StaxEvenltemWriter`类
+> 使用 `StaxEvenltemWriter` 类
 
 Customer.java（提取出的实体类）
 
@@ -519,7 +519,7 @@ public class Customer {
 }
 ```
 
-DbJdbcReaderConfig.java（配置reader）
+DbJdbcReaderConfig.java（配置 reader）
 
 ```java
 import org.springframework.batch.item.database.JdbcPagingItemReader;
@@ -574,7 +574,7 @@ public class DbJdbcReaderConfig {
 }
 ```
 
-XmlItemWriterConfig.java（配置writer）
+XmlItemWriterConfig.java（配置 writer）
 
 ```java
 import org.springframework.batch.item.xml.StaxEventItemWriter;
@@ -776,9 +776,9 @@ src/main/resources/output.xml
 
 ### 4.5 数据输出到多个文件
 
-> `CompositeltemWriter`类：写入多个文件
+> `CompositeltemWriter` 类：写入多个文件
 
-> `CassifireCompositeltemWriter`类：根据分类写入不同文件
+> `CassifireCompositeltemWriter` 类：根据分类写入不同文件
 
 Customer.java（提取出的实体类）
 
@@ -849,7 +849,7 @@ public class DbJdbcReaderConfig {
 }
 ```
 
-MultiFIleWriterConfig.java（配置writer）
+MultiFIleWriterConfig.java（配置 writer）
 
 ```java
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -1152,7 +1152,7 @@ import java.util.Map;
 
 @Configuration
 public class MultiFIleWriterConfig {
-    // 1. 类似于jsonWriter
+    // 1. 类似于 jsonWriter
     @Bean
     public FlatFileItemWriter<Customer> fileWriter() {
         // 把Customer对象 转成 字符串 输出到文件
@@ -1207,7 +1207,7 @@ public class MultiFIleWriterConfig {
 
     }
 
-    // (!) 之前的CompositeItemWriter: 调用输出到单个文件操作 来实现输出数据到多个文件
+    // (!) 之前的 CompositeItemWriter: 调用输出到单个文件操作来实现输出数据到多个文件
     @Bean
     public CompositeItemWriter<Customer> multiFileItemWriter() {
         CompositeItemWriter<Customer> writer = new CompositeItemWriter<>();
@@ -1221,7 +1221,7 @@ public class MultiFIleWriterConfig {
         return writer;
     }
 
-    // (!) ClassifierCompositeItemWriter: 按照某种条件对数据进行分类存储不同文件
+    // (!) ClassifierCompositeItemWriter: 按照某种条件对数据进行分类存储到不同文件
     @Bean
     public ClassifierCompositeItemWriter<Customer> multiFileItemWriter2() {
         ClassifierCompositeItemWriter<Customer> writer = new ClassifierCompositeItemWriter<>();
@@ -1383,12 +1383,12 @@ src/main/resources/res.xml（仅含ID单数的）
 
 ### 4.6 `ItemProcessor` 的使用
 
-> `ItemProcessor<I,O>` 用于处理业务逻辑，验证，过滤等功能 
-> （`CompositeltemProcessor`类：处理多种`ItemProcessor`处理方式）
+> `ItemProcessor<I,O>` 用于处理业务逻辑，验证，过滤等功能
+> （`CompositeltemProcessor` 类：处理多种 `ItemProcessor` 处理方式）
 
-案例：从数据库中读取数据，然对数据进行处理，最后输出到普通文件
+案例：从数据库中读取数据，然后对数据进行处理，最后输出到普通文件
 
-自定义ItemProcessor（firstName转大写）
+自定义 ItemProcessor（firstName 转大写）
 
 ```java
 import org.springframework.batch.item.ItemProcessor;
@@ -1408,7 +1408,7 @@ public class FirstNameUpperProcessor implements ItemProcessor<Customer, Customer
 }
 ```
 
-自定义ItemProcessor（过滤id为单数的）
+自定义 ItemProcessor（过滤 id 为单数的）
 
 ```java
 import org.springframework.batch.item.ItemProcessor;

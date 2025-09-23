@@ -1,5 +1,5 @@
 +++
-title = 'SpringBatch中的I/O（数据输入）'
+title = 'SpringBatch 中的 I/O（数据输入）'
 date = 2025-02-25T19:56:09+08:00
 categories = ['java']
 tags = ['java', "spring", "springboot", "springbatch"]
@@ -9,7 +9,7 @@ tags = ['java', "spring", "springboot", "springbatch"]
 
 ### 3.1 `ItemReader` 概述
 
-写个MyReader
+写个 MyReader
 
 ```java
 import org.springframework.batch.item.ItemReader;
@@ -41,7 +41,7 @@ public class MyReader implements ItemReader<String> {
 }
 ```
 
-在Step使用`reader()`和`writer()`
+在 Step 使用 `reader()` 和 `writer()`
 
 ```java
 import com.sb.springbatch.listener.MyJobListener;
@@ -117,9 +117,9 @@ Process finished with exit code 0
 
 ### 3.2 从数据库中读取数据
 
-> 用`JdbcPagingltemReader`类
+> 用 `JdbcPagingltemReader` 类
 
-先在数据库中建个user表
+先在数据库中建个 user 表
 
 ```sql
 CREATE TABLE USER (
@@ -130,7 +130,7 @@ CREATE TABLE USER (
 ) ENGINE = INNODB CHARSET = utf8mb4 COMMENT '用户表';
 ```
 
-mock点假数据
+mock 点假数据
 
 ```sql
 INSERT INTO USER
@@ -253,7 +253,7 @@ public class ItemReaderDbDemo {
 }
 ```
 
-DbJdbcWriter.java（自定义的ItemWriter）
+DbJdbcWriter.java（自定义的 ItemWriter）
 
 ```java
 import org.springframework.batch.item.ItemWriter;
@@ -294,9 +294,9 @@ User(id=5, username=xiaoming, password=999, age=27)
 
 ### 3.3 从普通文件中读取数据
 
-> 用`FlatFileItemReader`类
+> 用 `FlatFileItemReader` 类
 
-customer.txt（/resources下）
+customer.txt（/resources 下）
 
 ```
 id,firstName,lastName,birthday
@@ -412,7 +412,7 @@ public class FileItemReaderDemo {
 }
 ```
 
-FileFileItemWriter.java（自定义的ItemWriter）
+FileFileItemWriter.java（自定义的 ItemWriter）
 
 ```java
 import org.springframework.batch.item.ItemWriter;
@@ -457,11 +457,11 @@ Customer(id=15, firstName=Fatima, lastName=Combs, birthday=1979-06-01 06: 58: 54
 
 
 
-### 3.4 从`.xml`文件中读取数据
+### 3.4 从 `.xml` 文件中读取数据
 
-> 使用`StaxEvenItemReader`类
+> 使用 `StaxEvenItemReader` 类
 
-customer.xml（/resources下）
+customer.xml（/resources 下）
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -611,7 +611,7 @@ public class XmlItemReaderDemo {
 }
 ```
 
-XmlItemWriter.java（自定义的ItemWriter）
+XmlItemWriter.java（自定义的 ItemWriter）
 
 ```java
 import org.springframework.batch.item.ItemWriter;
@@ -653,9 +653,9 @@ Customer(id=7, firstName=JaiLuo, lastName=JieBeiLing, birthday=2077-09-15 18:32:
 
 ### 3.5 从多个文件中读取数据
 
-> 使用`MultiResourceItemReader`类
+> 使用 `MultiResourceItemReader` 类
 
-file1.txt（/resources下）
+file1.txt（/resources 下）
 
 ```plain
 1,Stone, Barrett, 1964-10-19 14:11:03
@@ -670,7 +670,7 @@ file1.txt（/resources下）
 10,Glenna, Little, 1953-08-27 13:15:08
 ```
 
-file2.txt（/resources下）
+file2.txt（/resources 下）
 
 ```
 11,Ingrid, Jackson,1957-09-05 21:36:47.
@@ -795,7 +795,7 @@ public class MultiFileItemReaderDemo {
 }
 ```
 
-MultiFileWriter.java（自定义的ItemWriter）
+MultiFileWriter.java（自定义的 ItemWriter）
 
 ```java
 import org.springframework.batch.item.ItemWriter;
@@ -850,23 +850,23 @@ Customer(id=20, firstName=Katelyn, lastName=Hammond, birthday=1988-11-12 19:05:1
 
 
 
-### 3.6 `ItemReader`的异常处理和重启
+### 3.6 `ItemReader` 的异常处理和重启
 
 [千锋Java教程：18.ItemReader的异常处理和重启_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1FJ411m7d5?p=18&vd_source=a70746a5c85caf677b0099914be3c8ff)
 
-> 用`ItemStreamReader`取代原先的`ItemReader`作为reader的实现接口
+> 用 `ItemStreamReader` 取代原先的 `ItemReader` 作为 reader 的实现接口
 
-如此一来就要实现其中的3个抽象方法：
+如此一来就要实现其中的 3 个抽象方法：
 
-- `open()` 在每个ItemReader/ItemStream开启之前
-- `update()` 在每个chunk写数据之后（即每批更新之后）
-- `close()` 在每个ItemReader/ItemStream关闭之后
+- `open()` 在每个 ItemReader/ItemStream 开启之前
+- `update()` 在每个 chunk 写数据之后（即每批更新之后）
+- `close()` 在每个 ItemReader/ItemStream 关闭之后
 
 ![img](https://raw.githubusercontent.com/guyuechen/gallery/main/img/1680527442218-172d00bc-6ea2-47b9-92b7-ce0b6559ca0d.png)
 
-（补充：`ItemWriter`也有类似的扩充接口即`ItemStreamWriter`）
+（补充：`ItemWriter` 也有类似的扩充接口即 `ItemStreamWriter`）
 
-restart.txt（/resources下）※注意 Wrongname在第11行
+restart.txt（/resources 下）※注意 Wrongname 在第 11 行
 
 ```perl
 1,Stone,Barrett,1964-10-19 14:11:03
@@ -1064,7 +1064,7 @@ public class RestartDemo {
 }
 ```
 
-控制台结果（遇到Wrongname即抛出异常）
+控制台结果（遇到 Wrongname 即抛出异常）
 
 ```perl
 2023-04-03 22:01:32.557  INFO 19784 --- [           main] o.s.b.c.l.support.SimpleJobLauncher      : Job: [SimpleJob: [name=restartJob]] launched with the following parameters: [{}]
@@ -1093,7 +1093,7 @@ java.lang.RuntimeException: Something went wrong. Customer ID: 11
 2023-04-03 22:01:32.616  INFO 19784 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
 ```
 
-控制台结果（把问题行Wrongname修正之后再跑）
+控制台结果（把问题行 Wrongname 修正之后再跑）
 
 ```perl
 2023-04-03 22:05:06.084  INFO 20748 --- [           main] o.s.b.c.l.support.SimpleJobLauncher      : Job: [SimpleJob: [name=restartJob]] launched with the following parameters: [{}]

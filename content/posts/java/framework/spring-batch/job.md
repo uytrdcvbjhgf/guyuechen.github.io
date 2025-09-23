@@ -1,17 +1,19 @@
 +++
-title = 'SpringBatch中的作业流'
+title = 'SpringBatch 中的作业流'
 date = 2025-02-25T19:50:55+08:00
 categories = ['java']
 tags = ['java', "spring", "springboot", "springbatch"]
 +++
 
+
 ## 2. 作业流
 
 ![image-20250225200155488](https://raw.githubusercontent.com/guyuechen/gallery/main/img/202502252001560.png)
 
+
 ### 2.1 Job 的创建和使用
 
-`Job`：批处理中的核心概念，是 Batch操作的基础单元。每个`Job`有1个或多个`Step`。
+`Job`：批处理中的核心概念，是 Batch 操作的基础单元。每个 `Job` 有 1 个或多个 `Step`。
 
 ```java
 import org.springframework.batch.core.Job;
@@ -87,11 +89,12 @@ public class JobDemo {
 
 
 
+
 ### 2.2 Flow 的创建和使用
 
-1. `Flow`是多个`Step`的集合
-2. 可以被多个`Job`复用
-3. 使用`FlowBuilder`来创建
+1. `Flow` 是多个 `Step` 的集合
+2. 可以被多个 `Job` 复用
+3. 使用 `FlowBuilder` 来创建
 
 ```java
 import org.springframework.batch.core.Job;
@@ -169,13 +172,15 @@ public class JobDemo {
 
 
 
+
 ### 2.3 split 实现并发执行
 
-实现任务中的多个step或多个flow并发执行，案例步骤如下：
 
-1. 创建若干个step
-2. 创建2个flow
-3. 创建1个任务包含以上2个flow，并让这2个flow并发执行
+实现任务中的多个 step 或多个 flow 并发执行，案例步骤如下：
+
+1. 创建若干个 step
+2. 创建 2 个 flow
+3. 创建 1 个任务包含以上 2 个 flow，并让这 2 个 flow 并发执行
 
 ```java
 import org.springframework.batch.core.Job;
@@ -266,6 +271,7 @@ public class FlowDemo {
 
 
 
+
 ### 2.4 决策器 的使用
 
 接口：`JobExecutionDecider`
@@ -285,9 +291,9 @@ public class MyDecider implements JobExecutionDecider {
     public FlowExecutionStatus decide(JobExecution jobExecution, StepExecution stepExecution) {
         count++;
         if (count % 2 == 0) {
-            return new FlowExecutionStatus("EVEN偶数");
+            return new FlowExecutionStatus("EVEN 偶数");
         } else {
-            return new FlowExecutionStatus("ODD奇数");
+            return new FlowExecutionStatus("ODD 奇数");
         }
     }
 }
@@ -363,8 +369,8 @@ public class DeciderDemo {
         return jobBuilderFactory.get("deciderDemoJob")
                 .start(deciderDemoStep1())
                 .next(myDecider())
-                .from(myDecider()).on("EVEN偶数").to(deciderDemoStep2())
-                .from(myDecider()).on("ODD奇数").to(deciderDemoStep3())
+                .from(myDecider()).on("EVEN 偶数").to(deciderDemoStep2())
+                .from(myDecider()).on("ODD 奇数").to(deciderDemoStep3())
                 .from(deciderDemoStep3()).on("*").to(myDecider()) // 无论返回什么都回到决策器 ↑next(myDecider())
                 .end()
                 .build();
@@ -375,14 +381,17 @@ public class DeciderDemo {
 
 
 
+
 ### 2.5 Job 的嵌套
 
-一个Job可以嵌套在另一个Job中。
-被嵌赛的Job称为子Job，外部Job称为父Jb。
-子job不能单独执行， 需要由父Job来启动。
+
+一个 Job 可以嵌套在另一个 Job 中。
+被嵌套的 Job 称为子 Job，外部 Job 称为父 Job。
+子 job 不能单独执行，需要由父 Job 来启动。
+
 
 Tips：
-`@EnableBatchProcessing`可以放在主启动类上，节省了单个配置类上方使用该注解的重复操作。
+`@EnableBatchProcessing` 可以放在主启动类上，节省了单个配置类上方使用该注解的重复操作。
 
 ```java
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
@@ -398,7 +407,8 @@ public class SpringbatchApplication {
 }
 ```
 
-案例：创建一对父子Job
+
+案例：创建一对父子 Job
 
 ```java
 import org.springframework.batch.core.Job;
@@ -532,11 +542,11 @@ public class NestedDemo {
                 .build();
     }
 
-    // 返回的是 Job类型的 Step (特殊的Step)
+    // 返回的是 Job 类型的 Step（特殊的 Step）
     private Step jobStep1(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
         return new JobStepBuilder(new StepBuilder("jobStep1"))
                 .job(childJob1)
-                .launcher(launcher) // 使用 启动父Job的 启动对象
+                .launcher(launcher) // 使用启动父 Job 的启动对象
                 .repository(jobRepository)
                 .transactionManager(transactionManager)
                 .build();
@@ -545,7 +555,7 @@ public class NestedDemo {
     private Step jobStep2(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
         return new JobStepBuilder(new StepBuilder("jobStep2"))
                 .job(childJob2)
-                .launcher(launcher) // 使用 启动父Job的 启动对象
+                .launcher(launcher) // 使用启动父 Job 的启动对象
                 .repository(jobRepository)
                 .transactionManager(transactionManager)
                 .build();
@@ -575,10 +585,12 @@ This is step#2 in Job#2!
 
 
 
+
 ### 2.6 监听器 的使用
 
-监听器用来监听批处理作业的执行情况
-创建监听可以通过 实现接口 或 使用注解
+
+监听器用来监听批处理作业的执行情况。
+创建监听可以通过实现接口或使用注解。
 
 - `JobExecutionListener(before, after)`
 - `StepExecutionListener(before, after)`
@@ -656,8 +668,8 @@ public class ListenerDemo {
     @Bean
     public Step step1() {
         return stepBuilderFactory.get("step1")
-                // 数据的读取, <String,String> 规定I/O的数据类型
-                .<String, String>chunk(2) // 每读完2个数据进行1次输出处理
+                // 数据的读取，<String,String> 规定 I/O 的数据类型
+                .<String, String>chunk(2) // 每读完 2 个数据进行 1 次输出处理
                 // 容错
                 .faultTolerant()
                 .listener(new MyChunkListener())
@@ -705,10 +717,11 @@ listenerJob>after<
 
 
 
+
 ### 2.7 Job 参数
 
-- 在Job运行时可以以key=value形式传递参数
-- 使用监听 可以拿到主启动类运行时候的参数
+- 在 Job 运行时可以以 key=value 形式传递参数
+- 使用监听可以拿到主启动类运行时候的参数
 
 ```java
 import org.springframework.batch.core.*;
@@ -740,9 +753,9 @@ public class ParametersDemo implements StepExecutionListener {
                 .build();
     }
 
-    // Job执行的是 Step, 故 Job使用的参数本质就是 Step使用的参数
-    // 那么如何 向Step 传递参数呢?
-    // 可以使用 监听, 如 Step级别的监听来实现
+    // Job 执行的是 Step，故 Job 使用的参数本质就是 Step 使用的参数
+    // 那么如何向 Step 传递参数呢？
+    // 可以使用监听，如 Step 级别的监听来实现
     @Bean
     public Step paramStep() {
         return stepBuilderFactory.get("paramStep")
@@ -750,7 +763,7 @@ public class ParametersDemo implements StepExecutionListener {
                 .tasklet(new Tasklet() {
                     @Override
                     public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
-                        // 打印 接收到的参数
+                    // 打印接收到的参数
                         System.out.println(params.get("key1"));
                         return RepeatStatus.FINISHED;
                     }

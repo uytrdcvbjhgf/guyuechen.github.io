@@ -1,5 +1,5 @@
 +++
-title = 'SpringBoot整合NoSQL'
+title = 'SpringBoot 整合 NoSQL'
 date = 2025-06-15T15:47:45+09:00
 categories = ["java"]
 tags = ["java", "spring", "springboot", "nosql", "redis", "mongodb"]
@@ -77,11 +77,11 @@ NoSQL 并非替代关系型数据库，而是作为其补充解决特定场景�
 
 ## 五、动手实践
 
-### Docker准备工作
+### Docker 准备工作
 
 > https://www.docker.com
 
-访问Docker的官方网站或国内的镜像站，根据网站导航菜单，下载Docker社区版。
+访问 Docker 的官方网站或国内的镜像站，根据网站导航菜单，下载 Docker 社区版。
 
 Docker 常用命令
 
@@ -132,7 +132,7 @@ docker logs <容器名>
 }
 ```
 
-> cmd/powershell中测试
+> cmd/powershell 中测试
 
 ```powershell
 wsl -l -v
@@ -142,7 +142,7 @@ docker version
 docker run hello-world
 ```
 
-### 启动MongoDB
+### 启动 MongoDB
 
 > 下载镜像
 
@@ -152,21 +152,21 @@ docker pull mongo
 
 > 运行实例
 
-==Linux==环境的命令：
+==Linux== 环境的命令：
 
 ```sh
 docker run --name mongo -p 27017:27017 -v ~/docker-data/mongo:/data/db -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=admin -d mongo
 ```
 
-如果在==Windows==上，我们需要修改后再执行，主要是修改-v后面的映射目录。理论上我们改成下面这样即可执行（需提前在C盘dev创建两层文件夹docker-data和mongo）。
+如果在 ==Windows== 上，我们需要修改后再执行，主要是修改 -v 后面的映射目录。理论上我们改成下面这样即可执行（需提前在 C 盘 dev 创建两层文件夹 docker-data 和 mongo）。
 
 ```sh
 docker run --name mongo -p 27017:27017 -v c:/dev/docker-data/mongo:/data/db -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=admin -d mongo
 ```
 
-然而，在Windows 10环境下这可能是一个巨坑，实际会==出现权限问题==，无法正常启动。
+然而，在 Windows 10 环境下这可能是一个巨坑，实际会 ==出现权限问题==，无法正常启动。
 
-解决办法是，不使用具体的本地目录，而是用Docker的数据卷（Volume），可以理解为虚拟磁盘。
+解决办法是，不使用具体的本地目录，而是用 Docker 的数据卷（Volume），可以理解为虚拟磁盘。
 
 首先，创建数据卷：
 
@@ -180,7 +180,7 @@ docker volume create --name mongodata
 docker run --name mongo -p 27017:27017 -v mongodata:/data/db -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=admin -d mongo
 ```
 
-可用ps命令查看是否启动成功：
+可用 ps 命令查看是否启动成功：
 
 ```powershell
 docker ps
@@ -198,7 +198,7 @@ docker exec -it mongo bash
 mongosh -u admin -p admin
 ```
 
-### 启动Redis
+### 启动 Redis
 
 > 下载镜像
 
@@ -218,7 +218,7 @@ docker run --name redis -d -p 6379:6379 redis
 docker exec -it redis bash
 ```
 
-启动 redis 服务器，打开终端并输入命令`redis-cli`，该命令会连接本地的 redis 服务。
+启动 redis 服务器，打开终端并输入命令 `redis-cli`，该命令会连接本地的 redis 服务。
 
 ![image-20230716193931328](https://gyc-pic-for-typora.oss-cn-shanghai.aliyuncs.com/img_for_typora/image-20230716193931328.png)
 
@@ -228,7 +228,7 @@ docker exec -it redis bash
 redis-cli -h host -p port -a password
 ```
 
-以下实例演示了如何连接到主机为 127.0.0.1，端口为 6379 ，密码为 mypass 的 redis 服务上。
+以下实例演示了如何连接到主机为 127.0.0.1，端口为 6379，密码为 mypass 的 redis 服务上。
 
 ```perl
 $redis-cli -h 127.0.0.1 -p 6379 -a "mypass"
@@ -237,7 +237,7 @@ redis 127.0.0.1:6379> PING
 PONG
 ```
 
-### 在Spring中访问MongoDB
+### 在 Spring 中访问 MongoDB
 
 > 建库
 
@@ -289,7 +289,7 @@ MongoTemplate
 - `PagingAndSortingRepository<T, ID>`
 - `CrudRepository<T, ID>`
 
-### 在Spring中访问Redis
+### 在 Spring 中访问 Redis
 
 > Spring 对 Redis 的支持
 
@@ -354,7 +354,7 @@ public class SpringBucksApplication implements ApplicationRunner {
 }
 ```
 
-### Spring的缓存抽象
+### Spring 的缓存抽象
 
 为不同的缓存提供一层抽象
 
@@ -606,7 +606,7 @@ Hibernate:
 2023-07-23 22:17:41.908  INFO 12892 --- [       Thread-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
 ```
 
-### Redis在Spring中的其他用法
+### Redis 在 Spring 中的其他用法
 
 > 与 Redis 建立连接
 
@@ -630,7 +630,7 @@ Lettuce 内置==支持读写分离==
 
 `LettuceClientConfigurationBuilderCustomizer`
 
-### RedisTemplate（⼀定注意设置过期时间！！！）
+### RedisTemplate（一定注意设置过期时间！！！）
 
 `RedisTemplate<K, V>`
 

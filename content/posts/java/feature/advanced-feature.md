@@ -5,9 +5,10 @@ categories = ['java']
 tags = ['java']
 +++
 
-## Java常用类库
+## Java 常用类库
 
-※斜体的为线程安全的数据结构
+※ 斜体的为线程安全的数据结构
+
 
 > 线性结构
 
@@ -15,10 +16,12 @@ tags = ['java']
 - **Queue**: LinkedList、_PriorityQueue_、_BlockingQueue_、_ConcurrentLinkedQueue_
 - _**Stack**_: extends from _Vector_
 
+
 > 非线性结构
 
 - **Set**: HashSet、LinkedHashSet、TreeSet、_CopyOnWriteArraySet_、_ConcurrentSkipListSet_
 - **Map**: HashMap、TreeMap、WeakHashMap、IdentityHashMap、LinkedHashMap、_Hashtable_、_ConcurrentHashMap_、_ConcurrentSkipListMap_
+
 
 
 
@@ -28,15 +31,17 @@ tags = ['java']
 - 同步集合类：_Collections.synchronizedCollection()_
 - 可检查集合类：Collections.checkedCollection()
 
-## Java反射机制
+## Java 反射机制
+
 
 > 历史由来
 
 反射这一概念，主要指应用程序访问、检测、修改自身状态与行为的能力。
 
+
 > 反射机制
 
-Java的反射（reflection）机制是指在程序的运行状态中，动态获取程序信息以及动态调用对象的功能。
+Java 的反射（reflection）机制是指在程序的运行状态中，动态获取程序信息以及动态调用对象的功能。
 其中主要的功能有：
 
 - 在运行时判断一个对象所属的类
@@ -160,6 +165,7 @@ boolean isPrimitive = cls.isPrimitive();
 System.out.println(isPrimitive); // false
 ```
 
+
 > 缺点
 
 - 对性能有影响。使用反射是一种解释操作，需要动态访问JVM以满足要求。
@@ -178,24 +184,28 @@ for (Method method : methods) {
 // ...
 ```
 
-## Java线程同步
+## Java 线程同步
+
 
 > 数据同步
 
-- `volatile`关键字
-- `Atomic`类
-- Double-Check法则
+- `volatile` 关键字
+- `Atomic` 类
+- Double-Check 法则
+
 
 > 隐式锁
 
-- `synchronized`关键字
+- `synchronized` 关键字
+
 
 > 显式锁
 
-- lock锁使用方式
-- lock锁的持有与释放
+- lock 锁使用方式
+- lock 锁的持有与释放
 
-> `volatile`关键字
+
+> `volatile` 关键字
 
 ```java
 public class NoVisibility {
@@ -218,10 +228,11 @@ public class NoVisibility {
 }
 ```
 
-`volatile`的作用就是使变量在线程间进行可见性保证；
-根据JVM内存模型，`volatile`修饰的变量会保证各个线程读取其时都是在最新的写操作完成之后。
+`volatile` 的作用就是使变量在线程间进行可见性保证；
+根据 JVM 内存模型，`volatile` 修饰的变量会保证各个线程读取其时都是在最新的写操作完成之后。
 
-> `Atomic`类
+
+> `Atomic` 类
 
 ```java
 public class CountDemo {
@@ -244,7 +255,7 @@ public class CountDemo {
 }
 ```
 
-但是`volatile`只能保证内存可见性，并不能保证操作原子性，要使用`AtomicInteger`来实现自增操作。
+但是 `volatile` 只能保证内存可见性，并不能保证操作原子性，要使用 `AtomicInteger` 来实现自增操作。
 
 ```java
 import java.util.concurrent.atomic.AtomicInteger;
@@ -269,11 +280,12 @@ public class CountDemo {
 }
 ```
 
-Atomic的作用是保障单独自增/自减等操作的原子性（但注意：多个原子性操作叠加之后并不是原子的）
+Atomic 的作用是保障单独自增/自减等操作的原子性（但注意：多个原子性操作叠加之后并不是原子的）
 
-> Double-Check法则
 
-经典的DCL懒汉式单例
+> Double-Check 法则
+
+经典的 DCL 懒汉式单例
 
 ```java
 public class Singleton {
@@ -294,12 +306,14 @@ public class Singleton {
 }
 ```
 
+
 解析
 
-- Double-Check的目的式延迟单例初始化的一种方法
-- 使用`volatile`的主要目的是防止指令重排序
-- 第一层if判断是为了减少多次`synchronized`，减少每次都同步，提升性能
-- 第二层if判断是为了防止锁释放后创建出多个实例
+- Double-Check 的目的式延迟单例初始化的一种方法
+- 使用 `volatile` 的主要目的是防止指令重排序
+- 第一层 if 判断是为了减少多次 `synchronized`，减少每次都同步，提升性能
+- 第二层 if 判断是为了防止锁释放后创建出多个实例
+
 
 > 同步方法和同步块（隐式锁）
 
@@ -341,7 +355,7 @@ class OtherClass {
 }
 ```
 
-外部不可信代码可以直接无限期持有SomeObject.lock这把锁，阻塞changeValue()的执行...
+外部不可信代码可以直接无限期持有 SomeObject.lock 这把锁，阻塞 changeValue() 的执行...
 
 ```java
 public class SomeObject {
@@ -375,7 +389,7 @@ class OtherClass {
 }
 ```
 
-一旦成功，将引入一个无限期的时延来阻止 声明为同步的方法changeValue() 来获取同一个锁...
+一旦成功，将引入一个无限期的时延来阻止声明为同步的方法 changeValue() 来获取同一个锁...
 
 ```java
 public final class CountBoxes implements Runnable {
@@ -443,6 +457,7 @@ private final String lock = new String("LOCK");
 
 基础数据类型作为锁对象使用时，这些锁对象可被其他线程重用，进而会导致死锁等不正确的线程同步行为...
 
+
 > 高层并发对象（显式锁）
 
 ```java
@@ -475,23 +490,26 @@ public void doSomething() {
 }
 ```
 
-## Java线程规范与管理
+## Java 线程规范与管理
+
 
 > 线程规范
 
 - 创建新线程要指定名称
-- 不要依赖线程调度器、线程优先级、`yield()`方法
-- 采用Java1.5提供的新并发工具代替`wait()`和`notify()`
-  - Executor Framework
-  - Concurrent Collection（并发集合）
-  - Synchronizer（同步器）
+- 不要依赖线程调度器、线程优先级、`yield()` 方法
+- 采用 Java 1.5 提供的新并发工具代替 `wait()` 和 `notify()`
+    - Executor Framework
+    - Concurrent Collection（并发集合）
+    - Synchronizer（同步器）
+
 
 > 线程管理
 
-- 禁用`Thread.run()`
-- 禁用`Thread.stop()`
-- 线程中断由业务代码来协作完成，慎用`Thread.interrupt()`方法
+- 禁用 `Thread.run()`
+- 禁用 `Thread.stop()`
+- 线程中断由业务代码来协作完成，慎用 `Thread.interrupt()` 方法
 - 避免不加控制地创建新进程，而应该使用线程池来管控资源
+
 
 > 正确的线程启动与结束流程
 
@@ -524,101 +542,106 @@ public final class MyTask implements Runnable {
 
 ## 垃圾回收
 
+
 > 垃圾回收介绍
 
 - 什么是垃圾回收（Garbage Collection）？ 
-  - 把不用的内存回收掉
-  - java采用自动内存管理技术，内存分配后由虚拟机自动管理
+    - 把不用的内存回收掉
+    - Java 采用自动内存管理技术，内存分配后由虚拟机自动管理
 - 优缺点： 
-  - 优点：程序员不需要自己释放内存，只管new对象即可
-  - 缺点：GC本身有开销，会挤占业务执行资源
+    - 优点：程序员不需要自己释放内存，只管 new 对象即可
+    - 缺点：GC 本身有开销，会挤占业务执行资源
 - 什么是垃圾： 
-  - 不会被访问到的对象是垃圾
+    - 不会被访问到的对象是垃圾
+
 
 > 垃圾识别算法
 
 -  引用计数法
-   原理： 
-   - 记录每个对象被引用的数量，当被引用的数量为0时，则标记为垃圾
-   - 缺点：无法处理循环引用的问题
+    原理： 
+    - 记录每个对象被引用的数量，当被引用的数量为 0 时，则标记为垃圾
+    - 缺点：无法处理循环引用的问题
 
 示例： 
 
 ![image-20230624200604629](https://raw.githubusercontent.com/guyuechen/gallery/main/img/image-20230624200604629.png)
 
-   - 对象A、B、C不是垃圾
-   - 对象F是垃圾，引用计数为0，被回收
-   - 对象D、E是垃圾，但引用计数不为0，出出现内存泄漏
+    - 对象 A、B、C 不是垃圾
+    - 对象 F 是垃圾，引用计数为 0，被回收
+    - 对象 D、E 是垃圾，但引用计数不为 0，出出现内存泄漏
 - 可达性分析法
-  原理： 
-  - 从GC Roots开始遍历对象，没有被遍历到的对象为垃圾
+    原理： 
+    - 从 GC Roots 开始遍历对象，没有被遍历到的对象为垃圾
 
 GC Roots： 
 
-   - 方法栈使用到的参数、局部变量、临时变量等
-   - 方法区中类静态属性引用的变量
-   - 方法区中常量引用的对象
-   - 本地方法栈中JNI引用的对象
+    - 方法栈使用到的参数、局部变量、临时变量等
+    - 方法区中类静态属性引用的变量
+    - 方法区中常量引用的对象
+    - 本地方法栈中 JNI 引用的对象
 
 示例：
 
 ![image-20230624200652996](https://raw.githubusercontent.com/guyuechen/gallery/main/img/image-20230624200652996.png)
 
-   - 对象A、B、C可以被遍历到，不是垃圾
-   - 对象D、E不会被遍历到，会被回收
-   - 目前主流虚拟机采用这种算法，包括Orace JDK、Huawei JDK等
+    - 对象 A、B、C 可以被遍历到，不是垃圾
+    - 对象 D、E 不会被遍历到，会被回收
+    - 目前主流虚拟机采用这种算法，包括 Orace JDK、Huawei JDK 等
+
 
 > 垃圾回收算法
 
 ![image-20230624200745019](https://raw.githubusercontent.com/guyuechen/gallery/main/img/image-20230624200745019.png)
 
-- 清除（sweep）
-  原理： 
+-- 清除（sweep）
+    原理： 
 
-  - 将垃圾对象所占据的内存标记为空闲内存，然后存在一个空闲列表（free list）中。当需要创建对象时，从空闲列表中寻找空闲内存，分配给新创建的对象。
+    - 将垃圾对象所占据的内存标记为空闲内存，然后存在一个空闲列表（free list）中。当需要创建对象时，从空闲列表中寻找空闲内存，分配给新创建的对象。
 
-  优缺点： 
+    优缺点： 
 
-     -  优点：速度快
-     -  缺点：容易造成内存碎片，分配效率低
+    -  优点：速度快
+    -  缺点：容易造成内存碎片，分配效率低
 
 ![image-20230624200832970](https://raw.githubusercontent.com/guyuechen/gallery/main/img/image-20230624200832970.png)
 
-- 复制（copy）
+-- 复制（copy）
 
-  原理： 
+    原理： 
 
-  - 将内存分为两个部分，并分别用from和to指针来维护。每次只在from指向的内存中分配内存，当发生垃圾回收时，将from指向区域中存活的对象复制到to指向的内存区域，然后将from指针和to指针互换位置。
+    - 将内存分为两个部分，并分别用 from 和 to 指针来维护。每次只在 from 指向的内存中分配内存，当发生垃圾回收时，将 from 指向区域中存活的对象复制到 to 指向的内存区域，然后将 from 指针和 to 指针互换位置。
 
-  优缺点： 
+    优缺点： 
 
-     - 优点：同压缩算法，没有内存碎片。分配速度快，局部性好
-     - 缺点：可用内存变少，堆空间使用效率低
+    - 优点：同压缩算法，没有内存碎片。分配速度快，局部性好
+    - 缺点：可用内存变少，堆空间使用效率低
+
 
 > 垃圾收集器
 
--  jvm堆划分 
+--  jvm 堆划分 
    ![image-20230624200947196](https://raw.githubusercontent.com/guyuechen/gallery/main/img/image-20230624200947196.png)
-   - jvm将堆划分为新生代和老年代。新生代存放新创建的对象，当对象生存超过一定时间时，会被移动至老年代。新生代采用的 GC 称为minor GC，老年代发生的 GC 称为 full GC 或 major GC，发生full GC会伴随至少一次minor GC。
+    - jvm 将堆划分为新生代和老年代。新生代存放新创建的对象，当对象生存超过一定时间时，会被移动至老年代。新生代采用的 GC 称为 minor GC，老年代发生的 GC 称为 full GC 或 major GC，发生 full GC 会伴随至少一次 minor GC。
 
--  Minor GC 
-   - 特点：发生次数多，采用时间短，回收掉大量对象
-   - 收集器：Serial, Parallel Scavenge, Parallel New 均采用复制算法。 Serial是单线程；Parallel New可以看成Serial多线程版本；Parallel Scanvenge和Parallel New类似，但更注重吞吐率，且不能与CMS一起使用。
--  Full GC 
-   - 特点：发生次数少，耗时长
-   - 收集器：Serial Old(整理), Parallel Old(整理), CMS(清除)。Serial Old是单线程的；Parallel Old可以看成Serial Old的多线程版本；CMS是并发收集器，除了初始标记和重新标记操作需要Stop the world，其它时间可以与应用程序一起并发执行。
+--  Minor GC 
+    - 特点：发生次数多，采用时间短，回收掉大量对象
+    - 收集器：Serial, Parallel Scavenge, Parallel New 均采用复制算法。Serial 是单线程；Parallel New 可以看成 Serial 多线程版本；Parallel Scanvenge 和 Parallel New 类似，但更注重吞吐率，且不能与 CMS 一起使用。
+--  Full GC 
+    - 特点：发生次数少，耗时长
+    - 收集器：Serial Old(整理), Parallel Old(整理), CMS(清除)。Serial Old 是单线程的；Parallel Old 可以看成 Serial Old 的多线程版本；CMS 是并发收集器，除了初始标记和重新标记操作需要 Stop the world，其它时间可以与应用程序一起并发执行。
+
 
 > 垃圾回收触发条件
 
 - Minor GC 
-  - Eden区空间不足
+    - Eden 区空间不足
 - Full GC 
-  - 老年代空间不足
-  - 方法区(Metaspace)空间不足
-  - 通过minor GC进入老年代的平均大小大于老年代的可用内存
-  - 老年代被写满
-  - 调用`System.GC`，系统建议执行full GC，但不一定执行。
-    ※禁止使用主动GC（除非在密码、RMI等方面），尤其是在频繁/周期性的逻辑中。
+    - 老年代空间不足
+    - 方法区 (Metaspace) 空间不足
+    - 通过 minor GC 进入老年代的平均大小大于老年代的可用内存
+    - 老年代被写满
+    - 调用 `System.GC`，系统建议执行 full GC，但不一定执行。
+        ※ 禁止使用主动 GC（除非在密码、RMI 等方面），尤其是在频繁/周期性的逻辑中。
 
 ## 类加载
 

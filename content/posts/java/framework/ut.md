@@ -1,5 +1,5 @@
 +++
-title = 'junit、mockito、powermock等测试框架'
+title = '浅谈一些 UT 测试框架'
 date = 2024-08-29T22:39:50+08:00
 categories = ["java"]
 tags = ["java", "ut"]
@@ -159,7 +159,7 @@ void check() {
 </dependency>
 ```
 
-使用 `mockStatic()` 方法来 mock静态方法的所属类，此方法返回一个具有作用域的模拟对象。
+使用 `mockStatic()` 方法来 mock 静态方法的所属类，此方法返回一个具有作用域的模拟对象。
 
 ```java
 @Test
@@ -287,8 +287,8 @@ void after() {
 
 > `spy()` 方法与 `@Spy` 注解
 
-`spy()` 方法与 `mock()` 方法不同的是：
-
+1. 被 spy 的对象会走真实的方法，而 mock 的对象不会
+2. `spy()` 的参数是对象实例，`mock()` 的参数是 class
 1. 被 spy 的对象会走真实的方法，而 mock 的对象不会
 2. `spy()` 的参数是对象实例，`mock()` 的参数是 class
 

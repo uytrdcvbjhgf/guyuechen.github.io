@@ -1,5 +1,5 @@
 +++
-title = 'Idea快捷键汇总'
+title = 'Idea 快捷键汇总'
 date = 2024-09-03T22:11:48+08:00
 categories = ["java"]
 tags = ["java", "idea"]
@@ -7,7 +7,7 @@ tags = ["java", "idea"]
 
 ## 1 前言
 
-正确使用快捷键可以明显提高编码效率。本文对Idea常用快捷键进行了分类汇总。
+正确使用快捷键可以明显提高编码效率。本文对 Idea 常用快捷键进行了分类汇总。
 
 文中汇总的快捷键均为 Intellij IDEA 默认的快捷键。快捷键的搜索、配置、常见冲突等，可以查看附录。
 
@@ -22,9 +22,9 @@ IDEA 中使用重构功能，主要包括以下 4 种方式：
 
 这里会对 4 种方式都进行介绍，
 但建议优先使用 1）和 2）；
-无对应的直接快捷键或快捷 键冲突时，优先使用 3）
+无对应的直接快捷键或快捷键冲突时，优先使用 3）
 
-（注：在不同版本的 IDEA 中，Ctrl+Alt+Shift+T 或鼠标打开重构面板中，操作名称略有区 别，如 2019 版本提炼方法是："Extract Method"，而在最新版中是："Method"）
+（注：在不同版本的 IDEA 中，Ctrl+Alt+Shift+T 或鼠标打开重构面板中，操作名称略有区别，如 2019 版本提炼方法是："Extract Method"，而在最新版中是："Method"）
 
 ### 2.1 测试相关
 
@@ -51,8 +51,8 @@ IDEA 中使用重构功能，主要包括以下 4 种方式：
 
 | 快捷键 | `Ctrl+Alt+Shift+T`或`鼠标右键->Refactor` | 功能描述 | 备注 |
 | --- | --- | --- | --- |
-| Ctrl+Alt+M | Extract Method | 提炼方法 | M是 Method 的首字母 |
-| Ctrl+Alt+P | Introduce Parameter | 抽取为方法参数 | P是 Parameter 的首字母 |
+| Ctrl+Alt+M | Extract Method | 提炼方法 | M 是 Method 的首字母 |
+| Ctrl+Alt+P | Introduce Parameter | 抽取为方法参数 | P 是 Parameter 的首字母 |
 | Ctrl+Alt+F | Introduce Field | 提取属性字段 | F 是 Field 的首字母 |
 | Ctrl+Alt+C | Introduce Constant | 提炼常量 | C 是 Constant 的首字母 |
 | Ctrl+Alt+V | Introduce Variable | 抽取变量 | V 是 Variable 的首字母 |
@@ -160,7 +160,7 @@ IDEA 中使用重构功能，主要包括以下 4 种方式：
 
 ### 2.12 修复编译错误
 
-IDEA 编译错误，会以显著的波浪线（一般为红色）提示。这类问题都可以尝试 `Alt+Enter`，看 是否能交给 IDEA 自动修复。除了下面提到的，日常工作中自动添加依赖、添加 classpath、 类型、访问权限修复等，一般都可以解决。
+IDEA 编译错误，会以显著的波浪线（一般为红色）提示。这类问题都可以尝试 `Alt+Enter`，看是否能交给 IDEA 自动修复。除了下面提到的，日常工作中自动添加依赖、添加 classpath、类型、访问权限修复等，一般都可以解决。
 
 | `Alt+Enter`                 | 功能描述           |
 | --------------------------- | ------------------ |
@@ -230,7 +230,7 @@ eg：搜索框输入功能描述：Extract Method，查找对应快捷键
 > Step2.2 输入快捷键查找对应功能描述
 
 
-eg：点击放大镜图标弹出”find Shortcut”搜索框->按住键盘上的”Ctrl+Alt+N”（注意不是输入这 个字符串，是同时按住键盘上的 3 个键）->得到搜索结果
+eg：点击放大镜图标弹出”find Shortcut”搜索框->按住键盘上的”Ctrl+Alt+N”（注意不是输入这个字符串，是同时按住键盘上的 3 个键）->得到搜索结果
 
 > Step3 修改快捷键
 
@@ -249,5 +249,5 @@ eg：点击放大镜图标弹出”find Shortcut”搜索框->按住键盘上的
 
 默认的全局搜索等容易与输入法默认快捷键冲突，处理方式有：
 
-- 方法一：切换输入法 不生效时候切换输入法即可
+- 方法一：切换输入法，不生效时候切换输入法即可
 - 方法二：更换输入法快捷键

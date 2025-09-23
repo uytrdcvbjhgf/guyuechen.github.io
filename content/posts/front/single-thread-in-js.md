@@ -1,5 +1,5 @@
 +++
-title = 'JavaScript的单线程与异步的本质'
+title = 'JavaScript 的单线程与异步的本质'
 date = 2025-06-07T13:34:06+09:00
 categories = ["front"]
 tags = ["front","javascript"]
@@ -8,13 +8,13 @@ tags = ["front","javascript"]
 
 ## 1. 为什么 JavaScript 是单线程？
 
-JavaScript 诞生于 1995 年 Netscape 浏览器，为了解决**网页的交互需求**。
+JavaScript 诞生于 1995 年 Netscape 浏览器，为了解决 **网页的交互需求**。
 
-JavaScript 的设计初衷是操作网页（DOM），单线程可以避免多个线程同时操作页面导致的竞态和一致性问题。这也决定了 JavaScript 本质上**只能同时做一件事**。
+JavaScript 的设计初衷是操作网页（DOM），单线程可以避免多个线程同时操作页面导致的竞态和一致性问题。这也决定了 JavaScript 本质上 **只能同时做一件事**。
 
 **核心设计目标**：
 
-- 操作 DOM，保证**渲染过程一致性**
+- 操作 DOM，保证 **渲染过程一致性**
 - 容易实现，减少并发带来的“竞态、死锁、线程安全”等问题
 
 **单线程的好处：**
@@ -32,7 +32,7 @@ JavaScript 的设计初衷是操作网页（DOM），单线程可以避免多个
 
 ## 2. 异步的本质：事件循环（Event Loop）
 
-JavaScript 通过**事件循环机制**实现异步。JS 引擎本身只有一个主线程（执行栈），但浏览器（或 Node.js）环境在底层配合有任务队列与事件触发：
+JavaScript 通过 **事件循环机制** 实现异步。JS 引擎本身只有一个主线程（执行栈），但浏览器（或 Node.js）环境在底层配合有任务队列与事件触发：
 
 - **主线程**：执行同步代码
 - **任务队列**（Task Queue）：存放待执行的异步回调（如 setTimeout、Promise.then、I/O 完成等）
@@ -55,7 +55,7 @@ E --否--> D
 
 1. 同步代码先执行
 2. 处理所有微任务队列（Promise.then/catch/finally）
-3. 取出下一个宏任务，回到第1步
+3. 取出下一个宏任务，回到第 1 步
 
 
 

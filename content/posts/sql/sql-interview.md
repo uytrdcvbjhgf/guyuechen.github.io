@@ -1,11 +1,11 @@
 +++
-title = '一道sql面试题'
+title = '一道 sql 面试题'
 date = 2024-08-31T11:50:13+08:00
 categories = ["sql"]
 tags = ["sql"]
 +++
 
-> 假设有以下3张表
+> 假设有以下 3 张表
 
 ```sql
 create table course (
