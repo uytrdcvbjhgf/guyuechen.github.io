@@ -25,8 +25,10 @@
 
   示例：
   ```toml
+  +++
   title = 'SpringBatch 简介'
   date = 2025-02-25T19:34:24+08:00
   categories = ['java']
   tags = ['java', 'spring', 'springboot', 'springbatch']
+  +++
   ```
