@@ -1,9 +1,9 @@
-++
++++
 title = '从技术骨干向管理者转型'
 date = 2025-10-25T10:00:00+08:00
 categories = ['career']
 tags = ['management']
-++
++++
 
 ## 职位定位
 
