@@ -28,13 +28,13 @@ languages:
         - name: Home
           pageRef: /
           weight: 4 # 控制在页面上展示的前后顺序
-        - name: Archives
+        - name: Arch
           pageRef: archives/
           weight: 5
         - name: Tags
           pageRef: tags/
           weight: 10
-        - name: Search
+        - name: Srch
           pageRef: search/
           weight: 20
         - name: About
@@ -70,7 +70,9 @@ params:
     Content: >
       📍 Toyosu, Tokyo, Japan
       <br>
-      💻 App & Full-Stack Developer | Project Lead
+      💻 App + Full-Stack Developer
+      <br>
+      🚀 Project Lead
       <br>
       📧 guyuechen@basenet.co.jp
       <br>
