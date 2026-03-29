@@ -16,7 +16,7 @@
     <style>
       #play-music {
         position: fixed;
-        top: 64px;
+        top: 20px;
         right: 30px;
         width: 42px;
         height: 42px;
