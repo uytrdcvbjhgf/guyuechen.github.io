@@ -1,5 +1,5 @@
 +++
-title = 'SOAP 与 REST'
+title = 'SOAP 开发手册'
 date = 2026-03-29T12:00:00+08:00
 draft = false
 categories = ['dev']
