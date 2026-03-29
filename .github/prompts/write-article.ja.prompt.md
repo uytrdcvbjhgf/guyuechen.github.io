@@ -8,6 +8,8 @@
 
 - 多言語バージョンの場合は、ファイル名に言語サフィックス `_ja` / `_zh` などを付ける。例：`soap_ja.md`, `soap_zh.md`。
 
+- 可能であれば `hugo new posts/dev/protocol/http/soap_ja.md` / `hugo new posts/dev/protocol/http/soap_zh.md` で生成し、本文編集後に `draft = false` を設定する。CI は `draft=true` の記事を排除することが一般的です。
+
 - タグ（tags）は 3 個以下推奨。英語で統一し、技術名は大文字（SOAP、HTTP）が可、その他は小文字推奨。例：`tags = ['SOAP', 'http']`。
 
 - 記事本文は段落を明確にし、コードブロックは言語指定を付ける。

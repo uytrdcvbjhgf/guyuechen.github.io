@@ -8,6 +8,8 @@
 
 - 如需多语言版本，建议文件名后加语言后缀如 `_zh` / `_ja`，例如：`soap_zh.md`、`soap_ja.md`。
 
+- 文章最好使用 `hugo new posts/dev/protocol/http/xxx_zh.md` 或 `hugo new posts/dev/protocol/http/xxx_ja.md` 生成，然后编辑内容，确保 `draft = false`（否则CI通常不会发布）。
+
 - 标签（tags）建议不超过 3 个，且全部使用英文小写（关键技术词可保持大写，如 SOAP、HTTP）。例如：`tags = ['SOAP', 'http']`。
 
 - 文章内容需包含清晰段落、代码块注明语言。
