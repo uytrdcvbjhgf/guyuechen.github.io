@@ -22,7 +22,7 @@ window.GiscusLoader = (function () {
     script.setAttribute("data-emit-metadata", "0");
     script.setAttribute("data-input-position", "bottom");
     script.setAttribute("data-theme", themeAttr());
-    script.setAttribute("data-lang", "zh-CN");
+    script.setAttribute("data-lang", "en");
     script.setAttribute("crossorigin", "anonymous");
     script.setAttribute("data-loading", "lazy");
 
