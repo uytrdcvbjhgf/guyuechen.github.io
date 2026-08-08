@@ -16,9 +16,32 @@ defaultContentLanguage: zh # 顶部首先展示的语言界面
 defaultContentLanguageInSubdir: false # 是否要在地址栏加上默认的语言代码
 
 languages:
+  zh:
+    languageName: "中文（简体）"
+    weight: 1
+    taxonomies:
+      category: categories
+      tag: tags
+    menus:
+      main:
+        - name: Home
+          pageRef: /
+          weight: 4
+        - name: Arch
+          pageRef: archives/
+          weight: 5
+        - name: Tags
+          pageRef: tags/
+          weight: 10
+        - name: Srch
+          pageRef: search/
+          weight: 20
+        - name: About
+          pageRef: about/
+          weight: 21
   ja:
     languageName: "日本語" # 展示的语言名
-    weight: 1 # 权重
+    weight: 2 # 权重
     taxonomies: # 分类系统
       category: categories
       tag: tags
@@ -112,7 +135,7 @@ params:
     inputPosition: "bottom"
     lightTheme: "light"
     darkTheme: "dark"
-    lang: "ja"
+    lang: "zh"
     crossorigin: "anonymous"
 
 outputs:
