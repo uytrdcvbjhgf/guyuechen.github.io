@@ -39,30 +39,6 @@ languages:
         - name: About
           pageRef: about/
           weight: 21
-  ja:
-    languageName: "日本語" # 展示的语言名
-    weight: 2 # 权重
-    taxonomies: # 分类系统
-      category: categories
-      tag: tags
-    # https://gohugo.io/content-management/menus/#define-in-site-configuration
-    menus:
-      main:
-        - name: Home
-          pageRef: /
-          weight: 4 # 控制在页面上展示的前后顺序
-        - name: Arch
-          pageRef: archives/
-          weight: 5
-        - name: Tags
-          pageRef: tags/
-          weight: 10
-        - name: Srch
-          pageRef: search/
-          weight: 20
-        - name: About
-          pageRef: about/
-          weight: 21
 
 paginate: 8
 
