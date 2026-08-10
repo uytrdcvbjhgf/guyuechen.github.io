@@ -148,7 +148,7 @@ description = '用买房定金和价格保险的直觉，理解期权中的看�
 
 当到期价格不高于 105 元时，期权没有行权价值，最大损失是 3 元权利金；价格超过 108 元后开始盈利，之后标的价格每上涨 1 元，期权到期盈亏也增加 1 元，理论上的上涨收益没有上限。
 
-![买入看涨期权到期盈亏图：行权价105元，权利金3元，盈亏平衡点108元](https://raw.githubusercontent.com/guyuechen/gallery/main/img/options-long-call-payoff.png)
+![买入看涨期权到期盈亏图：行权价105元，权利金3元，盈亏平衡点108元](https://raw.githubusercontent.com/uytrdcvbjhgf/gallery/main/img/options-long-call-payoff.png)
 
 ### 2. 卖出看涨期权：Short Call
 
@@ -156,7 +156,7 @@ description = '用买房定金和价格保险的直觉，理解期权中的看�
 
 图中展示的是没有对应标的资产保护的**裸卖 Call（naked call）**。它的最大收益只有 3 元，潜在亏损却没有理论上限，因此这里介绍它是为了理解期权的对手方结构，并不意味着它适合初学者直接使用。若同时持有对应标的，就会变成备兑 Call，整体盈亏结构也会不同。
 
-![卖出看涨期权到期盈亏图：行权价105元，收入权利金3元，盈亏平衡点108元](https://raw.githubusercontent.com/guyuechen/gallery/main/img/options-short-call-payoff.png)
+![卖出看涨期权到期盈亏图：行权价105元，收入权利金3元，盈亏平衡点108元](https://raw.githubusercontent.com/uytrdcvbjhgf/gallery/main/img/options-short-call-payoff.png)
 
 ### 3. 买入看跌期权：Long Put
 
@@ -164,7 +164,7 @@ description = '用买房定金和价格保险的直觉，理解期权中的看�
 
 当到期价格不低于 95 元时，Put 没有行权价值，最大损失是 2 元权利金；价格低于 93 元后开始盈利。由于普通股票价格最低只能跌到 0，按这个例子计算，买入 Put 的最大收益是 93 元。
 
-![买入看跌期权到期盈亏图：行权价95元，权利金2元，盈亏平衡点93元](https://raw.githubusercontent.com/guyuechen/gallery/main/img/options-long-put-payoff.png)
+![买入看跌期权到期盈亏图：行权价95元，权利金2元，盈亏平衡点93元](https://raw.githubusercontent.com/uytrdcvbjhgf/gallery/main/img/options-long-put-payoff.png)
 
 ### 4. 卖出看跌期权：Short Put
 
@@ -174,7 +174,7 @@ description = '用买房定金和价格保险的直觉，理解期权中的看�
 
 有人会通过**现金担保卖出 Put（cash-secured put）**，在账户中预留足够现金，希望以较低的实际成本接入原本就愿意持有的资产。但“愿意买入”不能消除下跌风险，标的持续下跌时仍然会产生损失。
 
-![卖出看跌期权到期盈亏图：行权价95元，收入权利金2元，盈亏平衡点93元](https://raw.githubusercontent.com/guyuechen/gallery/main/img/options-short-put-payoff.png)
+![卖出看跌期权到期盈亏图：行权价95元，收入权利金2元，盈亏平衡点93元](https://raw.githubusercontent.com/uytrdcvbjhgf/gallery/main/img/options-short-put-payoff.png)
 
 把四张图放在一起看，会发现买方和卖方的盈亏几乎互为镜像：买方支付权利金换取选择权，卖方收取权利金承担履约义务。权利金并不是凭空产生的收益，而是风险转移的价格。
 
