@@ -3,7 +3,8 @@ title = '衍生品是什么：从“未来不确定性”谈起'
 date = 2026-08-08T00:00:00+09:00
 draft = false
 categories = ['finance']
-tags = ['derivative', 'option', 'future', 'swap']
+tags = ['derivatives', 'options', 'futures', 'swaps']
+aliases = ['/posts/finance/derivative/what-are-derivatives/']
 +++
 
 ## 先用一个最简单的比喻

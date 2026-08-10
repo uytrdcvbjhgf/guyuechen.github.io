@@ -39,10 +39,10 @@ Suggested canonical tags:
 - `frontend`
 - `sql`
 - `automation`
-- `derivative`
-- `option`
-- `future`
-- `swap`
+- `derivatives`
+- `options`
+- `futures`
+- `swaps`
 
 When unsure:
 

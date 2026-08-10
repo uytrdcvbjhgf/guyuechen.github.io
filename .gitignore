@@ -28,3 +28,6 @@ _testmain.go
 .DS_Store
 .hugo_build.lock
 resources/_gen/
+
+# Separate image-host repository nested in this working tree
+/gallery/
