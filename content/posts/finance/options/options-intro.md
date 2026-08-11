@@ -1,6 +1,6 @@
 +++
 title = '期权：先从“买一项权利”开始理解'
-date = 2026-08-08T00:00:00+09:00
+date = 2026-08-10T20:03:00+09:00
 draft = false
 categories = ['finance']
 tags = ['options', 'derivatives', 'risk-management']

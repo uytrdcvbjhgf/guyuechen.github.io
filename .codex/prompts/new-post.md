@@ -14,6 +14,7 @@ Before writing, read:
 - .codex/workflows.md
 
 Use TOML front matter with draft = true by default.
+If I explicitly request a publish-ready article, set draft = false and use the current local time as date.
 Write in Chinese unless I ask otherwise.
 Preserve the existing blog layout and only edit content-related files.
 

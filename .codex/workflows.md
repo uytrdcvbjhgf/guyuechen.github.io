@@ -25,6 +25,13 @@
 4. Mark uncertain facts with comments or ask for confirmation.
 5. Produce a draft post first; publishing can be a separate step.
 
+## Publish Article
+
+1. Change `draft = true` to `draft = false`, or remove the draft field if the user explicitly prefers that style.
+2. At the same time, rewrite `date` to the exact publication time in the author's current timezone, normally `+09:00`.
+3. Treat this moment as the article's publication timestamp even if the Markdown file was created earlier.
+4. Recheck the title, description, links, images, and front matter before publishing.
+
 ## Final Check
 
 Before considering an article ready, check:
@@ -32,6 +39,7 @@ Before considering an article ready, check:
 - front matter is valid TOML
 - `title`, `date`, `categories`, `tags`, and `description` exist
 - draft status matches the user's intent
+- a newly published article's `date` matches the time its draft status was cancelled
 - headings are in a logical order
 - code fences are closed
 - links and image syntax are not obviously broken
