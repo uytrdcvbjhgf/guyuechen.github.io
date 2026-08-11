@@ -1,5 +1,5 @@
 +++
-title = '期权：先从“买一项权利”开始理解'
+title = '期权：从“买一项权利”开始理解'
 date = 2026-08-10T20:03:00+09:00
 draft = false
 categories = ['finance']
@@ -7,7 +7,7 @@ tags = ['options', 'derivatives', 'risk-management']
 description = '用买房定金和价格保险的直觉，理解期权中的看涨、看跌、行权价、权利金、四种基础策略与基本风险。'
 +++
 
-## 先别急着背 Call 和 Put
+## 别急着背 Call 和 Put
 
 很多人第一次接触期权，看到的就是一串缩写：Call、Put、Strike、Delta、Theta、IV。每个词都认识一点，合在一起却像另一门语言。
 
