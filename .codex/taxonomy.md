@@ -26,6 +26,9 @@ Recommended tag rules:
 - prefer one to four tags
 - keep tags lowercase when they are English technical terms
 - avoid near-duplicates such as `spring boot`, `springboot`, and `spring-boot`; choose one canonical form
+- all derivatives-trading knowledge articles should include the broad `derivatives` tag
+- articles under `content/posts/finance/options/` should normally use exactly `tags = ['options', 'derivatives']`
+- do not add article-specific tags to the options knowledge base unless the user explicitly requests them
 
 Suggested canonical tags:
 
