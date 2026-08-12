@@ -292,7 +292,7 @@ async function parallel() {
 2. 发起 fetchB()，得到 promiseB
 3. **此时 fetchA 和 fetchB 已经同时在跑了**
 4. await promiseA 和 await promiseB 只是等待各自的 Promise 完成
-5. 两个请求是**同时进行**的
+5. 两个请求是 **同时进行** 的
 
 > 或者直接更简洁：
 

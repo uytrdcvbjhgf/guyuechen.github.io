@@ -77,7 +77,7 @@ Cookie，即 HTTP Cookie，是服务器发送到用户浏览器（或使用 JS �
 ![image-20240901102523940](https://raw.githubusercontent.com/guyuechen/gallery/main/img/202409011025000.png)
 
 - Cookie只适合存储很小的数据（最大为4KB）；
-- Cookie数据**始终**在同源的请求中携带（即使不需要）；
+- Cookie数据 **始终** 在同源的请求中携带（即使不需要）；
 - Cookie可以设置过期时间，其在过期时间之前一直有效，即使窗口或浏览器关闭；
 - Cookie受同源策略的限制；
 - Cookie通常用于保存用户登录状态，跟踪用户行为，创建购物车；
@@ -124,7 +124,7 @@ Web Storage API 使浏览器能以一种比使用 Cookie 更直观的方式存�
 - WebStorage 在不同的浏览器之间无法共享，即使是同一个页面；
 - `a target="_blank"`, `window.location.href`，`window.open` 打开新的页面时，新页面会复制父页面的 sessionStorage，但它们是相互独立的，不互相影响；
 - **键值对总是以字符串的形式存储**（JSON需要转换成字符串）；
-- WebStorage的api调用是**同步**的，对其他的操作，如画面渲染会造成阻塞；
+- WebStorage的api调用是 **同步** 的，对其他的操作，如画面渲染会造成阻塞；
 - 受同源策略的限制；
 - 相较Cookie，WebStorage的API接口使用更方便；
 - sessionStorage适用于同源页面直接的数据传递；
@@ -453,12 +453,12 @@ function getTaskById(db, id) {
 
 - **企业表单/流程录入系统**（如工单填报、报销审批、复杂数据采集）
 - **离线Web应用**（如PWA、现场填报系统、移动办公）
-- **页面间状态共享且需数据安全与可靠同步**的应用
+- **页面间状态共享且需数据安全与可靠同步** 的应用
 
 **场景推测**
 
 - 用户在浏览器中**登录后**，会在多个页面（画面1/画面2等）中填报、处理、保存数据。
-- 由于有**sessionStorage、IndexedDB、cookie**等协同，系统支持：
+- 由于有 **sessionStorage、IndexedDB、cookie** 等协同，系统支持：
   - 页面之间的参数传递
   - 临时数据保存、断网后重连同步
   - 跨Tab或离线多次编辑

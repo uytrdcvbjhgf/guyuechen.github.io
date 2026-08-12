@@ -38,5 +38,7 @@ Markdown conventions:
 
 - use fenced code blocks with language labels when possible
 - keep inline code wrapped in backticks
+- when bold text appears inside a Chinese sentence, leave a space outside both `**` markers or place punctuation immediately after the closing marker
+- write `这是 **重要术语** 的含义` or `**重要术语**：含义`, not `这是**重要术语**的含义` or `**重要术语**表示`
 - use Hugo/PaperMod-compatible Markdown
 - avoid HTML unless the existing article needs it, such as image sizing or theme-specific behavior
