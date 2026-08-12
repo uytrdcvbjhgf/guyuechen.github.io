@@ -3,7 +3,7 @@ title = '读懂期权合约与期权链'
 date = 2026-08-12T09:06:41+09:00
 draft = false
 categories = ['finance']
-tags = ['options']
+tags = ['options', 'derivatives']
 description = '从一份具体合约出发，读懂期权链中的到期日、行权价、Bid、Ask、成交量、持仓量和隐含波动率。'
 +++
 
