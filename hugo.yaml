@@ -28,12 +28,14 @@ languages:
           pageRef: /
           weight: 4
         - name: Arch
+          title: Archives
           pageRef: archives/
           weight: 5
         - name: Tags
           pageRef: tags/
           weight: 10
         - name: Srch
+          title: Search
           pageRef: search/
           weight: 20
         - name: About
