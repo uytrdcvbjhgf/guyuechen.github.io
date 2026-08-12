@@ -25,6 +25,7 @@ summary: about
 
 ## Certifications
 
-- AWS Certified Solutions Architect (Professional) 
-- Oracle Certified Java Professional (OCJP) 
-- Oracle Database Administrator Certified Professional (OCP) 
+- AWS Certified Solutions Architect (Professional)
+- Oracle Certified Java Professional (OCJP)
+- Oracle Database Administrator Certified Professional (OCP)
+- ServiceNow Certified: CSA, CAD, CIS-DF, CIS-VR
