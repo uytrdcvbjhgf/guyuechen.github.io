@@ -10,7 +10,7 @@ title = '文章标题'
 date = 2026-08-10T00:00:00+09:00
 draft = true
 categories = ['category']
-tags = ['tag-1', 'tag-2']
+tags = ['tag']
 description = '一句话说明文章解决什么问题'
 +++
 ```
@@ -21,7 +21,7 @@ Required fields for new posts:
 - `date`: publication time; when a draft is published, set it to the exact time the draft flag is removed or changed to `false`
 - `draft`: use `true` while drafting, change to `false` or remove before publishing
 - `categories`: one primary topic category, normally one item
-- `tags`: specific searchable labels, usually one to four items
+- `tags`: stable searchable labels; prefer one existing topic tag and add another only when it has clear reuse value
 - `description`: short summary used for search, cards, or future reuse
 
 Date and timezone:
@@ -38,6 +38,7 @@ Style rules:
 - Preserve TOML front matter rather than converting to YAML.
 - Prefer single quotes for string values to match the existing posts.
 - Keep category and tag names short and stable.
+- Avoid creating article-specific tags that would cause the tag list to grow without bound.
 - Use `draft = true` for generated drafts unless the user explicitly asks to publish.
 - For a publish-ready post, use `draft = false` and set `date` to the current local time with the correct timezone.
 

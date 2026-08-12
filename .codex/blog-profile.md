@@ -11,6 +11,12 @@ The blog is used for:
 - work and study reflections when they are useful as reusable notes
 - publishing polished Markdown articles with Hugo-compatible front matter
 
+Finance knowledge base context:
+
+- finance posts document and organize the author's own knowledge rather than present a beginner course
+- options and derivatives writing may draw on the author's two years of experience developing derivatives trading systems
+- explanations should remain accessible to new readers without talking down to them or presenting the author as teaching novices
+
 Default writing language: Chinese.
 
 Audience assumptions:
