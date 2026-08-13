@@ -12,7 +12,7 @@
 ## Revise Existing Article
 
 1. Read the whole article before editing.
-2. Preserve front matter unless a metadata change is part of the request.
+2. Check the draft status before editing: refresh `date` to the exact current local timestamp for a draft, but preserve the original publication `date` for a published article.
 3. Improve clarity, structure, and flow without changing the author's intended meaning.
 4. Keep any working examples, diagrams, image links, and code blocks valid.
 5. Avoid broad rewrites unless the user asks for a full rewrite.
@@ -39,7 +39,9 @@ Before considering an article ready, check:
 - front matter is valid TOML
 - `title`, `date`, `categories`, `tags`, and `description` exist
 - draft status matches the user's intent
+- a revised draft's `date` matches its latest content revision time
 - a newly published article's `date` matches the time its draft status was cancelled
+- an already-published article keeps its original first-publication `date` after later revisions
 - headings are in a logical order
 - code fences are closed
 - links and image syntax are not obviously broken
