@@ -25,6 +25,8 @@ $$
 
 其中 $S$ 是标的价格，$T$ 是剩余期限，$\sigma$ 是波动率，$r$ 是利率，$q$ 是股息率。Greeks 衡量的是：当其中一个输入发生很小的变化、其他条件暂时不变时，理论价值大约会变化多少。
 
+![期权价格的五个局部风险刻度：Delta 和 Gamma 对应标的价格，Theta 对应时间，Vega 对应隐含波动率，Rho 对应利率](https://raw.githubusercontent.com/uytrdcvbjhgf/gallery/main/img/options-greeks-risk-map.png)
+
 “很小的变化”和“其他条件不变”非常重要。真实市场里，股价、时间和隐含波动率会一起变化，Greeks 自身也会跟着变化。因此，用开仓时的 Delta 去预测几天后的精确盈亏，往往会得到一种看起来严谨、实际已经过期的答案。
 
 不同平台对单位和正负号的展示也可能略有差异。阅读数值前应先确认：
@@ -74,6 +76,8 @@ Long Call 和 Long Put 通常都是正 Gamma，Short Call 和 Short Put 通常�
 - **负 Gamma** 则相反，行情越向不利方向移动，风险敞口越容易继续扩大。
 
 Gamma 往往在接近平值、临近到期时较高。这也是短期期权看起来金额不大，却可能在标的小幅波动后迅速改变风险形态的原因。
+
+![相同行权价下 Call Delta 与 Gamma 随标的价格变化的示意曲线：Delta 在平值附近变化最快，Gamma 在平值附近达到峰值](https://raw.githubusercontent.com/uytrdcvbjhgf/gallery/main/img/options-delta-gamma-profile.png)
 
 ## Theta：时间经过一天的理论影响
 
@@ -146,11 +150,7 @@ Greeks 不是互相独立的标签。Long option 常见的结构是：付出 The
 接下来一天里，标的上涨 2 元，IV 从 25% 上升到 28%。暂时忽略利率、股息和更高阶影响，可以做一个近似分解：
 
 $$
-\Delta V \approx
-\Delta \times \Delta S
-+ \frac{1}{2}\Gamma \times (\Delta S)^2
-+ \Theta \times \Delta t
-+ Vega \times \Delta IV
+\Delta V \approx \Delta \times \Delta S + \frac{1}{2}\Gamma \times (\Delta S)^2 + \Theta \times \Delta t + Vega \times \Delta IV
 $$
 
 代入数字：
@@ -251,6 +251,8 @@ $$
 | 7 天            | 36% | 30% | 29% |
 | 30 天           | 31% | 25% | 24% |
 | 90 天           | 28% | 24% | 24% |
+
+![隐含波动率曲面示意热力图：横向比较同一到期日的不同行权价得到波动率偏斜，纵向比较相近位置的不同到期日得到期限结构](https://raw.githubusercontent.com/uytrdcvbjhgf/gallery/main/img/options-volatility-surface.png)
 
 这张表同时包含两个信息：低行权价一侧存在 skew，短期期限也比长期期限更昂贵。
 

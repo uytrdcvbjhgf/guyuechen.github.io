@@ -42,3 +42,5 @@ Markdown conventions:
 - write `这是 **重要术语** 的含义` or `**重要术语**：含义`, not `这是**重要术语**的含义` or `**重要术语**表示`
 - use Hugo/PaperMod-compatible Markdown
 - avoid HTML unless the existing article needs it, such as image sizing or theme-specific behavior
+- write inline formulas as `$...$` and display formulas inside `$$...$$`; keep a display formula on one physical line when possible
+- do not begin a line inside a display formula with `+`, `-`, or `*`, because Hugo may parse it as a Markdown list before MathJax runs
