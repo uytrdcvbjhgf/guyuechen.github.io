@@ -1,40 +1,52 @@
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  tex2jax: {
-    inlineMath: [['$','$'], ['\\(','\\)']],
-    displayMath: [['$$','$$'], ['\[\[','\]\]']],
-    processEscapes: true,
-    processEnvironments: true,
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    processEscapes: true
   },
-  TeX: {
-    equationNumbers: { autoNumber: "AMS" },
-    extensions: ["AMSmath.js", "AMSsymbols.js"]
+  options: {
+    skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
   }
-});
+};
 
-MathJax.Hub.Queue(function() {
-    // Fix <code> tags after MathJax finishes running. This is a
-    // hack to overcome a shortcoming of Markdown. Discussion at
-    // https://github.com/mojombo/jekyll/issues/199
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i = 0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';
+window.typesetMath = function(root, retries) {
+  if (window.MathJax && window.MathJax.typesetPromise) {
+    var target = root || document.querySelector('.post-content') || document.body;
+    if (window.MathJax.typesetClear) {
+      window.MathJax.typesetClear([target]);
     }
+    window.MathJax.typesetPromise([target]).catch(function(error) {
+      console.error('MathJax typesetting failed:', error);
+    });
+    return;
+  }
+
+  if ((retries || 0) < 20) {
+    window.setTimeout(function() {
+      window.typesetMath(root, (retries || 0) + 1);
+    }, 100);
+  }
+};
+
+document.addEventListener('DOMContentLoaded', function() {
+  if (window.InstantClick && !window.__mathJaxInstantClickBound) {
+    window.InstantClick.on('change', function() {
+      window.typesetMath(document.querySelector('.post-content'));
+    });
+    window.__mathJaxInstantClickBound = true;
+  }
 });
 </script>
 
-<script type="text/javascript"
-        async
-        src="https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+<script async
+        data-no-instant
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js">
 </script>
 
 <style>
-code.has-jax {
-    font: inherit;
-    font-size: 100%;
-    background: inherit;
-    border: inherit;
-    color: #515151;
+mjx-container[display="true"] {
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 </style>
