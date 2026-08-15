@@ -27,6 +27,8 @@ description = '从一份具体合约出发，读懂期权链中的到期日、�
 
 一份期权合约至少包含以下信息。
 
+![期权链阅读地图：先确认标的、到期日、Call或Put、行权价与乘数，再查看Bid、Ask、Volume、Open Interest、IV和Greeks](https://raw.githubusercontent.com/uytrdcvbjhgf/gallery/main/img/options-chain-reading-map.png)
+
 ### 标的资产：Underlying
 
 期权的价值依附于某项资产。它可能是股票、ETF、指数，也可能是期货或其他产品。
@@ -62,6 +64,18 @@ description = '从一份具体合约出发，读懂期权链中的到期日、�
 
 这里先忽略手续费和税费。实际交易中也不能把“乘数为 100”当成永远不变的规则：指数期权、迷你合约以及公司行动后调整过的合约，都可能采用不同的合约规模或交割内容，下单前应查看具体产品说明。
 
+### 期权代码只是把合约身份压成一行
+
+交易软件有时会把一份合约显示成类似 `XYZ 2026-09-18 105 Call` 的长代码，另一些平台则会压缩成年月日、`C/P` 和带小数位的行权价。
+
+不必先背某家平台的字符串格式，只要能从中还原四项身份：
+
+> 标的 + 到期日 + Call 或 Put + 行权价
+
+这四项完全相同，才属于同一 option series。合约乘数与交割内容还要另外确认，尤其是经历拆股、特别股息、并购等公司行动后的 adjusted option；它可能继续使用熟悉的标的简称，实际却不再对应标准的 100 股。
+
+代码也不包含你的持仓方向。同一份 `105 Call` 可以被买入开仓、卖出平仓、卖出开仓或买入平仓，这些操作会在[《开仓、平仓、行权、指派与到期结算》](/posts/finance/options/open-close-exercise-assignment-and-settlement/)中单独说明。
+
 ## 期权链长什么样
 
 不同交易软件的排版不完全一样，但通常会把 Call 放在一侧、Put 放在另一侧，中间以行权价连接起来。
@@ -92,7 +106,7 @@ description = '从一份具体合约出发，读懂期权链中的到期日、�
 - 买入期权通常更接近 Ask 成交；
 - 卖出期权通常更接近 Bid 成交。
 
-Bid 与 Ask 之间的距离叫作**买卖价差（bid-ask spread）**。例如一份期权报价为 2.20 / 2.40，价差就是 0.20 元。价差越宽，进出场时越容易产生额外成本，也就是滑点。
+Bid 与 Ask 之间的距离叫作 **买卖价差（bid-ask spread）**。例如一份期权报价为 2.20 / 2.40，价差就是 0.20 元。价差越宽，进出场时越容易产生额外成本，也就是滑点。
 
 有人会用中间价估算当前价值：
 
@@ -114,7 +128,16 @@ Bid 与 Ask 之间的距离叫作**买卖价差（bid-ask spread）**。例如�
 
 **Volume（成交量）** 表示这份合约今天已经成交了多少张。
 
-**Open Interest（未平仓量或持仓量，OI）** 表示这组期权目前仍未平仓的合约数量。新开仓可能增加 OI，平仓可能减少 OI，但一笔成交同时包含买方和卖方，仅凭成交量不能直接推算 OI 增加了多少。
+**Open Interest（未平仓量或持仓量，OI）** 表示这组期权目前仍未平仓的合约数量。OI 如何变化，取决于成交双方分别是在开仓还是平仓：
+
+| 买方操作 | 卖方操作 | OI 变化 |
+| --- | --- | --- |
+| Buy to Open | Sell to Open | 增加 1 |
+| Buy to Open | Sell to Close | 不变 |
+| Buy to Close | Sell to Open | 不变 |
+| Buy to Close | Sell to Close | 减少 1 |
+
+一笔成交同时包含买方和卖方，因此 1,000 张 Volume 既不等于 OI 增加 1,000，也不能单独说明市场整体看涨或看跌。OCC 要在日终配对开仓和平仓后才能得到新的 OI，很多行情平台在交易日内展示的是前一晚数据，直到下一次更新前保持不变。
 
 可以把它们简单理解为：
 
@@ -199,12 +222,14 @@ Bid 与 Ask 之间的距离叫作**买卖价差（bid-ask spread）**。例如�
 
 当你能把期权链上的一行报价完整翻译成一句话，并能算出实际成本、最大损失和到期盈亏平衡点时，才算真正开始“读懂”这份合约。
 
+下一步可以继续阅读[《开仓、平仓、行权、指派与到期结算》](/posts/finance/options/open-close-exercise-assignment-and-settlement/)，理解这份合约建立以后会怎样退出，又会在什么情况下变成股票或现金。
+
 本文用于金融知识学习，不构成投资建议。不同市场和产品的合约规则可能不同，真实交易前应核对交易所、清算机构和券商提供的产品说明。
 
 ## 参考与延伸阅读
 
 1. Options Industry Council, [Options Basics](https://www.optionseducation.org/optionsoverview/options-basics)。期权合约、Call、Put、权利金和标准股票期权的基础说明。
 2. Options Industry Council, [Understanding the Bid and Ask Prices for Options](https://www.optionseducation.org/news/understanding-the-bid-and-ask-prices-for-options)。Bid、Ask、买卖价差、限价单与滑点。
-3. Options Industry Council, [Basics FAQ](https://www.optionseducation.org/referencelibrary/faq/basics) 与 [General Information FAQ](https://www.optionseducation.org/referencelibrary/faq/general-information)。Last、Volume 和 Open Interest 的常见问题。
+3. Options Industry Council, [Basics FAQ](https://www.optionseducation.org/referencelibrary/faq/basics) 与 [General Information FAQ](https://www.optionseducation.org/referencelibrary/faq/general-information)。Last、Volume、Open Interest 以及开仓和平仓的常见问题。
 4. Options Clearing Corporation, [Characteristics and Risks of Standardized Options](https://www.theocc.com/getmedia/dd6200a7-5982-4226-90e4-1f2d32a89911/june_2024_riskstoc.pdf)。标准化期权的合约性质与风险披露。
 5. Lawrence G. McMillan, [Options as a Strategic Investment, Fifth Edition](https://www.penguinrandomhouse.com/books/310812/options-as-a-strategic-investment-by-lawrence-g-mcmillan/)；John C. Hull, [Options, Futures, and Other Derivatives, 11th Edition](https://www.pearson.com/en-us/subject-catalog/p/options-futures-and-other-derivatives/P200000005938/9780136939917)。

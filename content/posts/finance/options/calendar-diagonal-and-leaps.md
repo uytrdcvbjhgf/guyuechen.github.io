@@ -7,9 +7,9 @@ tags = ['options', 'derivatives']
 description = '从跨到期日的相对定价出发，理解 Calendar、Diagonal 和 LEAPS 的结构、风险来源、展期与指派问题。'
 +++
 
-前置阅读：[《Greeks、隐含波动率与期限结构》](/posts/finance/options/option-greeks-implied-volatility-and-term-structure/)介绍了 Theta、Vega、skew 与期限结构；[《权利金、内在价值与定价模型》](/posts/finance/options/option-premium-intrinsic-value-and-pricing-models/)介绍了时间价值和期权定价因素。如果已经熟悉这些概念，也可以直接从本文开始。
+前置阅读：[《Greeks、隐含波动率与期限结构》](/posts/finance/options/option-greeks-implied-volatility-and-term-structure/)介绍了 Theta、Vega、skew 与期限结构；[《权利金、内在价值与定价模型》](/posts/finance/options/option-premium-intrinsic-value-and-pricing-models/)介绍了时间价值和期权定价因素；[《开仓、平仓、行权、指派与到期结算》](/posts/finance/options/open-close-exercise-assignment-and-settlement/)解释了多腿组合到期后可能留下的仓位。如果已经熟悉这些概念，也可以直接从本文开始。
 
-垂直价差在同一个到期日使用不同行权价，主要是在价格方向上切分风险。Calendar 和 Diagonal 则把另一条轴也引入组合：**到期时间**。
+所谓垂直价差，是在同一个到期日组合不同行权价，主要沿着价格轴切分风险；即使还没有系统学习四种方向性价差，先记住这一定义就够了。Calendar 和 Diagonal 则把另一条轴也引入组合：**到期时间**。
 
 一旦两条腿不在同一天到期，策略就不再只有一张固定的最终盈亏图。近月腿到期时，远月腿仍有剩余时间价值；它值多少钱，取决于当时的标的价格、隐含波动率和剩余期限。
 
@@ -51,7 +51,7 @@ description = '从跨到期日的相对定价出发，理解 Calendar、Diagonal
 
 ### LEAPS：长期期权，不是一种独立策略
 
-**LEAPS** 是 Long-Term Equity AnticiPation Securities 的缩写，指期限较长的交易所挂牌期权。它们的到期时间通常超过一年，具体可用期限、行权方式和合约规格取决于产品与交易所。
+**LEAPS** 是 Long-Term Equity AnticiPation Securities 的缩写，指期限较长的交易所挂牌期权。OIC 当前资料显示，LEAPS 可挂牌到最长约两年八个月以后；一份 LEAPS 随着时间经过也会逐渐变成剩余期限不足一年的普通长期期权。具体可用期限、行权方式和合约规格仍取决于产品与交易所。
 
 LEAPS 仍然是 Call 或 Put，也仍然有 Delta、Gamma、Theta 和 Vega。它可以被单独买入作为长期方向敞口或保护工具，也可以成为 Diagonal 的远月腿。
 

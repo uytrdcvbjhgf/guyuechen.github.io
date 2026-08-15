@@ -7,7 +7,7 @@ tags = ['options', 'derivatives']
 description = '从方向、时间、波动率和持股意图出发，比较 Long Call、Long Put、Covered Call 与 Cash-Secured Put 的收益边界、风险和管理方式。'
 +++
 
-前置阅读：[《期权：从“买一项权利”开始理解》](/posts/finance/options/options-intro/)介绍了 Call、Put 与四种基础头寸；[《权利金、内在价值与定价模型》](/posts/finance/options/option-premium-intrinsic-value-and-pricing-models/)介绍了时间价值和定价因素；[《Greeks、隐含波动率与期限结构》](/posts/finance/options/option-greeks-implied-volatility-and-term-structure/)介绍了 Delta、Gamma、Theta 与 Vega。如果已经熟悉这些概念，也可以直接从本文开始。
+前置阅读：[《期权：从“买一项权利”开始理解》](/posts/finance/options/options-intro/)介绍了 Call、Put 与四种基础头寸；[《权利金、内在价值与定价模型》](/posts/finance/options/option-premium-intrinsic-value-and-pricing-models/)介绍了时间价值和定价因素；[《Greeks、隐含波动率与期限结构》](/posts/finance/options/option-greeks-implied-volatility-and-term-structure/)介绍了 Delta、Gamma、Theta 与 Vega；[《开仓、平仓、行权、指派与到期结算》](/posts/finance/options/open-close-exercise-assignment-and-settlement/)说明了期权到期后可能形成的股票仓位。如果已经熟悉这些概念，也可以直接从本文开始。
 
 Long Call、Long Put、Covered Call 和 Cash-Secured Put 经常被放在同一张“常见期权策略”表里，但它们并不处在完全相同的层次。
 
@@ -120,11 +120,11 @@ Long Put 和 short stock 都可以从下跌中获利，但风险形态不同：
 
 Long Put 用权利金把最坏结果提前锁定，但也给方向观点加上了截止日期。标的只是缓慢下跌，或者跌幅不足以覆盖权利金，都可能让判断方向正确却没有获得利润。
 
-### 到期前不要忽略自动行权
+### 到期前不要忽略行权处理
 
-独立持有 Long Put 到期时，如果期权实值并被自动行权，账户可能形成 short stock。是否自动行权、通知截止时间以及账户能否持有空头股票，取决于产品和券商规则。
+独立持有 Long Put 到期时，如果期权实值并按 exercise by exception 或券商规则进入行权处理，账户可能形成 short stock。这个过程常被口语化地称为“自动行权”，但实际阈值、相反指令截止时间以及账户能否持有空头股票，取决于产品和券商规则。
 
-如果目标只是交易 Put 的价格变化，通常应在到期前明确选择平仓、行权还是继续持有，而不是把到期处理交给默认设置。
+如果目标只是交易 Put 的价格变化，通常应在到期前明确选择平仓、行权还是继续持有，而不是把到期处理交给默认设置。完整流程可以参见[《开仓、平仓、行权、指派与到期结算》](/posts/finance/options/open-close-exercise-assignment-and-settlement/)。
 
 ## Covered Call：收取权利金，同时给股票设置上限
 

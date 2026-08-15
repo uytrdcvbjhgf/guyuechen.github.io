@@ -1,13 +1,13 @@
 +++
 title = '权利金、内在价值与定价模型'
-date = 2026-08-12T13:39:33+09:00
+date = 2026-08-15T09:29:35+09:00
 draft = true
 categories = ['finance']
 tags = ['options', 'derivatives']
 description = '拆解期权权利金中的内在价值与时间价值，并用直觉理解影响价格的因素、二叉树模型和 Black-Scholes-Merton 模型。'
 +++
 
-前置阅读：[《期权：从“买一项权利”开始理解》](/posts/finance/options/options-intro/)介绍了 Call、Put、行权价和权利金；[《读懂期权合约与期权链》](/posts/finance/options/option-contracts-and-chains/)介绍了 Bid、Ask、到期日和合约乘数。如果已经熟悉这些概念，也可以直接从本文开始。
+前置阅读：[《期权：从“买一项权利”开始理解》](/posts/finance/options/options-intro/)介绍了 Call、Put、行权价和权利金；[《读懂期权合约与期权链》](/posts/finance/options/option-contracts-and-chains/)介绍了 Bid、Ask、到期日和合约乘数；[《开仓、平仓、行权、指派与到期结算》](/posts/finance/options/open-close-exercise-assignment-and-settlement/)区分了交易期权与执行合约。如果已经熟悉这些概念，也可以直接从本文开始。
 
 打开期权链时，经常会遇到一个看似简单的问题：标的价格明明只有一个，为什么不同期权的权利金却相差那么大？
 
@@ -81,6 +81,8 @@ $$
 | 105 Put | 6.60 | 5.00 | 1.60 |
 
 95 Call 的权利金最高，但其中 5 元只是已经存在的内在价值。100 Call 没有内在价值，3.50 元全部来自到期前的不确定性。
+
+![权利金拆分示意：95 Call、100 Call和105 Call的总权利金分别由内在价值与时间价值组成，平值附近可能主要由时间价值构成](https://raw.githubusercontent.com/uytrdcvbjhgf/gallery/main/img/options-premium-decomposition.png)
 
 这也解释了两个容易混淆的判断：
 
@@ -233,6 +235,20 @@ C + K e^{-rT} = P + S e^{-qT}
 $$
 
 公式左边可以理解为“Call 加上到期可支付行权价的现金”，右边可以理解为“Put 加上标的资产的现值”。两组组合在到期时具有相同的结果，因此今天的理论价值也应保持对应关系。
+
+先忽略利率与股息，并把行权价设为 100 元。无论到期价格落在哪一边，两组组合都会得到同一个到期价值：
+
+| 到期价格 | Long Call + 100 元现金 | Long Put + 1 单位股票 |
+| ---: | ---: | ---: |
+| 80 元 | 0 + 100 = 100 元 | 20 + 80 = 100 元 |
+| 100 元 | 0 + 100 = 100 元 | 0 + 100 = 100 元 |
+| 120 元 | 20 + 100 = 120 元 | 0 + 120 = 120 元 |
+
+![Put-Call Parity的到期复制关系：Long Call加可支付行权价的现金，与Long Put加股票，在标的低于或高于行权价时都得到相同价值](https://raw.githubusercontent.com/uytrdcvbjhgf/gallery/main/img/options-put-call-parity-replication.png)
+
+这个表比记公式更重要。标的低于行权价时，左边保留现金，右边由 Put 补回股票跌掉的部分；标的高于行权价时，左边由 Call 补上超过行权价的部分，右边直接持有上涨后的股票。
+
+利率与股息的作用，是把“今天准备多少现金”和“持有股票期间会收到什么”重新折算，而不是推翻这条到期现金流相等的逻辑。
 
 Put-Call Parity 的意义不只是计算另一份期权价格。它提醒我们：Call、Put、标的和现金之间可以互相复制。后续谈到合成股票、保护性 Put 和 Collar 时，这种关系会反复出现。
 
