@@ -1,7 +1,7 @@
 +++
 title = '开仓、平仓、行权、指派与到期结算'
 date = 2026-08-12T11:20:00+09:00
-draft = true
+draft = false
 categories = ['finance']
 tags = ['options', 'derivatives']
 description = '沿着一份期权从建立头寸到退出或结算的生命周期，分清开仓、平仓、行权、指派、实物交割与现金结算。'
