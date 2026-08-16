@@ -126,39 +126,105 @@ Bid 与 Ask 之间的距离叫作 **买卖价差（bid-ask spread）**。例如�
 
 这两个字段很容易被混淆。
 
-**Volume（成交量）** 表示这份合约今天已经成交了多少张。
+**Volume（成交量）** 表示这份合约今天已经成交了多少张。每完成一张合约的买卖，Volume 增加 1，而不是因为同时出现买方和卖方就增加 2。它记录的是当天发生了多少次成交，不关心参与者是在建立仓位还是结束仓位。
 
-**Open Interest（未平仓量或持仓量，OI）** 表示这组期权目前仍未平仓的合约数量。OI 如何变化，取决于成交双方分别是在开仓还是平仓：
+**Open Interest（未平仓量或持仓量，OI）** 表示这组期权目前仍在存续的合约数量。一张未平仓合约的背后必然同时存在一方持有权利、一方承担义务，但 OI 只记作 1 张，不能把多头和空头分别加起来算成 2 张。
 
-| 买方操作 | 卖方操作 | OI 变化 |
-| --- | --- | --- |
-| Buy to Open | Sell to Open | 增加 1 |
-| Buy to Open | Sell to Close | 不变 |
-| Buy to Close | Sell to Open | 不变 |
-| Buy to Close | Sell to Close | 减少 1 |
+例如，某个 `100 Call` 的 OI 是 500，意思是清算体系中仍有 500 张这类合约没有通过平仓、行权或到期而消失。对应地，市场里会有 500 张多头合约和 500 张空头合约。这里描述的是整个市场的未平仓合约，不代表最初成交的买卖双方至今仍互为对手方。
 
-一笔成交同时包含买方和卖方，因此 1,000 张 Volume 既不等于 OI 增加 1,000，也不能单独说明市场整体看涨或看跌。OCC 要在日终配对开仓和平仓后才能得到新的 OI，很多行情平台在交易日内展示的是前一晚数据，直到下一次更新前保持不变。
+接下来再看 `Open` 和 `Close`。这两个词描述的是**交易者自己的仓位变化**：
+
+- `Buy to Open`：买入并新增长仓；
+- `Sell to Close`：卖出并减少已有长仓；
+- `Sell to Open`：卖出并新增短仓；
+- `Buy to Close`：买回并减少已有短仓。
+
+一笔成交的买方和卖方各有自己的开仓或平仓意图，所以 OI 会出现四种结果：
+
+| 买方操作 | 卖方操作 | 实际发生了什么 | OI 变化 |
+| --- | --- | --- | --- |
+| Buy to Open | Sell to Open | 新的长仓与新的短仓同时建立，市场中多出一张未平仓合约 | 增加 1 |
+| Buy to Open | Sell to Close | 卖方结束旧长仓，买方接过长仓；未平仓合约只是换了持有人 | 不变 |
+| Buy to Close | Sell to Open | 买方结束旧短仓，卖方接过短仓；未平仓义务只是换了承担者 | 不变 |
+| Buy to Close | Sell to Close | 已有短仓与已有长仓同时结束，一张未平仓合约消失 | 减少 1 |
+
+用数字走一遍会更直观。假设某份期权开盘前的 OI 是 100 张，当天依次发生：
+
+| 当天成交 | 当日 Volume 累计 | 成交后的 OI |
+| --- | ---: | ---: |
+| 10 张双方都开仓 | 10 | 110 |
+| 6 张一方开仓、一方平仓 | 16 | 110 |
+| 7 张一方平仓、一方开仓 | 23 | 110 |
+| 4 张双方都平仓 | 27 | 106 |
+
+这一天共成交 27 张，所以 Volume 是 27；但新建的合约比彻底结束的合约多 6 张，所以 OI 只从 100 变成 106。**Volume 是当天的成交计数，OI 是某个时点仍然存在的合约存量**，两者本来就不应该相等。
+
+OCC 需要在日终汇总并配对当天的开仓、平仓、行权和指派数据，才能计算出新的 OI。因此，很多行情平台在盘中展示的仍是上一个交易日结束后的 OI，并不会随着眼前每一笔成交即时跳动。
 
 可以把它们简单理解为：
 
-- Volume 看今天是否活跃；
-- Open Interest 看过去积累了多少未结束的合约。
+- Volume 看这份合约今天一共完成了多少张成交；
+- Open Interest 看此刻还有多少对权利与义务没有结束。
 
-它们都能帮助观察活跃程度，但不能代替 Bid / Ask。即使 OI 很高，眼前的买卖价差仍可能很宽；反过来，某些 OI 不高的合约也可能有做市商持续提供较窄的报价。
+它们都能帮助观察参与和活跃程度，但不能代替 Bid / Ask。即使 OI 很高，眼前的买卖价差仍可能很宽；反过来，某些 OI 不高的合约也可能有做市商持续提供较窄的报价。OI 也不能单独判断看涨或看跌，因为每一张新增合约都同时产生一个多头和一个空头。
 
-## IV 和 Delta：先知道它们回答什么问题
+## IV：从权利金反推市场正在使用的波动率
 
-**IV（Implied Volatility，隐含波动率）** 表示当前权利金所隐含的未来波动预期。它不是在预测价格向上还是向下，而是在表达市场认为未来可能“动多大”。
+**IV（Implied Volatility，隐含波动率）** 不是直接观察到的价格，也不是分析师先写好再塞进期权链的预测。它是把市场上的期权价格代入定价模型以后，**反向求出来的波动率**。
 
-同一到期日下，不同行权价的 IV 可能不同；同一行权价在不同到期日下，IV 也可能不同。这正是后续文章会讨论的波动率偏斜和期限结构。
+定价模型大致在处理下面这层关系：
 
-**Delta** 则用来描述标的价格变化时，期权价格大约会变化多少。它还会随着价格、时间和波动率变化，并不是一个固定常数。
+> 期权理论价格 = f（标的价格、行权价、剩余期限、利率、股息、波动率）
 
-阅读第一张期权链时，只需要先记住：
+标的价格、行权价和剩余期限等信息都已知，市场权利金也可以从报价中取得，于是模型反过来寻找一个波动率，使计算出的理论价格与选定的市场价格相符。这个波动率就是 IV。
 
-- IV 帮助比较市场给不同合约标出了多高的波动率价格；
-- Delta 帮助观察期权对标的价格变化有多敏感；
-- 它们都不能单独告诉你某份期权“值得买”。
+以本文的虚构期权链为例，标的为 100 刀，100 Call 距到期还有 30 天，Bid / Ask 为 3.20 / 3.40。平台可能采用中间价 3.30 刀，也可能采用自己的标记价格和模型参数；反解以后，链上显示 IV 为 22%。这句话的准确含义是：
+
+> 在该平台采用的定价模型和输入条件下，22% 这个年化波动率能解释眼前的期权价格。
+
+这里有四个容易误解的地方。
+
+1. **IV 描述幅度，不描述方向。** 22% 没有说股票要涨还是要跌，只表示市场价格中包含了对未来波动大小的定价。
+2. **IV 是年化数字。** 30 天期权的 IV 为 22%，不代表股票在 30 天内会波动 22%。把它粗略缩放到 30 天，波动尺度约为：`100 × 22% × √(30 / 365) ≈ 6.30 刀`。这只是模型尺度，不是止盈止损线，也不是价格必然落在 93.70 至 106.30 刀之间的承诺。
+3. **IV 会跟着期权价格变化。** 对同一份合约而言，如果其他条件暂时不变而买盘把权利金推高，反解出来的 IV 通常也会上升；权利金回落时，IV 通常下降。所以“IV 高”只说明在其他条件相近时，市场为波动支付了更高的价格，不等于期权被错误高估，更不等于买它更容易赚钱。
+4. **IV 依赖报价口径和模型。** Bid、Ask 和中间价可以反推出略有不同的 IV，不同平台使用的利率、股息和模型细节也可能不同，因此数字出现小幅差异并不奇怪。
+
+IV 也不是历史波动率。**历史波动率**统计标的过去实际怎样变化，**隐含波动率**则由今天的期权价格反推。两者可以比较，但回答的是不同问题。
+
+同一到期日下，不同行权价的 IV 可能不同；同一行权价在不同到期日下，IV 也可能不同。因此，判断 22% 到底高不高，至少要和同一标的的其他行权价、其他到期日以及自身历史水平比较，不能只看一个孤立数字。这些横向与纵向差异会在[《Greeks、隐含波动率与期限结构》](/posts/finance/options/option-greeks-implied-volatility-and-term-structure/)中继续展开。
+
+## Delta：标的每变动 1 刀，期权价格大约变多少
+
+**Delta** 是期权价格对标的价格的局部敏感度。先暂时假设 IV、剩余期限、利率和股息都没有变化，可以写成：
+
+> 期权价格的近似变化 = Delta × 标的价格变化
+
+假设前面的 100 Call 当前价格为 3.40 刀，Delta 为 0.52：
+
+- 标的从 100 刀小幅上涨到 101 刀，期权价格大约增加 `0.52 × 1 = 0.52 刀`，也就是从 3.40 刀变成约 3.92 刀；
+- 标的从 100 刀小幅下跌到 99 刀，期权价格大约减少 0.52 刀，变成约 2.88 刀；
+- 如果合约乘数为 100，第一种情况下，一张合约的理论价格变化约为 `0.52 × 100 = 52 刀`。
+
+这只是对**眼前一小段价格变化**的近似，不是承诺。标的一旦继续变化，Delta 本身也会变化；描述 Delta 变化速度的指标叫作 Gamma。与此同时，IV、时间流逝和买卖价差也在影响真实成交价格，所以实际结果很少会刚好等于 52 刀。
+
+对于买入的单腿期权，Delta 的符号与范围通常是：
+
+| 买入的期权 | 深度实值 | 平值附近 | 深度虚值 |
+| --- | ---: | ---: | ---: |
+| Long Call | 接近 1 | 通常接近 0.50 | 接近 0 |
+| Long Put | 接近 -1 | 通常接近 -0.50 | 接近 0 |
+
+Call 的 Delta 为正，是因为标的上涨通常有利于 Call；Put 的 Delta 为负，是因为标的上涨通常不利于 Put。卖出期权时，头寸方向反过来：Short Call 的 Delta 为负，Short Put 的 Delta 为正。
+
+Delta 还可以用“等效股票敞口”帮助理解。Delta 为 0.52、乘数为 100 的一张 Long Call，当前大约具有 `0.52 × 100 = +52` 股的方向敏感度。这不等于真的持有 52 股，也不代表风险永远和 52 股相同；随着标的价格、剩余期限和 IV 改变，这个等效数量会继续变化。
+
+有些交易者还会把 Delta 当成期权到期成为实值的粗略概率参考，但两者并不是同一个概念。Delta 来自特定模型和假设，真实概率会受到未来波动、跳空和概率分布等因素影响。
+
+把 IV 与 Delta 放回同一行期权链，就能分清它们的分工：
+
+- IV 22%：眼前权利金反推出怎样的年化波动率；
+- Delta 0.52：标的小幅变动 1 刀时，期权价格此刻大约变动 0.52 刀；
+- 两者都描述价格和风险特征，不能单独回答这份期权是否“值得买”。
 
 ## 用期权链完成一次下单前计算
 
@@ -230,6 +296,7 @@ Bid 与 Ask 之间的距离叫作 **买卖价差（bid-ask spread）**。例如�
 
 1. Options Industry Council, [Options Basics](https://www.optionseducation.org/optionsoverview/options-basics)。期权合约、Call、Put、权利金和标准股票期权的基础说明。
 2. Options Industry Council, [Understanding the Bid and Ask Prices for Options](https://www.optionseducation.org/news/understanding-the-bid-and-ask-prices-for-options)。Bid、Ask、买卖价差、限价单与滑点。
-3. Options Industry Council, [Basics FAQ](https://www.optionseducation.org/referencelibrary/faq/basics) 与 [General Information FAQ](https://www.optionseducation.org/referencelibrary/faq/general-information)。Last、Volume、Open Interest 以及开仓和平仓的常见问题。
-4. Options Clearing Corporation, [Characteristics and Risks of Standardized Options](https://www.theocc.com/getmedia/dd6200a7-5982-4226-90e4-1f2d32a89911/june_2024_riskstoc.pdf)。标准化期权的合约性质与风险披露。
-5. Lawrence G. McMillan, [Options as a Strategic Investment, Fifth Edition](https://www.penguinrandomhouse.com/books/310812/options-as-a-strategic-investment-by-lawrence-g-mcmillan/)；John C. Hull, [Options, Futures, and Other Derivatives, 11th Edition](https://www.pearson.com/en-us/subject-catalog/p/options-futures-and-other-derivatives/P200000005938/9780136939917)。
+3. Options Industry Council, [Basics FAQ](https://www.optionseducation.org/referencelibrary/faq/basics)、[General Information FAQ](https://www.optionseducation.org/referencelibrary/faq/general-information) 与 [Open Interest: Why It Matters](https://www.optionseducation.org/news/open-interest-why-it-matters)。Last、Volume、Open Interest 以及四种开平仓组合的说明。
+4. Options Industry Council, [Volatility & the Greeks](https://www.optionseducation.org/advancedconcepts/volatility-the-greeks) 与 [Understanding Options Greeks](https://www.optionseducation.org/advancedconcepts/understanding-options-greeks)。IV 的模型含义、Delta 的单位以及 Greeks 的使用边界。
+5. Options Clearing Corporation, [Characteristics and Risks of Standardized Options](https://www.theocc.com/getmedia/dd6200a7-5982-4226-90e4-1f2d32a89911/june_2024_riskstoc.pdf)。标准化期权的合约性质与风险披露。
+6. Lawrence G. McMillan, [Options as a Strategic Investment, Fifth Edition](https://www.penguinrandomhouse.com/books/310812/options-as-a-strategic-investment-by-lawrence-g-mcmillan/)；John C. Hull, [Options, Futures, and Other Derivatives, 11th Edition](https://www.pearson.com/en-us/subject-catalog/p/options-futures-and-other-derivatives/P200000005938/9780136939917)。
