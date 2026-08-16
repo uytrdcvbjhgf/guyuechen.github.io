@@ -283,17 +283,20 @@ Lawrence G. McMillan 的《Options as a Strategic Investment》之所以把“�
 
 ## 一个更稳妥的学习顺序
 
-如果准备继续学习期权，可以按这个顺序向下走：
+本文先建立 Call、Put、买方权利与卖方义务的基本直觉。继续阅读这套知识库时，可以沿着下面的路径展开：
 
-1. 先分清 Call、Put，以及买方权利与卖方义务；
-2. [读懂一份合约与期权链](/posts/finance/options/option-contracts-and-chains/)；
-3. [分清开仓、平仓、行权、指派和结算](/posts/finance/options/open-close-exercise-assignment-and-settlement/)；
-4. 学会计算到期时的内在价值和盈亏平衡点；
-5. 理解时间价值和隐含波动率；
-6. 再学习 Delta、Theta、Vega 等 Greeks；
-7. 最后进入备兑 Call、保护性 Put、价差组合等具体策略。
+1. [《读懂期权合约与期权链》](/posts/finance/options/option-contracts-and-chains/)：认识标的、行权价、到期日、合约乘数和期权链报价；
+2. [《开仓、平仓、行权、指派与到期结算》](/posts/finance/options/open-close-exercise-assignment-and-settlement/)：分清交易期权合约与执行合约权利是两件事；
+3. [《权利金、内在价值与定价模型》](/posts/finance/options/option-premium-intrinsic-value-and-pricing-models/)：理解期权价格由什么组成，以及 Black-Scholes-Merton 模型在回答什么问题；
+4. [《Greeks、隐含波动率与期限结构》](/posts/finance/options/option-greeks-implied-volatility-and-term-structure/)：用 Delta、Gamma、Theta、Vega 和 Rho 观察风险如何变化；
+5. [《Long Call、Long Put、Covered Call、Cash-Secured Put》](/posts/finance/options/long-call-long-put-covered-call-and-cash-secured-put/)：从四种常见单腿或股票组合开始连接观点与盈亏；
+6. [《Protective Put、Collar 与合成股票》](/posts/finance/options/protective-put-collar-and-synthetic-stock/)：理解保护、封顶与 Put-Call Parity 如何改变持仓形状；
+7. [《四种方向性价差策略》](/posts/finance/options/four-directional-vertical-spreads/)：比较 Bull Call、Bull Put、Bear Put 与 Bear Call 的有限盈亏；
+8. [《Straddle、Strangle、Iron Condor 与 Butterfly》](/posts/finance/options/straddle-strangle-iron-condor-and-butterfly/)：区分交易移动幅度、价格区间与到期落点；
+9. [《Calendar、Diagonal 与 LEAPS》](/posts/finance/options/calendar-diagonal-and-leaps/)：把行权价维度扩展到不同期限，理解相对时间价值和期限结构；
+10. [《财报、指数期权与 0DTE：从策略选择到复盘》](/posts/finance/options/earnings-index-options-and-0dte-strategy-selection-and-review/)：把事件定价、产品规则、风险预算和交易复盘放进同一套流程。
 
-这个顺序的好处是，每一个新名词都能接在已经理解的直觉上，而不是变成一张需要死记硬背的术语表。
+这不是唯一或强制的阅读顺序。每篇文章仍然围绕一个独立知识点展开；第一次从头阅读时按这条路径前进，可以让新名词接在已经建立的直觉上，而不是变成一张需要死记硬背的术语表。
 
 ## 小结
 
