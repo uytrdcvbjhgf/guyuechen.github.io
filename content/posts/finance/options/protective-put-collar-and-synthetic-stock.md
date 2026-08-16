@@ -9,7 +9,7 @@ description = '从股票持仓的下限、上限与合成关系出发，理解 P
 
 前置阅读：[《Long Call、Long Put、Covered Call、Cash-Secured Put》](/posts/finance/options/long-call-long-put-covered-call-and-cash-secured-put/)介绍了单腿买方策略与股票配合 short option 的风险；[《权利金、内在价值与定价模型》](/posts/finance/options/option-premium-intrinsic-value-and-pricing-models/)介绍了 Put-Call Parity；[《Greeks、隐含波动率与期限结构》](/posts/finance/options/option-greeks-implied-volatility-and-term-structure/)介绍了 Delta、Gamma、Theta 与 Vega。如果已经熟悉这些概念，也可以直接从本文开始。
 
-持有股票意味着接受一条近似直线的盈亏：上涨 1 元，大约多赚 1 元；下跌 1 元，也大约多亏 1 元。
+持有股票意味着接受一条近似直线的盈亏：上涨 1 刀，大约多赚 1 刀；下跌 1 刀，也大约多亏 1 刀。
 
 期权可以把这条直线重新切割：
 
@@ -23,10 +23,10 @@ description = '从股票持仓的下限、上限与合成关系出发，理解 P
 
 为了让数字可以直接比较，先设定一组简化参数：
 
-- 股票当前价格与买入成本均为 100 元；
-- 95 Put 的权利金为 3 元；
-- 110 Call 的权利金为 2 元；
-- 100 Call 与 100 Put 的权利金都假设为 5 元；
+- 股票当前价格与买入成本均为 100 刀；
+- 95 Put 的权利金为 3 刀；
+- 110 Call 的权利金为 2 刀；
+- 100 Call 与 100 Put 的权利金都假设为 5 刀；
 - 每份期权暂按 1 单位标的计算；
 - 忽略利率、股息、手续费、税费和买卖价差。
 
@@ -36,25 +36,25 @@ description = '从股票持仓的下限、上限与合成关系出发，理解 P
 
 **Protective Put** 由股票与 Put 组成：
 
-> 持有 1 单位股票，成本 100 元
+> 持有 1 单位股票，成本 100 刀
 >
-> 买入 1 份 95 Put，支付权利金 3 元
+> 买入 1 份 95 Put，支付权利金 3 刀
 
-股票上涨时，Put 可以失效，持仓仍保留上涨收益；股票跌破 95 元时，Put 提供按 95 元卖出的权利，使组合的到期价值不再继续随股票下跌。
+股票上涨时，Put 可以失效，持仓仍保留上涨收益；股票跌破 95 刀时，Put 提供按 95 刀卖出的权利，使组合的到期价值不再继续随股票下跌。
 
 在本文例子中：
 
-> 到期盈亏平衡点 = 股票成本 + Put 权利金 = 103 元
+> 到期盈亏平衡点 = 股票成本 + Put 权利金 = 103 刀
 
-> 最大损失 = 股票成本 - Put 行权价 + Put 权利金 = 8 元
+> 最大损失 = 股票成本 - Put 行权价 + Put 权利金 = 8 刀
 
-> 最大收益 = 理论上没有上限，但始终比同期单独持股少 3 元保险成本
+> 最大收益 = 理论上没有上限，但始终比同期单独持股少 3 刀保险成本
 
-如果到期价格为 70 元，股票亏损 30 元，95 Put 的内在价值为 25 元，再扣除 3 元权利金，组合最终亏损 8 元。价格继续跌到 40 元，最大损失仍然是 8 元。
+如果到期价格为 70 刀，股票亏损 30 刀，95 Put 的内在价值为 25 刀，再扣除 3 刀权利金，组合最终亏损 8 刀。价格继续跌到 40 刀，最大损失仍然是 8 刀。
 
 这就是保护下限的含义：不是股票不再下跌，而是 Put 的收益开始抵消股票进一步产生的亏损。
 
-![Protective Put 与 Collar 的到期盈亏：Protective Put 保留上涨并在95元以下形成损失下限，Collar 再通过110 Call 封顶上涨收益](https://raw.githubusercontent.com/uytrdcvbjhgf/gallery/main/img/options-protective-put-and-collar-payoff.png)
+![Protective Put 与 Collar 的到期盈亏：Protective Put 保留上涨并在95刀以下形成损失下限，Collar 再通过110 Call 封顶上涨收益](https://raw.githubusercontent.com/uytrdcvbjhgf/gallery/main/img/options-protective-put-and-collar-payoff.png)
 
 ### Protective Put 与 Long Put 的目标不同
 
@@ -70,11 +70,11 @@ Put 有到期日。今天买入一份三个月 Put，只保证这三个月内拥
 
 到期时常见结果包括：
 
-- 股票高于 95 元：Put 可能失效，继续持股就重新暴露于完整下跌风险；
-- 股票低于 95 元：Put 可能按到期处理规则进入行权，股票按行权价卖出；
+- 股票高于 95 刀：Put 可能失效，继续持股就重新暴露于完整下跌风险；
+- 股票低于 95 刀：Put 可能按到期处理规则进入行权，股票按行权价卖出；
 - 仍想持股并延续保护：需要卖出或处理旧 Put，再购买新的期限。
 
-每次续保都要支付当时市场给出的价格。长期反复买 Put 的累计成本可能明显拖累收益，不能只看单期 3 元权利金。
+每次续保都要支付当时市场给出的价格。长期反复买 Put 的累计成本可能明显拖累收益，不能只看单期 3 刀权利金。
 
 ### Put 行权价决定免赔区间
 
@@ -104,29 +104,29 @@ Protective Put 的价格下限更明确，但这份确定性需要付费；止�
 
 如果 Put 保护成本太高，可以在 Protective Put 的基础上卖出 Call：
 
-> 持有 1 单位股票，成本 100 元
+> 持有 1 单位股票，成本 100 刀
 >
-> 买入 1 份 95 Put，支付 3 元
+> 买入 1 份 95 Put，支付 3 刀
 >
-> 卖出 1 份 110 Call，收入 2 元
+> 卖出 1 份 110 Call，收入 2 刀
 
 这就是常见的 **Protective Collar**。Put strike 形成 floor，Call strike 形成 ceiling，股票的到期结果被限制在两者之间。
 
-这组 Collar 的期权净支出为 1 元：
+这组 Collar 的期权净支出为 1 刀：
 
-> 净权利金 = Put 支出 3 - Call 收入 2 = 1 元
+> 净权利金 = Put 支出 3 - Call 收入 2 = 1 刀
 
 因此：
 
-> 到期盈亏平衡点 = 股票成本 + 净支出 = 101 元
+> 到期盈亏平衡点 = 股票成本 + 净支出 = 101 刀
 
-> 最大损失 = 股票成本 - Put 行权价 + 净支出 = 6 元
+> 最大损失 = 股票成本 - Put 行权价 + 净支出 = 6 刀
 
-> 最大收益 = Call 行权价 - 股票成本 - 净支出 = 9 元
+> 最大收益 = Call 行权价 - 股票成本 - 净支出 = 9 刀
 
-股票跌到 95 元以下时，Put 把损失限制在 6 元；股票涨到 110 元以上时，short Call 把收益限制在 9 元。
+股票跌到 95 刀以下时，Put 把损失限制在 6 刀；股票涨到 110 刀以上时，short Call 把收益限制在 9 刀。
 
-与 Protective Put 相比，Collar 少支付了 2 元保护成本，却放弃了 110 元以上的股票收益。它不是凭空降低保险价格，而是拿另一段价值交换。
+与 Protective Put 相比，Collar 少支付了 2 刀保护成本，却放弃了 110 刀以上的股票收益。它不是凭空降低保险价格，而是拿另一段价值交换。
 
 ### Zero-Cost Collar 不等于没有代价
 
@@ -171,7 +171,7 @@ Protective Put 和 Collar 都从股票出发。Put-Call Parity 还告诉我们�
 
 > Synthetic Short Stock = Long Put + Short Call
 
-沿用本文简化参数，100 Call 与 100 Put 权利金都为 5 元，因此两种组合的期权净权利金为 0。
+沿用本文简化参数，100 Call 与 100 Put 权利金都为 5 刀，因此两种组合的期权净权利金为 0。
 
 ![Synthetic Long Stock 与 Synthetic Short Stock 的构造和到期盈亏：相同行权价及到期日的Long Call加Short Put复制多头股票，Long Put加Short Call复制空头股票](https://raw.githubusercontent.com/uytrdcvbjhgf/gallery/main/img/options-synthetic-long-and-short-stock.png)
 
@@ -179,27 +179,27 @@ Protective Put 和 Collar 都从股票出发。Put-Call Parity 还告诉我们�
 
 组合为：
 
-> 买入 100 Call，支付 5 元
+> 买入 100 Call，支付 5 刀
 >
-> 卖出 100 Put，收入 5 元
+> 卖出 100 Put，收入 5 刀
 
 到期时：
 
-- 股票高于 100 元：Call 产生与上涨幅度相同的内在价值，Put 失效；
-- 股票低于 100 元：Call 失效，short Put 产生与下跌幅度相同的亏损；
-- 股票等于 100 元：两份期权都可能失效，盈亏为 0。
+- 股票高于 100 刀：Call 产生与上涨幅度相同的内在价值，Put 失效；
+- 股票低于 100 刀：Call 失效，short Put 产生与下跌幅度相同的亏损；
+- 股票等于 100 刀：两份期权都可能失效，盈亏为 0。
 
-所以它的到期盈亏是 `到期价格 - 100`，与按 100 元买入股票相同：上涨收益理论上没有上限，股票跌到 0 时最大损失为 100 元。
+所以它的到期盈亏是 `到期价格 - 100`，与按 100 刀买入股票相同：上涨收益理论上没有上限，股票跌到 0 时最大损失为 100 刀。
 
 ### Synthetic Short Stock
 
 组合方向反过来：
 
-> 买入 100 Put，支付 5 元
+> 买入 100 Put，支付 5 刀
 >
-> 卖出 100 Call，收入 5 元
+> 卖出 100 Call，收入 5 刀
 
-到期盈亏为 `100 - 到期价格`，与按 100 元做空股票相同。股票下跌带来收益，股票上涨则产生理论上没有上限的亏损。
+到期盈亏为 `100 - 到期价格`，与按 100 刀做空股票相同。股票下跌带来收益，股票上涨则产生理论上没有上限的亏损。
 
 这里的 short Call 不是 Covered Call，因为账户没有股票用于交付。它与 Long Put 组合后虽然复制 short stock，但仍然包含 short option 的指派和保证金风险。
 
