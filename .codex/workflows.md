@@ -5,7 +5,7 @@
 1. Identify the target path under `content/posts/`.
 2. Choose a category and tags using `.codex/taxonomy.md`.
 3. Create a Markdown file with TOML front matter from `.codex/post-frontmatter.md`.
-4. Set `draft = true` unless the user explicitly asks for a publish-ready post.
+4. Set `draft = false` unless the user explicitly asks to keep the new article as a draft.
 5. Write the article body in Chinese by default.
 6. Keep structure readable in Hugo/PaperMod: headings, short paragraphs, lists, and fenced code blocks.
 
@@ -23,7 +23,7 @@
 2. Group raw notes into sections.
 3. Fill missing transitions and definitions.
 4. Mark uncertain facts with comments or ask for confirmation.
-5. Produce a draft post first; publishing can be a separate step.
+5. Produce a publish-ready post by default; use draft status only when the user explicitly requests it.
 
 ## Publish Article
 

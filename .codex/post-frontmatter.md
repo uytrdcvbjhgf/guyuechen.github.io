@@ -8,7 +8,7 @@ Default template:
 +++
 title = '文章标题'
 date = 2026-08-10T00:00:00+09:00
-draft = true
+draft = false
 categories = ['category']
 tags = ['tag']
 description = '一句话说明文章解决什么问题'
@@ -19,7 +19,7 @@ Required fields for new posts:
 
 - `title`: Chinese article title unless the article is intentionally English
 - `date`: latest content revision time while drafting; once published, the permanent first-publication time
-- `draft`: use `true` while drafting, change to `false` or remove before publishing
+- `draft`: new generated articles default to `false`; use `true` only when the author explicitly asks to keep an article as a draft
 - `categories`: one primary topic category, normally one item
 - `tags`: stable searchable labels; prefer one existing topic tag and add another only when it has clear reuse value
 - `description`: short summary used for search, cards, or future reuse
@@ -39,7 +39,7 @@ Style rules:
 - Prefer single quotes for string values to match the existing posts.
 - Keep category and tag names short and stable.
 - Avoid creating article-specific tags that would cause the tag list to grow without bound.
-- Use `draft = true` for generated drafts unless the user explicitly asks to publish.
+- Use `draft = false` for newly generated articles unless the user explicitly asks to keep one as a draft.
 - For a publish-ready post, use `draft = false` and set `date` to the current local time with the correct timezone.
 
 Publishing note:
