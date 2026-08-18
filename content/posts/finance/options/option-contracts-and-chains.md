@@ -76,6 +76,85 @@ description = '从一份具体合约出发，读懂期权链中的到期日、�
 
 代码也不包含你的持仓方向。同一份 `105 Call` 可以被买入开仓、卖出平仓、卖出开仓或买入平仓，这些操作会在[《开仓、平仓、行权、指派与到期结算》](/posts/finance/options/open-close-exercise-assignment-and-settlement/)中单独说明。
 
+## 用第一笔 Sell Put 模拟交易读订单
+
+笔者开始接触期权交易时，最先选择实践的结构就是 Sell Put。与其只看虚构数字，不如把第一笔模拟交易留下来，逐项确认自己到底卖出了什么，又承担了怎样的义务。
+
+下面这笔持仓记录截取于 2026 年 8 月 18 日 10:28。它是模拟交易，不是实盘业绩展示；截图中的价格与 Greeks 也只代表当时的市场快照。
+
+![第一笔Sell Put模拟交易拆解：卖出100张TQQQ 2026年8月21日到期、行权价75刀的Put，并换算权利金、指派股数、行权总额、盈亏平衡点和最大亏损](https://raw.githubusercontent.com/uytrdcvbjhgf/gallery/main/img/options-tqqq-short-put-trade-record.png)
+
+先把订单翻译成一句完整的话：
+
+> 笔者以每股 1.01 刀的平均权利金，卖出开仓 100 张 2026 年 8 月 21 日到期、行权价为 75 刀的 TQQQ Put；每张合约对应 100 股。
+
+这句话里的每个数字都不能省略。截图顶部的 `TQQQ $75` 表示标的与行权价，下一行的 `2026/08/21 Put 100` 表示到期日、Put 类型和 100 股的合约乘数。持仓数量 `-100` 中的负号表示空头，数量则是 100 张合约，不是 100 股。
+
+因此，这笔订单实际覆盖的标的数量是：
+
+> 100 张 × 100 股/张 = 10,000 股
+
+### 收到 10,100 刀，同时接下 750,000 刀的买入义务
+
+期权报价 1.01 刀采用每股口径。卖出 100 张后，开仓时收到的权利金为：
+
+> 1.01 × 100 × 100 = 10,100 刀
+
+这也是持仓在到期时可能获得的 **最大盈利**。无论 TQQQ 上涨多少，Put 卖方最多保留这笔权利金。
+
+作为交换，卖方承担了被指派时按 75 刀买入 10,000 股 TQQQ 的义务：
+
+> 75 × 100 × 100 = 750,000 刀
+
+所以，截图里的 `-10,100` 刀市值不是“已经亏了 10,100 刀”。空头期权是需要买回或等待消失的负债，平台通常把当前平仓价值显示为负数。开仓均价与当前标记价格同为 1.01 刀时，权利金收入和空头负债暂时相抵，因此持仓盈亏显示为 0。
+
+### Bid、Ask 和报价数量决定现在能否退出
+
+截图中的 Bid / Ask 为 0.97 / 1.04，中间价约为 1.01。卖出开仓时更关注 Bid；如果想结束这笔空头仓位，则要执行 Buy to Close，实际成交通常更接近 Ask。
+
+假设开仓收到 1.01 刀后立刻以 1.04 刀买回，忽略手续费，价差本身会带来：
+
+> (1.01 - 1.04) × 100 × 100 = -300 刀
+
+截图中 Bid 左右的 148 与 Ask 左右的 118 是对应报价档位展示的数量，不是价格。它们能说明眼前挂出了多少流动性，但不能保证 100 张订单全部按同一个价格成交。
+
+### 盈亏平衡点不是“不会被指派线”
+
+Sell Put 的到期盈亏平衡点等于行权价减去收到的每股权利金：
+
+> 75 - 1.01 = 73.99 刀
+
+到期时可以分成四种情况：
+
+- **TQQQ 不低于 75 刀**：Put 处于虚值，通常到期失效，卖方保留 10,100 刀权利金；
+- **TQQQ 介于 73.99 与 75 刀之间**：Put 已经实值并可能被指派，但收到的权利金仍大于股票相对行权价的损失，整体还有净盈利；
+- **TQQQ 等于 73.99 刀**：权利金刚好抵消按 75 刀接股后的价差损失；
+- **TQQQ 低于 73.99 刀**：头寸进入净亏损，而且标的继续下跌时，亏损还会继续扩大。
+
+例如到期价为 70 刀，按 75 刀接收 10,000 股会产生 50,000 刀的账面价差损失，减去此前收到的 10,100 刀权利金，净损失为 39,900 刀。
+
+若用标的跌到 0 的极端情形计算，最大亏损为：
+
+> (75 - 1.01) × 100 × 100 = 739,900 刀
+
+这就是 Sell Put 最需要建立的直觉：**收益在收到权利金时已经封顶，向下风险却接近按有效成本买入股票**。盈亏平衡点只回答到期盈亏问题，并不表示价格尚未跌到 73.99 刀就一定不会被提前指派。
+
+### Delta、Theta 和 IV 要连同持仓方向一起看
+
+截图显示 Delta 为 `+0.3485`、Theta 为 `+0.2064`、IV 为 `51.14%`。这里的正号来自 Short Put 的持仓方向：
+
+- 正 Delta 表示其他条件暂时不变时，TQQQ 上涨通常有利于空头 Put，下跌通常不利；
+- 正 Theta 表示其他条件暂时不变时，时间流逝通常有利于期权卖方；
+- IV 51.14% 表示权利金反推出的年化波动率尺度，不表示 TQQQ 有 51.14% 的上涨或下跌概率。
+
+截图没有标明 Greeks 是按每股、每张合约还是整个持仓显示，因此不能看到 `0.3485` 就直接拿它和整仓盈亏相乘。临近到期时，Delta 还可能因标的接近行权价而快速变化，正 Theta 也不能抵消一次剧烈下跌。
+
+### Sell Put 不自动等于 Cash-Secured Put
+
+订单本身只能证明建立了 Short Put。只有同时单独预留足够现金，确保被指派后能够支付 750,000 刀，这 100 张合约才属于 Cash-Secured Put；如果依赖融资或保证金承担义务，资金与强制平仓风险会明显不同。单凭持仓截图无法确认这笔现金是否已经被专门留出。
+
+标的本身也需要单独认识。TQQQ 追求 Nasdaq-100 指数 **每日** 收益的三倍，并不承诺在多日持有期内始终得到指数累计收益的三倍。把高杠杆 ETF、临近到期和大量 Short Put 放在一起时，风险变化会比普通股票 Put 更快。这笔模拟记录真正值得保留的，不是最初收到多少权利金，而是第一次把“100 张”完整换算成 10,000 股和 750,000 刀义务的过程。
+
 ## 期权链长什么样
 
 不同交易软件的排版不完全一样，但通常会把 Call 放在一侧、Put 放在另一侧，中间以行权价连接起来。
@@ -298,5 +377,7 @@ Delta 还可以用“等效股票敞口”帮助理解。Delta 为 0.52、乘数
 2. Options Industry Council, [Understanding the Bid and Ask Prices for Options](https://www.optionseducation.org/news/understanding-the-bid-and-ask-prices-for-options)。Bid、Ask、买卖价差、限价单与滑点。
 3. Options Industry Council, [Basics FAQ](https://www.optionseducation.org/referencelibrary/faq/basics)、[General Information FAQ](https://www.optionseducation.org/referencelibrary/faq/general-information) 与 [Open Interest: Why It Matters](https://www.optionseducation.org/news/open-interest-why-it-matters)。Last、Volume、Open Interest 以及四种开平仓组合的说明。
 4. Options Industry Council, [Volatility & the Greeks](https://www.optionseducation.org/advancedconcepts/volatility-the-greeks) 与 [Understanding Options Greeks](https://www.optionseducation.org/advancedconcepts/understanding-options-greeks)。IV 的模型含义、Delta 的单位以及 Greeks 的使用边界。
-5. Options Clearing Corporation, [Characteristics and Risks of Standardized Options](https://www.theocc.com/getmedia/dd6200a7-5982-4226-90e4-1f2d32a89911/june_2024_riskstoc.pdf)。标准化期权的合约性质与风险披露。
-6. Lawrence G. McMillan, [Options as a Strategic Investment, Fifth Edition](https://www.penguinrandomhouse.com/books/310812/options-as-a-strategic-investment-by-lawrence-g-mcmillan/)；John C. Hull, [Options, Futures, and Other Derivatives, 11th Edition](https://www.pearson.com/en-us/subject-catalog/p/options-futures-and-other-derivatives/P200000005938/9780136939917)。
+5. Options Industry Council, [Cash-Secured Put](https://www.optionseducation.org/strategies/all-strategies/cash-secured-put)。Sell Put 的最大收益、最大损失、盈亏平衡点、指派风险以及现金担保条件。
+6. ProShares, [TQQQ: UltraPro QQQ](https://www.proshares.com/our-etfs/leveraged-and-inverse/tqqq)。TQQQ 的每日三倍投资目标及多日收益偏离风险。
+7. Options Clearing Corporation, [Characteristics and Risks of Standardized Options](https://www.theocc.com/getmedia/dd6200a7-5982-4226-90e4-1f2d32a89911/june_2024_riskstoc.pdf)。标准化期权的合约性质与风险披露。
+8. Lawrence G. McMillan, [Options as a Strategic Investment, Fifth Edition](https://www.penguinrandomhouse.com/books/310812/options-as-a-strategic-investment-by-lawrence-g-mcmillan/)；John C. Hull, [Options, Futures, and Other Derivatives, 11th Edition](https://www.pearson.com/en-us/subject-catalog/p/options-futures-and-other-derivatives/P200000005938/9780136939917)。
