@@ -149,9 +149,44 @@ Sell Put 的到期盈亏平衡点等于行权价减去收到的每股权利金�
 
 截图没有标明 Greeks 是按每股、每张合约还是整个持仓显示，因此不能看到 `0.3485` 就直接拿它和整仓盈亏相乘。临近到期时，Delta 还可能因标的接近行权价而快速变化，正 Theta 也不能抵消一次剧烈下跌。
 
-### Sell Put 不自动等于 Cash-Secured Put
+### Short Put 是头寸，Cash-Secured 与 Naked 是资金安排
 
-订单本身只能证明建立了 Short Put。只有同时单独预留足够现金，确保被指派后能够支付 750,000 刀，这 100 张合约才属于 Cash-Secured Put；如果依赖融资或保证金承担义务，资金与强制平仓风险会明显不同。单凭持仓截图无法确认这笔现金是否已经被专门留出。
+`Sell Put` 或 `Short Put` 只说明卖出了 Put、承担了按行权价买入标的的义务。这个名称本身没有说明账户里是否已经准备好接股资金。
+
+同一个 Short Put 可以采用两种不同的资金安排：
+
+| 对比项 | Cash-Secured Put | Naked / Uncovered Put |
+| --- | --- | --- |
+| 开仓前的准备 | 单独预留足以完成指派的现金 | 没有预留全部现金，使用账户资产和保证金支持头寸 |
+| 对指派的态度 | 通常愿意按目标价格买入标的 | 通常希望 Put 失效或提前平仓，不希望接股 |
+| 到期盈亏结构 | 收益封顶，标的下跌时亏损扩大 | 与 Cash-Secured Put 完全相同 |
+| 被指派以后 | 现金被扣除，账户收到股票 | 仍要接收股票；可能形成融资负债、追保或强制平仓 |
+| 额外风险 | 主要是标的本身的下跌风险和机会成本 | 还包括融资成本、保证金提高、补资期限和被动卖出风险 |
+
+所以，把 Naked Put 理解成“完全没钱也可以卖 Put”并不准确。券商通常要求相应的期权交易权限，并在开仓时占用一部分保证金或购买力。只是这部分初始保证金可能远低于最坏情况下的接股金额，而且会随着标的价格、波动率和券商风控要求变化。
+
+现金担保与保证金担保也不会改变 Put 卖方的合约义务。只要 Short Put 仍然存在，ETF 期权的持有人就可能提交行权；清算机构和券商再把指派分配给同一系列的某个空头持仓，并不需要征求这名卖方是否已经准备好现金。
+
+#### 没有足够现金却被指派，会发生什么
+
+以这笔 100 张 TQQQ 75 Put 为例，被指派时券商会按合约执行：
+
+> 账户买入 10,000 股 TQQQ，并被扣除 750,000 刀
+
+如果账户有足够现金，现金减少、股票增加。如果没有足够现金，义务也不会消失，后续处理取决于账户类型和券商规则：
+
+1. 保证金账户可能先形成融资借款或资金缺口；
+2. 券商可能要求立即补充现金或其他合格抵押品；
+3. 在指派发生前，券商可能先回购 Put 以降低风险；指派已经发生后，则可能卖出刚收到的 TQQQ，或者平掉账户内其他资产；
+4. 强制平仓后仍有欠款，剩余差额仍由账户持有人承担。
+
+券商不一定要等客户主动处理，也不保证会在理想价格平仓。FINRA 的保证金风险说明明确指出，券商为了保护自身利益，可以在未事先联系客户的情况下出售账户资产。
+
+因此，Cash-Secured Put 的意义不是让指派“更不容易发生”，也不是降低 Short Put 本身的到期亏损，而是提前消除“被指派后去哪里找钱”的资金风险。Naked Put 则是在承担同一份市场下跌风险之外，再加入杠杆、融资和被迫处置仓位的风险。
+
+如果不愿意接股，消除指派风险的直接方法是在被指派以前执行 `Buy to Close`，把 Short Put 平掉。滚动到其他行权价或到期日，本质上也是先平掉旧合约、再建立新合约；它不会撤销已经产生的亏损。美式 ETF 期权在到期前也可能被提前行权，因此不能只在到期日当天才考虑资金安排。
+
+回到截图：它只能证明建立了 100 张 Short Put，不能证明 750,000 刀已经被单独留作接股资金。若确实预留了这笔现金，它就是 Cash-Secured Put；若主要依靠购买力或保证金支持，它就是 Naked / Uncovered Put。
 
 标的本身也需要单独认识。TQQQ 追求 Nasdaq-100 指数 **每日** 收益的三倍，并不承诺在多日持有期内始终得到指数累计收益的三倍。把高杠杆 ETF、临近到期和大量 Short Put 放在一起时，风险变化会比普通股票 Put 更快。这笔模拟记录真正值得保留的，不是最初收到多少权利金，而是第一次把“100 张”完整换算成 10,000 股和 750,000 刀义务的过程。
 
@@ -377,7 +412,8 @@ Delta 还可以用“等效股票敞口”帮助理解。Delta 为 0.52、乘数
 2. Options Industry Council, [Understanding the Bid and Ask Prices for Options](https://www.optionseducation.org/news/understanding-the-bid-and-ask-prices-for-options)。Bid、Ask、买卖价差、限价单与滑点。
 3. Options Industry Council, [Basics FAQ](https://www.optionseducation.org/referencelibrary/faq/basics)、[General Information FAQ](https://www.optionseducation.org/referencelibrary/faq/general-information) 与 [Open Interest: Why It Matters](https://www.optionseducation.org/news/open-interest-why-it-matters)。Last、Volume、Open Interest 以及四种开平仓组合的说明。
 4. Options Industry Council, [Volatility & the Greeks](https://www.optionseducation.org/advancedconcepts/volatility-the-greeks) 与 [Understanding Options Greeks](https://www.optionseducation.org/advancedconcepts/understanding-options-greeks)。IV 的模型含义、Delta 的单位以及 Greeks 的使用边界。
-5. Options Industry Council, [Cash-Secured Put](https://www.optionseducation.org/strategies/all-strategies/cash-secured-put)。Sell Put 的最大收益、最大损失、盈亏平衡点、指派风险以及现金担保条件。
+5. Options Industry Council, [Cash-Secured Put](https://www.optionseducation.org/strategies/all-strategies/cash-secured-put) 与 [Naked Put (Uncovered Put, Short Put)](https://www.optionseducation.org/strategies/all-strategies/naked-put-uncovered-put-short-put)。两种资金安排的共同盈亏结构、现金担保条件、保证金和指派风险。
 6. ProShares, [TQQQ: UltraPro QQQ](https://www.proshares.com/our-etfs/leveraged-and-inverse/tqqq)。TQQQ 的每日三倍投资目标及多日收益偏离风险。
-7. Options Clearing Corporation, [Characteristics and Risks of Standardized Options](https://www.theocc.com/getmedia/dd6200a7-5982-4226-90e4-1f2d32a89911/june_2024_riskstoc.pdf)。标准化期权的合约性质与风险披露。
-8. Lawrence G. McMillan, [Options as a Strategic Investment, Fifth Edition](https://www.penguinrandomhouse.com/books/310812/options-as-a-strategic-investment-by-lawrence-g-mcmillan/)；John C. Hull, [Options, Futures, and Other Derivatives, 11th Edition](https://www.pearson.com/en-us/subject-catalog/p/options-futures-and-other-derivatives/P200000005938/9780136939917)。
+7. FINRA, [Options: A to Z](https://www.finra.org/investors/insights/options-z-basics-greeks) 与 [Margin Disclosure Statement](https://www.finra.org/rules-guidance/rulebooks/finra-rules/2264)。空头期权的保证金风险、补资要求以及券商的强制平仓权利。
+8. Options Clearing Corporation, [Characteristics and Risks of Standardized Options](https://www.theocc.com/getmedia/dd6200a7-5982-4226-90e4-1f2d32a89911/june_2024_riskstoc.pdf)。标准化期权的合约性质与风险披露。
+9. Lawrence G. McMillan, [Options as a Strategic Investment, Fifth Edition](https://www.penguinrandomhouse.com/books/310812/options-as-a-strategic-investment-by-lawrence-g-mcmillan/)；John C. Hull, [Options, Futures, and Other Derivatives, 11th Edition](https://www.pearson.com/en-us/subject-catalog/p/options-futures-and-other-derivatives/P200000005938/9780136939917)。
