@@ -116,3 +116,16 @@ git pull --ff-only origin main
 这次给博客接上 GitHub Actions，也想顺便检验一下：省掉重复劳动以后，自己能不能把文章写得再清楚一点。
 
 工具还得慢慢磨，往后再接再励。先让这句话参加校对，看看机器会不会认真读到最后。
+
+### 这次实测的结果
+
+2026 年 10 月 29 日，实际跑了一遍，结果如下：
+
+| 实测项目 | 结果 |
+| --- | --- |
+| 带着漏空格的原稿执行真实 `git commit` | 钩子提示修复 1 篇文章；核对后，提交内容只多了预期的那个空格，错字和代码示例都没动 |
+| 修复后的文章推到 `main` | [格式检查通过](https://github.com/uytrdcvbjhgf/guyuechen.github.io/actions/runs/40815060842)，[Hugo 发布成功](https://github.com/uytrdcvbjhgf/guyuechen.github.io/actions/runs/40815060786) |
+| 单独建测试分支，一次性绕过本地钩子，重新留下同一个空格错误 | [云端格式检查失败](https://github.com/uytrdcvbjhgf/guyuechen.github.io/actions/runs/40815124851)，准确停在文章检查步骤；[反例 PR](https://github.com/uytrdcvbjhgf/guyuechen.github.io/pull/20) 随后关闭，没有合入主分支 |
+| 正文故意留下的成语错字 | [机器人生成了校对 PR](https://github.com/uytrdcvbjhgf/guyuechen.github.io/pull/19)，候选差异只有 1 个字，留给作者人工审阅 |
+
+这个 bot PR 的检查还确实遇到了前面提到的运行审批。允许工作流运行、认可改稿、把改稿合入仓库，三个动作终于都从说明书里走到了眼前。
