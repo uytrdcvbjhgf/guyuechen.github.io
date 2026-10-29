@@ -31,3 +31,7 @@ resources/_gen/
 
 # Separate image-host repository nested in this working tree
 /gallery/
+
+# Article quality tools and local reports
+/node_modules/
+/.article-quality/

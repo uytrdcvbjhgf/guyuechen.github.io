@@ -1,0 +1,38 @@
+name: Article checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      article:
+        description: '可选：content/posts/ 下的单篇 .md 路径；留空检查最近一次提交'
+        type: string
+        required: false
+
+permissions:
+  contents: read
+
+jobs:
+  format:
+    name: Article format
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      ARTICLE_BASE: ${{ github.event.pull_request.base.sha || github.event.before }}
+      ARTICLE_HEAD: ${{ github.sha }}
+      ARTICLE_FILE: ${{ inputs.article }}
+    steps:
+      - uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npm test
+      - run: npm run articles:check

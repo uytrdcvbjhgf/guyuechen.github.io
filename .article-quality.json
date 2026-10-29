@@ -1,0 +1,13 @@
+{
+  "words": ["Codex", "OpenAI", "ChatGPT", "QQQM", "TQQQ", "SHV", "IBKR", "NISA", "Hugo", "PaperMod", "zhlint", "smol", "TOML", "JST", "guyuechen", "uytrdcvbjhgf", "hardcoding", "WebFlux", "MyBatis", "Dubbo", "Nacos", "Seata", "Sleuth", "Feign", "Resilience4j", "CompletableFuture", "Mono", "Flux"],
+  "chineseTypos": [
+    {"from": "再接再励", "to": "再接再厉", "reason": "成语通常写作“再接再厉”；若为刻意引用请保留原文。"},
+    {"from": "按步就班", "to": "按部就班", "reason": "成语通常写作“按部就班”。"},
+    {"from": "一愁莫展", "to": "一筹莫展", "reason": "成语通常写作“一筹莫展”。"},
+    {"from": "迫不急待", "to": "迫不及待", "reason": "成语通常写作“迫不及待”。"},
+    {"from": "不径而走", "to": "不胫而走", "reason": "成语通常写作“不胫而走”。"},
+    {"from": "相形见拙", "to": "相形见绌", "reason": "成语通常写作“相形见绌”。"},
+    {"from": "谈笑风声", "to": "谈笑风生", "reason": "成语通常写作“谈笑风生”。"},
+    {"from": "一如继往", "to": "一如既往", "reason": "成语通常写作“一如既往”。"}
+  ]
+}

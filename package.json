@@ -1,0 +1,27 @@
+{
+  "name": "guyuechen-blog-quality",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.18.0"
+  },
+  "scripts": {
+    "prepare": "node scripts/install-hooks.mjs",
+    "articles:format": "node scripts/article-quality.mjs format",
+    "articles:check": "node scripts/article-quality.mjs check",
+    "articles:proofread": "node scripts/article-quality.mjs proofread",
+    "test": "node --test scripts/article-quality.test.mjs"
+  },
+  "devDependencies": {
+    "cspell-lib": "10.4.0",
+    "remark-frontmatter": "5.0.0",
+    "remark-gfm": "4.0.1",
+    "remark-math": "6.0.0",
+    "remark-parse": "11.0.0",
+    "smol-toml": "1.9.1",
+    "unified": "11.0.5"
+  },
+  "overrides": {
+    "katex": "0.18.2"
+  }
+}

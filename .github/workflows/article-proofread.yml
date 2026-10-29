@@ -1,0 +1,100 @@
+name: Article proofreading
+
+on:
+  push:
+    branches: [main]
+    paths: ['content/posts/**/*.md']
+  workflow_dispatch:
+    inputs:
+      article:
+        description: '可选：content/posts/ 下的单篇 .md 路径；留空校对最近一次提交'
+        type: string
+        required: false
+
+permissions:
+  contents: read
+
+jobs:
+  select:
+    # Write-capable proofreading always runs trusted main code, never a PR branch.
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      files: ${{ steps.files.outputs.files }}
+      count: ${{ steps.files.outputs.count }}
+    steps:
+      - uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
+        with:
+          ref: main
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - id: files
+        run: node scripts/article-quality.mjs list
+        env:
+          ARTICLE_BASE: ${{ github.event.before }}
+          ARTICLE_HEAD: ${{ github.sha }}
+          ARTICLE_FILE: ${{ inputs.article }}
+
+  proofread:
+    needs: select
+    if: needs.select.outputs.count != '0'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+      pull-requests: write
+    strategy:
+      fail-fast: false
+      matrix:
+        article: ${{ fromJSON(needs.select.outputs.files) }}
+    # Separate stable branch per article; another article cannot overwrite its pending PR.
+    concurrency:
+      group: article-proofread-${{ matrix.article }}
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Generate proofreading report and candidate corrections
+        id: proof
+        run: npm run articles:proofread -- --apply
+        env:
+          ARTICLE_FILE: ${{ matrix.article }}
+      - name: Save report even if PR creation is unavailable
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: proofreading-${{ strategy.job-index }}
+          path: .article-quality/*.md
+          if-no-files-found: ignore
+          retention-days: 30
+      - name: Create a manually reviewed correction PR
+        # Also close an obsolete existing PR when the latest article has no corrections.
+        uses: peter-evans/create-pull-request@98357b18bf14b5342f975ff684046ec3b2a07725 # v8.0.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          base: main
+          branch: ${{ steps.proof.outputs.branch }}
+          add-paths: ':(literal)${{ matrix.article }}'
+          author: 'github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>'
+          committer: 'github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>'
+          commit-message: 'docs: propose article typo corrections'
+          title: '文章校对建议：${{ matrix.article }}'
+          body-path: ${{ steps.proof.outputs.report_path }}
+          delete-branch: true
+      - name: Explain PR permissions if creation failed
+        if: failure() && steps.proof.outputs.has_fixes == 'true'
+        run: |
+          echo '校对报告已保留。若创建 PR 被拒绝，请按 docs/article-quality.md 检查 Settings → Actions → General 中允许 Actions 创建 PR 的开关，然后重新运行。' >> "$GITHUB_STEP_SUMMARY"

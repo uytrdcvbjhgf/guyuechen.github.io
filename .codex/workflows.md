@@ -45,3 +45,13 @@ Before considering an article ready, check:
 - headings are in a logical order
 - code fences are closed
 - links and image syntax are not obviously broken
+
+## Article Quality Automation
+
+- Run `npm ci` once on each device to install dependencies and the repository-local pre-commit hook. See `docs/article-quality.md` for setup and GitHub administrator steps.
+- Before staging an article, run `npm run articles:format -- content/posts/<path>.md`, then review its diff. The pre-commit hook also formats fully staged articles automatically.
+- A partially staged article is rejected instead of silently adding the author's unstaged changes. Complete or separate its staging before committing.
+- Only deterministic whitespace/layout is fixed locally. Preserve publication dates, wording, code, math, links and front matter.
+- `Article format` checks changed articles in Actions; the deployment workflow repeats this gate before Hugo publishes.
+- `Article proofreading` produces advisory reports and opens a separate bot PR per article for Chinese dictionary corrections. English spelling suggestions remain in the report. Never automatically merge a proofreading PR.
+- Before writing on another device, fetch/pull main with a clean working tree. After a reviewed PR is merged, use `git pull --ff-only origin main`; if there are local unpublished commits, fetch then rebase explicitly as documented.
