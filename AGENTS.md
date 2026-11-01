@@ -13,3 +13,5 @@ For writing and editing blog articles, work primarily under `content/posts/` and
 - `.codex/workflows.md`
 
 When creating or revising posts, preserve the existing TOML front matter style and the current Hugo/PaperMod conventions.
+
+For cloud environment setup or continuing the blog collaboration in a new cloud chat, also read `.codex/cloud-handoff.md`.

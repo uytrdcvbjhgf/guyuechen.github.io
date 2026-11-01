@@ -15,3 +15,5 @@ Keep this directory limited to public-safe, long-lived project knowledge:
 Do not store private secrets, account credentials, API keys, sensitive personal notes, or full chat transcripts here.
 
 Recommended entry point for future Codex sessions: read `AGENTS.md` first, then the relevant files in this directory.
+
+For cloud migration, setup requirements, and copyable setup/start prompts, see [Cloud handoff](cloud-handoff.md).
