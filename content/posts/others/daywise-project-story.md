@@ -8,9 +8,9 @@ description = '从邮件摘要到完整分析，了解「日有所见」怎样�
 handoff_id = '2026-11-01-daywise-project-story-03'
 handoff_supersedes = '2026-11-01-daywise-project-story-02'
 daywise_material_commit = 'db9d15f124a8e8f8707a74bb18c34bcc5069b075'
-gallery_asset_commit = '4b361e324fc82684e1e80d134fc570b6f94fede1'
-lastmod = 2026-11-02T15:10:23+09:00
-gallery_pipeline_commit = 'c89e8cec7998a439ba28a7eb8f4a32c748d5b429'
+gallery_asset_commit = '6f320da3e31b9102d38cca942ddfc6f6a970a6bd'
+lastmod = 2026-11-02T16:20:33+09:00
+gallery_pipeline_commit = '6f320da3e31b9102d38cca942ddfc6f6a970a6bd'
 +++
 
 每天打开财经新闻，我们最不缺的就是消息。真正费时间的，是分清哪些变化值得关注，它们与自己的投资有什么关系，以及现在是否需要进一步研究或采取行动。
@@ -23,7 +23,7 @@ gallery_pipeline_commit = 'c89e8cec7998a439ba28a7eb8f4a32c748d5b429'
 
 你不用一开始就读完所有内容。先看摘要，知道今天重点在哪里；如果某个主题与你有关，再打开附件，查看判断过程、条件和信息来源。
 
-![先读报告摘要，再展开与自己相关的内容查看依据](https://raw.githubusercontent.com/uytrdcvbjhgf/gallery/4b361e324fc82684e1e80d134fc570b6f94fede1/img/posts/2026-11-02-mynote-comics/daywise-reading.png)
+![先读报告摘要，再展开与自己相关的内容查看依据](https://raw.githubusercontent.com/uytrdcvbjhgf/gallery/6f320da3e31b9102d38cca942ddfc6f6a970a6bd/img/posts/2026-11-02-huifont-update/daywise-reading.png)
 
 我希望它帮助你连接三个问题：发生了什么，为什么值得关注，以及在什么条件下值得继续观察或重新考虑自己的安排。报告不是面向全市场的无遗漏扫描，也不会自动知道每位订阅者的账户情况。
 
@@ -49,7 +49,7 @@ gallery_pipeline_commit = 'c89e8cec7998a439ba28a7eb8f4a32c748d5b429'
 
 「暂不操作」并不意味着报告没有价值。如果依据不足，清楚地知道为什么等待，往往比勉强找出一个交易理由更有帮助。
 
-![准备行动前先停下来核实信息，也可以选择等待](https://raw.githubusercontent.com/uytrdcvbjhgf/gallery/4b361e324fc82684e1e80d134fc570b6f94fede1/img/posts/2026-11-02-mynote-comics/daywise-pause.png)
+![准备行动前先停下来核实信息，也可以选择等待](https://raw.githubusercontent.com/uytrdcvbjhgf/gallery/6f320da3e31b9102d38cca942ddfc6f6a970a6bd/img/posts/2026-11-02-huifont-update/daywise-pause.png)
 
 ## 哪些内容，你不能直接照搬
 
@@ -63,7 +63,7 @@ gallery_pipeline_commit = 'c89e8cec7998a439ba28a7eb8f4a32c748d5b429'
 
 背后的自动化会按计划整理信息，把分析组织成统一的摘要、图表和附件，再通过邮件交付。对你来说，意义不是记住它用了哪些技术，而是每次都能用相似的方式找到重点，需要时也能回到完整内容查看依据。
 
-![日有所见按启动任务、AI 分析、程序校验、生成报告和邮件交付五步处理信息](https://raw.githubusercontent.com/uytrdcvbjhgf/gallery/c89e8cec7998a439ba28a7eb8f4a32c748d5b429/img/posts/2026-11-02-daywise-pipeline/report-pipeline.png)
+![日有所见按启动任务、AI 分析、程序校验、生成报告和邮件交付五步处理信息](https://raw.githubusercontent.com/uytrdcvbjhgf/gallery/6f320da3e31b9102d38cca942ddfc6f6a970a6bd/img/posts/2026-11-02-huifont-update/report-pipeline.png)
 
 *报告生成与交付概览。漫画解释阅读场景，流程图说明整体步骤；保留产物不代表已部署独立长期归档服务。*
 

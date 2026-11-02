@@ -7,8 +7,8 @@ tags = ['automation', 'git', 'system-design']
 description = '研究助手整理素材，博客助手面向读者成文：用交接包、固定版本和项目技能，让两个独立 AI 项目接得住，也分得清责任。'
 handoff_id = '2026-11-02-skills-project-handoff'
 daywise_material_commit = 'c5304e4b78638b9288a7330f987fc7472d3b7a10'
-lastmod = 2026-11-02T14:56:43+09:00
-gallery_asset_commit = '4b361e324fc82684e1e80d134fc570b6f94fede1'
+lastmod = 2026-11-02T16:20:33+09:00
+gallery_asset_commit = '6f320da3e31b9102d38cca942ddfc6f6a970a6bd'
 +++
 
 在日有所见里，笔者会和 AI 讨论报告功能、研究方法和产品设计。有些讨论值得写成博客，却不适合原样公开：里面可能夹着个人背景，写给开发助手的说明，也未必适合订阅者阅读。
@@ -37,7 +37,7 @@ gallery_asset_commit = '4b361e324fc82684e1e80d134fc570b6f94fede1'
 
 可以把前者看成作者的工作台，后者看成编辑的工作台。作者不必掌握博客每一个部署细节，编辑也不应该为了写一篇文章而翻遍私人研究资料。
 
-![两张工作台各司其职：一边核实材料，另一边面向读者讲清楚](https://raw.githubusercontent.com/uytrdcvbjhgf/gallery/4b361e324fc82684e1e80d134fc570b6f94fede1/img/posts/2026-11-02-mynote-comics/handoff-worktables.png)
+![两张工作台各司其职：一边核实材料，另一边面向读者讲清楚](https://raw.githubusercontent.com/uytrdcvbjhgf/gallery/6f320da3e31b9102d38cca942ddfc6f6a970a6bd/img/posts/2026-11-02-huifont-update/handoff-worktables.png)
 
 这种分工常叫“职责解耦”，意思是一边调整内部做法时，另一边不必跟着一起改。例如报告更换了内部生成步骤，只要交出来的材料仍讲清背景、事实和限制，博客就能继续处理；博客换了排版办法，研究助手也不用重新研究整套网站。
 
@@ -64,7 +64,7 @@ gallery_asset_commit = '4b361e324fc82684e1e80d134fc570b6f94fede1'
 
 这是一份示意材料，不是需要执行的真实交接。它比整段聊天更容易接住，因为工作中的零散上下文已经整理成下一位处理者能够使用的输入。
 
-![先递来接不住的一大堆资料，再筛出三张相关材料完成交接](https://raw.githubusercontent.com/uytrdcvbjhgf/gallery/4b361e324fc82684e1e80d134fc570b6f94fede1/img/posts/2026-11-02-mynote-comics/handoff-selection.png)
+![先递来接不住的一大堆资料，再筛出三张相关材料完成交接](https://raw.githubusercontent.com/uytrdcvbjhgf/gallery/6f320da3e31b9102d38cca942ddfc6f6a970a6bd/img/posts/2026-11-02-huifont-update/handoff-selection.png)
 
 输出侧会先去除私人信息，接收侧仍要再次检查。目录叫 `ready`，只表示“可以交给接收方”，不等于已经适合直接发表，更不等于获得发布许可。
 
@@ -174,7 +174,7 @@ git show <固定提交>:handoff/mynote/ready/<交接编号>/brief.md
 
 这两个决定不同。材料从私人工作中整理出来，不意味着立刻适合发布；编辑认可一段表达，也不等于希望马上推送。素材里即使写了建议命令和外部链接，接收方仍只把它们当作待审资料，不能自动执行。
 
-![交出材料时先不发布，获得明确同意后再发布](https://raw.githubusercontent.com/uytrdcvbjhgf/gallery/4b361e324fc82684e1e80d134fc570b6f94fede1/img/posts/2026-11-02-mynote-comics/handoff-permission.png)
+![交出材料时先不发布，获得明确同意后再发布](https://raw.githubusercontent.com/uytrdcvbjhgf/gallery/6f320da3e31b9102d38cca942ddfc6f6a970a6bd/img/posts/2026-11-02-huifont-update/handoff-permission.png)
 
 有一个实际踩过的边界：博客当前配置会在向 `main` 主分支推送时自动构建部署，即使提交里只有技能文档。`main` 可以理解为网站用于发布的主要版本线。因此，“我只改文档”不等于“不会部署”。
 
