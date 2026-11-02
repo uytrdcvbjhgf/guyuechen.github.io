@@ -25,3 +25,5 @@ See [project skill usage and maintenance](docs/skills.md) for persistence, updat
 
 For article illustrations, use [baoyu-article-illustrator](.agents/skills/baoyu-article-illustrator/SKILL.md); for process or architecture diagrams, use [baoyu-infographic](.agents/skills/baoyu-infographic/SKILL.md).
 Keep explanatory comics and structural diagrams complementary. Follow project visual preferences in `.baoyu-skills/` and manage final images in Gallery.
+For all new or revised illustration text, follow [illustration typography](docs/illustration-typography.md):
+the user-selected default is HuiFontP29 / ふい字Ｐ, with actual-font rendering and glyph coverage checks.

@@ -14,9 +14,11 @@ custom_styles:
   - name: mynote-life-comic
     description: "极简生活漫画；以动作、情境和分镜解释观点，松弛而克制。"
     visual_elements: "Natural black contours, simplified original characters, meaningful props, sparse backgrounds, optional flat colors."
-    typography: "Short readable handwritten dialogue when useful; no large headline or long labels by default."
+    typography: "Actual HuiFontP29 / ふい字Ｐ text, following docs/illustration-typography.md; short dialogue, no silent font fallback."
     best_for: "Nontechnical explanations, everyday analogies, project reflections and short narrative sequences."
 ---
 
 项目视觉规范见 [visual-guide.md](visual-guide.md)。用户已选择新的参考方向，此前 A/B/C 试样不作为正式风格。
 用户已认可一轮原创漫画试样；已按其授权应用到博客。后续出图和发布仍以具体任务授权为准。
+
+所有图中文字遵循仓库根目录的 [统一配图字体规则](../../docs/illustration-typography.md)。

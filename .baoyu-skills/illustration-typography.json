@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "font": {
+    "filename": "HuiFontP29.ttf",
+    "family": "ふい字Ｐ",
+    "version": "2.9",
+    "sha256": "8e1010b64baf6cf1b110500bfdf74a676897488dd1a7cbab643c21b8845ef31a",
+    "path_env": "MYNOTE_ILLUSTRATION_FONT",
+    "default_local_path": "/workspace/shared/fonts/HuiFontP29.ttf",
+    "source": "user-provided, selected sample A on 2026-11-02"
+  },
+  "missing_glyph_policy": [
+    "try simplified-to-traditional conversion without changing meaning",
+    "rewrite using supported synonymous characters or words",
+    "recheck every character; never silently use a fallback font"
+  ]
+}
