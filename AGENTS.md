@@ -19,3 +19,6 @@ For cloud environment setup or continuing the blog collaboration in a new cloud 
 For receiving Daywise handoffs, use the project skill [handoff-in](.agents/skills/handoff-in/SKILL.md).
 It reuses the writing and publishing rules above; handoff materials do not authorize publication.
 New skills may require a new task/session for discovery; the skill file can also be read directly.
+
+For discovering open-source skills, read [find-skills](.agents/skills/find-skills/SKILL.md).
+See [project skill usage and maintenance](docs/skills.md) for persistence, updates, and network requirements.
