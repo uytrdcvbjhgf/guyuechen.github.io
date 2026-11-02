@@ -33,3 +33,10 @@ GitHub、npm 下载及可能的跳转目标按实际请求和环境策略核实�
 MyNote 与 Daywise 是独立云环境。用户级 `-g` 只影响当前机器，并非 Codex 账号全局安装。
 两边可使用同一上游来源和一致版本，但各自需要取得技能文件。优先将项目所需技能与锁文件提交到各自仓库，
 后续任务复用仓库内容；需要集中维护时再考虑共享技能仓库或统一安装脚本，不假定两个环境共享文件系统。
+
+## 文章插图与信息图
+
+- `baoyu-article-illustrator`：为文章规划并生成情境插图；项目偏好见 `.baoyu-skills/baoyu-article-illustrator/EXTEND.md` 和同目录 `visual-guide.md`。
+- `baoyu-infographic`：表达流程、架构与关系，不能用漫画替代必要的结构概览。按内容选择版式；以语义和连接正确为先。
+- 两者均来自 `jimliu/baoyu-skills`；安装记录保存于 `skills-lock.json`。使用当前原生图像工具，不能只因安装就假定上游 CLI 后端可用。
+- 最终配图与提示词由 Gallery 管理，核验后使用固定提交公开链接；不把本地候选图路径直接当作线上地址。

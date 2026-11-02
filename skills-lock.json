@@ -1,6 +1,18 @@
 {
   "version": 1,
   "skills": {
+    "baoyu-article-illustrator": {
+      "source": "jimliu/baoyu-skills",
+      "sourceType": "github",
+      "skillPath": "skills/baoyu-article-illustrator/SKILL.md",
+      "computedHash": "a26d326e366e512fc31b30da4aa572a9c3bee14a0c6bc07e46849a9ddde41a1b"
+    },
+    "baoyu-infographic": {
+      "source": "jimliu/baoyu-skills",
+      "sourceType": "github",
+      "skillPath": "skills/baoyu-infographic/SKILL.md",
+      "computedHash": "162187270bd8ee1d33283f83e5139b6ba79c67cfa4ca285e80cbfff05bfa64f7"
+    },
     "find-skills": {
       "source": "vercel-labs/skills",
       "sourceType": "github",
