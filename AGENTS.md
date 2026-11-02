@@ -15,3 +15,7 @@ For writing and editing blog articles, work primarily under `content/posts/` and
 When creating or revising posts, preserve the existing TOML front matter style and the current Hugo/PaperMod conventions.
 
 For cloud environment setup or continuing the blog collaboration in a new cloud chat, also read `.codex/cloud-handoff.md`.
+
+For receiving Daywise handoffs, use the project skill [handoff-in](.agents/skills/handoff-in/SKILL.md).
+It reuses the writing and publishing rules above; handoff materials do not authorize publication.
+New skills may require a new task/session for discovery; the skill file can also be read directly.
