@@ -1,7 +1,8 @@
 +++
-title = '云端环境离线后，怎样把工作接回来'
+title = '云端环境灾备实践'
 date = 2026-11-05T14:53:02+09:00
 draft = false
+lastmod = 2026-11-05T15:00:57+09:00
 categories = ['ops']
 tags = ['automation', 'git', 'system-design']
 description = '一次云端环境离线后，我给 Daywise 做了 recover-environment：用配置清单、恢复提示词和验收脚本，让下次换环境时有步骤可循、有结果可查。'
